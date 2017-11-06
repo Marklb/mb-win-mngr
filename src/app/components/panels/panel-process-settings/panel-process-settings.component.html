@@ -1,0 +1,34 @@
+<div class="container mb-ngx-container night-theme">
+  <div class="content"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxFlexFill
+    ngxSplit="row">
+
+    <div *ngIf="selectedProcess; else elseBlock" fxFlexFill>
+      <ngx-section
+        style="width: 100%;"
+        class="shadow shadow-fx"
+        [sectionTitle]="'[' + selectedProcess?.hWnd + '] ' + selectedProcess?.title">
+        <!-- <h2>[{{selectedProcess?.hWnd}}] {{selectedProcess?.title}}</h2> -->
+        <ngx-input
+          type="text"
+          [label]="'AppUserModelIID'"
+          [ngModel]="appUserModelIIDValue"
+          [hint]="'Enter process AppUserModelIID'"
+          (change)="appUserModelIIDValue = $event">
+        </ngx-input>
+        <button type="button" class="btn btn-bordered">Set</button>
+      </ngx-section>
+    </div>
+    <!-- Process not selected -->
+    <ng-template #elseBlock>
+      <div fxFlexFill>
+        <ngx-section class="shadow shadow-fx" style="max-width: 500px; margin: 0 auto; text-align: center; cursor: default; user-select: none;">
+          <h2>Select a Process</h2>
+        </ngx-section>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component, OnInit, OnDestroy, OnChanges,
+  SimpleChanges, SimpleChange, ChangeDetectorRef } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
 
 import { ElectronService } from '../../../providers/electron.service'
@@ -10,68 +11,54 @@ import { Process } from '../../../../models/process'
   templateUrl: './panel-processes-list.component.html',
   styleUrls: ['./panel-processes-list.component.scss']
 })
-export class PanelProcessesListComponent implements OnInit, OnDestroy {
+export class PanelProcessesListComponent implements OnInit, OnDestroy, OnChanges {
 
-  nodes: any[] = [
-    { label: 'Node 1' },
-    {
-        label: 'Node 2',
-        expandable: true,
-        expanded: true,
-        children: [
-          { label: 'Node 1' },
-          { label: 'Node 2' },
-          {
-            label: 'Node 3',
-            expanded: false,
-            expandable: true,
-            children: [
-              { label: 'Node 1' },
-              { label: 'Node 2' },
-              { label: 'Node 3' },
-              { label: 'Node 4' }
-            ]
-          },
-          {
-            label: 'Node 4',
-            expandable: true,
-            expanded: true,
-            children: [
-              { label: 'Node 1' },
-              { label: 'Node 2' },
-              { label: 'Node 3' },
-              { label: 'Node 4' }
-            ]
-          }
-        ]
-    },
-    { label: 'Node 3' },
-    {
-      label: 'Node 4',
-      children: [
-        { label: 'Node 1' },
-        { label: 'Node 2' },
-        { label: 'Node 3' },
-        { label: 'Node 4' }
-      ],
-      expandable: true
-    }
-  ]
+  private processesSubscription: Subscription
+  private selectedProcessSubscription: Subscription
 
-  processes: Process[]
-  processesSubscription: Subscription
+  private nodes: any[] = []
+  private processes: Process[]
+  private selectedProcess: Process
 
-  constructor(private electronService: ElectronService) {
-    this.processesSubscription = electronService.getProcesses()
-      .subscribe(processes => this.processes = processes)
-  }
+  constructor(private ref: ChangeDetectorRef,
+              private electronService: ElectronService) { }
 
   ngOnInit() {
-    // this.electronService.getProcesses()
+    this.electronService.refreshProcesses()
+
+    this.processesSubscription = this.electronService.getProcesses()
+      .subscribe((processes: Process[]) => {
+        const tmp: any = []
+        for (const process of processes) {
+          tmp.push({
+            label: `[${process.hWnd}] ${process.title}`,
+            expandable: false,
+            // expanded: true
+            model: {
+              process: process
+            }
+          })
+        }
+        this.nodes = tmp
+        this.ref.detectChanges()
+      })
+
+    this.selectedProcessSubscription = this.electronService.getSelectedProcess()
+      .subscribe((process: Process) => {
+        this.selectedProcess = process
+        console.log(this.selectedProcess)
+        this.ref.detectChanges()
+      })
   }
 
   ngOnDestroy() {
     this.processesSubscription.unsubscribe()
+    this.selectedProcessSubscription.unsubscribe()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log('PanelProcessesListComponent: ngOnChanges')
+    // console.log(changes)
   }
 
 }

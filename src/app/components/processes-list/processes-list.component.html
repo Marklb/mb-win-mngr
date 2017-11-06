@@ -1,3 +1,7 @@
-<ngx-tree
-  [nodes]="nodes">
+<ngx-tree [nodes]="nodes">
+  <ng-template let-label="label" let-model="model">
+    <span style="white-space: nowrap; cursor: default; user-select: none;"
+      (click)="onSelectProcess($event,model.process)"
+      [class.selected-label]="model.process.hWnd === selectedProcess?.hWnd">{{label}}</span>
+  </ng-template>
 </ngx-tree>

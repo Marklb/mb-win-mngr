@@ -13,10 +13,12 @@ import { Process } from '../../models/process'
 @Injectable()
 export class ElectronService {
 
-  ipcRenderer: typeof ipcRenderer
-  childProcess: typeof childProcess
+  private ipcRenderer: typeof ipcRenderer
+  private childProcess: typeof childProcess
 
-  private processesSubject = new Subject<Process[]>();
+  private processesSubject = new Subject<Process[]>()
+  private selectedProcess = new Subject<Process>()
+  private appUserModelIIDProcess = new Subject<string>()
 
   constructor() {
     // Conditional imports
@@ -25,23 +27,46 @@ export class ElectronService {
       this.childProcess = window.require('child_process')
 
       this.ipcRenderer.on('winapi:getProcessesReply', (event, arg) => {
-        console.log(arg) // prints "pong"
         this.processesSubject.next(arg)
+      })
+
+      this.ipcRenderer.on('winapi:getAppUserModelIIDReply', (event, arg) => {
+        this.appUserModelIIDProcess.next(arg)
       })
     }
 
   }
 
-  isElectron = () => {
+  public isElectron = () => {
     return window && window.process && window.process.type
   }
 
-  getProcesses(): Observable<Process[]> {
+  public refreshProcesses(): void {
     this.ipcRenderer.send('winapi:getProcesses', {filter: 'test'})
+  }
 
-    this.ipcRenderer.send('winapi:test', {})
-
+  public getProcesses(): Observable<Process[]> {
     return this.processesSubject.asObservable()
+  }
+
+  public getSelectedProcess(): Observable<Process> {
+    return this.selectedProcess.asObservable()
+  }
+
+  public setSelectedProcess(process: Process): void {
+    this.selectedProcess.next(process)
+  }
+
+  public refreshAppUserModelIID(hWnd: number): void {
+    this.ipcRenderer.send('winapi:getAppUserModelIID', { hWnd: hWnd })
+  }
+
+  public getAppUserModelIID(): Observable<string> {
+    return this.appUserModelIIDProcess.asObservable()
+  }
+
+  public setAppUserModelIID(appUserModelIID: string): void {
+    this.appUserModelIIDProcess.next(appUserModelIID)
   }
 
 }

@@ -2,6 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import '~@swimlane/ngx-ui/release/index.css';
+// @import '~@swimlane/ngx-ui/release/styles/index';
 
 @import './styles/theme';
 
@@ -10,28 +11,28 @@
 }
 
 
-::-webkit-scrollbar {
+.aaa::-webkit-scrollbar {
   /*width: 8px;*/
   background-color: rgba(50, 50, 50, 1);
 }
 
-::-webkit-scrollbar:horizontal {
+.aaa::-webkit-scrollbar:horizontal {
   height: 8px;
   background-color: rgba(50, 50, 50, 1);
 }
 
-::-webkit-scrollbar:vertical {
+.aaa::-webkit-scrollbar:vertical {
   width: 8px;
   background-color: rgba(50, 50, 50, 1);
 }
 
-::-webkit-scrollbar-track {
+.aaa::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   // border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+.aaa::-webkit-scrollbar-thumb {
   // border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
   box-shadow: inset 0 0 6px rgba(0,0,0,0.5);

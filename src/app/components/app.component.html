@@ -26,11 +26,15 @@
     style="padding:10px"
     ngxSplitArea
     *ngIf="!hideAlertArea">
-    <ngx-section
-      class="shadow"
-      [sectionTitle]="'Attack Details'">
-      Some Content
-    </ngx-section>
+    <app-panel-main></app-panel-main>
+    <!-- <ngx-input
+      type="text"
+      [label]="'Name'"
+      [autofocus]="true"
+      [ngModel]="inputValue"
+      [hint]="'Enter your first and last name'"
+      (change)="inputValue = $event">
+    </ngx-input> -->
   </div>
 
   </div>

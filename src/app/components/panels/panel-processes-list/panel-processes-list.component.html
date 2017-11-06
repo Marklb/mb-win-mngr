@@ -1,7 +1,15 @@
-<ngx-toolbar
-  [title]="'Processes'"
-  [subtitle]="'(' + nodes.length + ')'">
-</ngx-toolbar>
-<div style="padding:10px">
-  <app-processes-list [nodes]="nodes"></app-processes-list>
+<div fxLayout="column" fxFlexFill>
+  <div fxFlex="nogrow">
+    <ngx-toolbar
+      [title]="'Processes'"
+      [subtitle]="'(' + nodes.length + ')'">
+    </ngx-toolbar>
+  </div>
+  <div fxLayout="row" fxFlex="1 1">
+    <div class="ngx-scroll" style="overflow: auto; padding:10px; width: 100%;">
+      <app-processes-list [nodes]="nodes"
+        [selectedProcess]="selectedProcess">
+      </app-processes-list>
+    </div>
+  </div>
 </div>
