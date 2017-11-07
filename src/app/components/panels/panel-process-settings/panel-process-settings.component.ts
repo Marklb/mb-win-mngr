@@ -49,6 +49,14 @@ export class PanelProcessSettingsComponent implements OnInit, OnDestroy {
     this.appUserModelIIDSubscription.unsubscribe()
   }
 
+  onClickSetAppUserModelIID(event: any) {
+    console.log('onClickSetAppUserModelIID')
+    console.log(this.selectedProcess.hWnd)
+    console.log(this.appUserModelIIDValue)
+    this.electronService.setAppUserModelIID(this.selectedProcess.hWnd,
+      this.appUserModelIIDValue)
+  }
+
 }
 
 

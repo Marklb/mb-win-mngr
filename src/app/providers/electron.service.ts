@@ -33,6 +33,10 @@ export class ElectronService {
       this.ipcRenderer.on('winapi:getAppUserModelIIDReply', (event, arg) => {
         this.appUserModelIIDProcess.next(arg)
       })
+
+      this.ipcRenderer.on('winapi:setAppUserModelIIDReply', (event, arg) => {
+        // this.appUserModelIIDProcess.next(arg)
+      })
     }
 
   }
@@ -65,8 +69,10 @@ export class ElectronService {
     return this.appUserModelIIDProcess.asObservable()
   }
 
-  public setAppUserModelIID(appUserModelIID: string): void {
+  public setAppUserModelIID(hWnd: number, appUserModelIID: string): void {
     this.appUserModelIIDProcess.next(appUserModelIID)
+    this.ipcRenderer.send('winapi:setAppUserModelIID', { hWnd: hWnd,
+      appUserModelIID: appUserModelIID })
   }
 
 }

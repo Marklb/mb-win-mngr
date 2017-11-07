@@ -19,6 +19,8 @@ export class PanelProcessesListComponent implements OnInit, OnDestroy, OnChanges
   private nodes: any[] = []
   private processes: Process[]
   private selectedProcess: Process
+  private searchInputEnabled: boolean = false
+  private searchInputValue: string = ''
 
   constructor(private ref: ChangeDetectorRef,
               private electronService: ElectronService) { }
@@ -59,6 +61,11 @@ export class PanelProcessesListComponent implements OnInit, OnDestroy, OnChanges
   ngOnChanges(changes: SimpleChanges) {
     // console.log('PanelProcessesListComponent: ngOnChanges')
     // console.log(changes)
+  }
+
+  onSearchKeypress(event: any) {
+    console.log(event)
+    console.log(this.searchInputValue)
   }
 
 }

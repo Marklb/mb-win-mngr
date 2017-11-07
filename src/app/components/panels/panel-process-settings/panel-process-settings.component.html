@@ -18,7 +18,8 @@
           [hint]="'Enter process AppUserModelIID'"
           (change)="appUserModelIIDValue = $event">
         </ngx-input>
-        <button type="button" class="btn btn-bordered">Set</button>
+        <button type="button" class="btn btn-bordered"
+          (click)="onClickSetAppUserModelIID($event)">Set</button>
       </ngx-section>
     </div>
     <!-- Process not selected -->

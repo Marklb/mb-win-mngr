@@ -25,6 +25,18 @@ ipcMain.on('winapi:getAppUserModelIID', (event, arg) => {
     })
 })
 
+ipcMain.on('winapi:setAppUserModelIID', (event, arg) => {
+  console.log('winapi:setAppUserModelIID')
+  console.log(arg)
+  // const appUserModelIID = winApi.setAppUserModelIID(arg.hWnd)
+  // event.sender.send('winapi:setAppUserModelIIDReplay', appUserModelIID)
+
+  winApi.setAppUserModelIID(arg.hWnd, arg.appUserModelIID)
+    .then(() => {
+      event.sender.send('winapi:setAppUserModelIIDReply')
+    })
+})
+
 ipcMain.on('winapi:test', (event, arg) => {
   // console.log(arg)
   // winApi.test()

@@ -1,9 +1,67 @@
-<div fxLayout="column" fxFlexFill>
+<div fxLayout="column" fxFlexFill style="overflow: hidden;">
   <div fxFlex="nogrow">
     <ngx-toolbar
       [title]="'Processes'"
       [subtitle]="'(' + nodes.length + ')'">
+      <ngx-toolbar-content>
+
+        <ul class="horizontal-list">
+          <li style="padding: 0px 4px;">
+            <i class="icon icon-search"
+              [class.text-grey]="msOverSearchIcon"
+              (mouseover)="msOverSearchIcon=true"
+              (mouseout)="msOverSearchIcon=false"
+              (click)="searchInputEnabled=!searchInputEnabled"></i>
+          </li>
+          <li style="padding: 0px 4px;">
+            <!-- <i class="icon icon-gear"
+              [class.text-grey]="msOverGearIcon"
+              (mouseover)="msOverGearIcon=true"
+              (mouseout)="msOverGearIcon=false"
+              (click)="searchInputEnabled=!searchInputEnabled"></i> -->
+            <ngx-dropdown #unclosableDropdown
+              [closeOnClick]="false"
+              [closeOnOutsideClick]="false">
+              <ngx-dropdown-toggle>
+                <i class="icon icon-gear"
+                  [class.text-grey]="msOverGearIcon"
+                  (mouseover)="msOverGearIcon=true"
+                  (mouseout)="msOverGearIcon=false"></i>
+              </ngx-dropdown-toggle>
+              <ngx-dropdown-menu class="align-right">
+
+                <div fxLayout="column" fxFlexFill>
+                  <div fxFlex="0 1 100%">
+                    <ngx-checkbox
+                      name="chk1"
+                      [ngModel]="true">
+                      Alert the SOC
+                    </ngx-checkbox>
+                  </div>
+                  <div fxFlex="0 1 100%">
+                    <ngx-checkbox
+                      name="chk1"
+                      [ngModel]="true">
+                      Alert the SOC
+                    </ngx-checkbox>
+                  </div>
+                </div>
+
+              </ngx-dropdown-menu>
+            </ngx-dropdown>
+          </li>
+        </ul>
+
+      </ngx-toolbar-content>
     </ngx-toolbar>
+  </div>
+  <div fxFlex="nogrow" *ngIf="searchInputEnabled">
+    <input type="text" class="form-input"
+      placeholder="A placeholder"
+      style="margin-bottom: 0px;"
+      [ngModel]="searchInputValue"
+      (change)="searchInputValue = $event"
+      (keypress)="onSearchKeypress($event)" />
   </div>
   <div fxLayout="row" fxFlex="1 1">
     <div class="ngx-scroll" style="overflow: auto; padding:10px; width: 100%;">
