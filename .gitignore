@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/mb-win-mngr-win32-x64*
 
 # dependencies
 /node_modules

@@ -15,7 +15,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "rebuild": "electron-rebuild -f",
-    "update:custom": "npm update -S mb-winapi-node --registry http://raspi:4873"
+    "update:custom": "npm update -S mb-winapi-node --registry http://raspi:4873",
+    "build:release": "electron-packager . mb-win-mngr",
+    "pack:release": "asar pack . app.asar"
   },
   "private": true,
   "dependencies": {

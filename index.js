@@ -2,7 +2,7 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-require('electron-reload')(__dirname)
+// require('electron-reload')(__dirname)
 
 const { Core } = require('./dist/core/core/core')
 
@@ -27,7 +27,7 @@ app.on('ready', function () {
 
   // Show dev tools
   // Remove this line before distributing
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // Remove window once app is closed
   win.on('closed', function () {
