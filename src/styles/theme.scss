@@ -28,3 +28,14 @@
 //     padding:10px;
 //   }
 // }
+
+// .ngx-split.column-split {
+//   .ngx-split-button {
+//     top: -11px;
+//   }
+// }
+
+
+.ngx-split.column-split > .ngx-split-handle .ngx-split-button {
+  top: -11px !important;
+}

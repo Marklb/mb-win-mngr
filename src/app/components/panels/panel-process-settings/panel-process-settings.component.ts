@@ -16,7 +16,7 @@ export class PanelProcessSettingsComponent implements OnInit, OnDestroy {
   private selectedProcessSubscription: Subscription
   private appUserModelIIDSubscription: Subscription
 
-  private selectedProcess: Process
+  private selectedProcess: Process | undefined
   private appUserModelIIDOriginal: string
   private appUserModelIIDValue: string
   inputValue: string = ''
@@ -30,9 +30,11 @@ export class PanelProcessSettingsComponent implements OnInit, OnDestroy {
     setInterval(() => { this.ref.markForCheck() }, 30)
 
     this.selectedProcessSubscription = this.electronService.getSelectedProcess()
-      .subscribe((process: Process) => {
+      .subscribe((process: Process | undefined) => {
         this.selectedProcess = process
-        this.electronService.refreshAppUserModelIID(process.hWnd)
+        if (process !== undefined) {
+          this.electronService.refreshAppUserModelIID(process.hWnd)
+        }
         this.ref.detectChanges()
       })
 

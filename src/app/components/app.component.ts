@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Hotkey, HotkeysService } from '@swimlane/ngx-ui'
 
 @Component({
   selector: 'app-root',
@@ -6,9 +7,19 @@ import { Component } from '@angular/core'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
   hideAlertArea = false
-  hideFixedSidebar = false
-  inputValue = ''
+  panelDisplayed = 'MainProcessEditor'
+  // leftSplitSize =
+  leftBottomSplitHidden = true
 
+  @Hotkey('ctrl+q', 'Do some magic!')
+  onKey() {
+    // console.log('Hotkey', this)
+    this.panelDisplayed = 'UtilitiesSelection'
+  }
+
+  onClickUtilitySelection(event: any) {
+    // console.log(event)
+    this.panelDisplayed = event
+  }
 }

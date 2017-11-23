@@ -17,8 +17,9 @@ export class PanelProcessesListComponent implements OnInit, OnDestroy, OnChanges
   private selectedProcessSubscription: Subscription
 
   private nodes: any[] = []
+  private nodesOriginal: any[] = []
   private processes: Process[]
-  private selectedProcess: Process
+  private selectedProcess: Process | undefined
   private searchInputEnabled: boolean = false
   private searchInputValue: string = ''
 
@@ -42,6 +43,7 @@ export class PanelProcessesListComponent implements OnInit, OnDestroy, OnChanges
           })
         }
         this.nodes = tmp
+        this.nodesOriginal = tmp
         this.ref.detectChanges()
       })
 
@@ -64,8 +66,35 @@ export class PanelProcessesListComponent implements OnInit, OnDestroy, OnChanges
   }
 
   onSearchKeypress(event: any) {
-    console.log(event)
-    console.log(this.searchInputValue)
+    // console.log('onSearchKeypress')
+    // console.log(event)
+    // console.log(this.searchInputValue)
+  }
+
+  onSearchKeydown(event: any) {
+    // console.log('onSearchKeydown', this.searchInputValue)
+    // console.log(event)
+    // console.log(this.searchInputValue)
+    // console.log(event.target.value)
+
+    // console.log(this.nodesOriginal)
+
+    // this.nodes = this.nodesOriginal.filter(node => node.model.process.title.indexOf(this.searchInputValue) !== -1)
+  }
+
+  onSearchKeyup(event: any) {
+    // console.log('onSearchKeydown', this.searchInputValue)
+    // console.log(event)
+    // console.log(this.searchInputValue)
+    // console.log(event.target.value)
+
+    // console.log(this.nodesOriginal)
+
+    this.nodes = this.nodesOriginal.filter(node => node.model.process.title.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1)
+  }
+
+  onRefreshIconClick(event: any) {
+    this.electronService.refreshProcesses()
   }
 
 }

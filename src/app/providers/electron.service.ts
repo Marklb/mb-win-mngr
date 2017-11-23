@@ -53,11 +53,11 @@ export class ElectronService {
     return this.processesSubject.asObservable()
   }
 
-  public getSelectedProcess(): Observable<Process> {
+  public getSelectedProcess(): Observable<Process | undefined> {
     return this.selectedProcess.asObservable()
   }
 
-  public setSelectedProcess(process: Process): void {
+  public setSelectedProcess(process?: Process): void {
     this.selectedProcess.next(process)
   }
 

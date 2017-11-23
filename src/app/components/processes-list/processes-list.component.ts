@@ -29,7 +29,11 @@ export class ProcessesListComponent implements OnInit, OnChanges {
   onSelectProcess(event: any, process: Process) {
     console.log('Select Process')
     console.log(process)
-    this.electronService.setSelectedProcess(process)
+    if (this.selectedProcess === process) {
+      this.electronService.setSelectedProcess()
+    } else {
+      this.electronService.setSelectedProcess(process)
+    }
   }
 
 }

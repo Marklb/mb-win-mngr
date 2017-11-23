@@ -50,6 +50,13 @@
               </ngx-dropdown-menu>
             </ngx-dropdown>
           </li>
+          <li style="padding: 0px 4px;">
+            <i class="icon icon-refresh"
+              [class.text-grey]="msOverRefreshIcon"
+              (mouseover)="msOverRefreshIcon=true"
+              (mouseout)="msOverRefreshIcon=false"
+              (click)="onRefreshIconClick($event)"></i>
+          </li>
         </ul>
 
       </ngx-toolbar-content>
@@ -57,11 +64,11 @@
   </div>
   <div fxFlex="nogrow" *ngIf="searchInputEnabled">
     <input type="text" class="form-input"
-      placeholder="A placeholder"
+      placeholder="Processes filter..."
       style="margin-bottom: 0px;"
-      [ngModel]="searchInputValue"
-      (change)="searchInputValue = $event"
-      (keypress)="onSearchKeypress($event)" />
+      (keypress)="onSearchKeypress($event)"
+      (keydown)="onSearchKeydown($event)"
+      (keyup)="onSearchKeyup($event)" />
   </div>
   <div fxLayout="row" fxFlex="1 1">
     <div class="ngx-scroll" style="overflow: auto; padding:10px; width: 100%;">
@@ -71,3 +78,9 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- (change)="searchInputValue = $event" -->
+<!-- [ngModel]="searchInputValue"
+      (change)="searchInputValue = $event" -->
