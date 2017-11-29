@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PanelProcessesListComponent } from './panel-processes-list.component';
+import { WindowGroupsComponent } from './window-groups.component';
 
-describe('PanelProcessesListComponent', () => {
-  let component: PanelProcessesListComponent;
-  let fixture: ComponentFixture<PanelProcessesListComponent>;
+describe('WindowGroupsComponent', () => {
+  let component: WindowGroupsComponent;
+  let fixture: ComponentFixture<WindowGroupsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PanelProcessesListComponent ]
+      declarations: [ WindowGroupsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PanelProcessesListComponent);
+    fixture = TestBed.createComponent(WindowGroupsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

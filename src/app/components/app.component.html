@@ -1,51 +1,16 @@
-<div class="container mb-ngx-container night-theme">
+<div class="container-fluid">
+  <button type="button" class="btn btn-dark btn-sm"
+    (click)="procListVisible = true">Show Process Selector</button>
+    <button type="button" class="btn btn-dark btn-sm"
+    (click)="procSettingsVisible = true">Show Process Settings</button>
+  <div style="min-width: 300px; max-width: 500px; max-height: 500px; height: 500px;">
 
-  <div class="content"
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxFlexFill
-    ngxSplit="row"
-    *ngIf="panelDisplayed === 'UtilitiesSelection'">
-    <app-panel-utilities-selection style="width: 100%;"
-      (clickUtilitySelection)="onClickUtilitySelection($event)">
-    </app-panel-utilities-selection>
-  </div>
+    <app-processes-list *ngIf="procListVisible"
+      (clickCloseIcon)="procListVisible = false"
+      (clickProcessRow)="onClickProcess($event)">
+    </app-processes-list>
 
-
-
-  <!-- MainProcessEditor -->
-  <div class="content"
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxFlexFill
-    ngxSplit="row"
-    *ngIf="panelDisplayed === 'MainProcessEditor'">
-
-
-    <div fxFlex="300px" fxFlexFill ngxSplitArea *ngIf="!hideAlertArea">
-      <div fxLayout="column" fxFlexFill ngxSplit="column">
-        <!-- <div fxFlex="1 1 90%" ngxSplitArea> -->
-        <div fxFlex ngxSplitArea>
-          <app-panel-processes-list></app-panel-processes-list>
-        </div>
-        <div fxFlex="0 0 10px" ngxSplitHandle class="noise"></div>
-        <!-- <div fxFlex="1 1 10%" ngxSplitArea> -->
-        <div fxFlex="100px" ngxSplitArea>
-          <h2 (click)="hideAlertArea = !hideAlertArea">Alerts</h2>
-          <!-- <ul>
-            <li>DDOS</li>
-            <li>DDOS</li>
-            <li>DDOS</li>
-          </ul> -->
-        </div>
-      </div>
-    </div>
-    <div fxFlex="10px" ngxSplitHandle [fxShow]="!hideAlertArea" class="noise"></div>
-    <div fxFlex style="padding:10px" ngxSplitArea>
-
-      <app-panel-main></app-panel-main>
-
-    </div>
+    <app-process-settings *ngIf="procSettingsVisible"></app-process-settings>
 
   </div>
 </div>

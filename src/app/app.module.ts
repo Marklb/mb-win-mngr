@@ -4,27 +4,24 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout'
-import { NgxUIModule } from '@swimlane/ngx-ui'
 import { AngularDraggableModule } from 'angular2-draggable'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgxDatatableModule } from '@swimlane/ngx-datatable'
 
 import { ElectronService } from './providers/electron.service'
 
 import { AppComponent } from './components/app.component'
 import { ProcessesListComponent } from './components/processes-list/processes-list.component'
-import { PanelProcessesListComponent } from './components/panels/panel-processes-list/panel-processes-list.component'
-import { PanelProcessSettingsComponent } from './components/panels/panel-process-settings/panel-process-settings.component'
-import { PanelMainComponent } from './components/panels/panel-main/panel-main.component';
-import { PanelUtilitiesSelectionComponent } from './components/panels/panel-utilities-selection/panel-utilities-selection.component';
+import { ProcessSettingsComponent } from './components/process-settings/process-settings.component'
+import { WindowGroupsComponent } from './components/window-groups/window-groups.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProcessesListComponent,
-    PanelProcessesListComponent,
-    PanelProcessSettingsComponent,
-    PanelMainComponent,
-    PanelUtilitiesSelectionComponent
+    ProcessSettingsComponent,
+    WindowGroupsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,8 +29,9 @@ import { PanelUtilitiesSelectionComponent } from './components/panels/panel-util
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    NgxUIModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    NgbModule.forRoot(),
+    NgxDatatableModule
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent]

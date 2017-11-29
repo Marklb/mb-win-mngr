@@ -1,0 +1,78 @@
+//
+// Color system
+//
+
+// stylelint-disable
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #007bff !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #28a745 !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$enable-rounded: false;
+
+// Body
+//
+// Settings for the `<body>` element.
+
+$body-bg:                   $gray-900;
+$body-color:                $gray-300;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$component-active-color:      $gray-300;
+
+// Forms
+
+$input-bg:                              $gray-900;
+$input-disabled-bg:                     $black;
+
+$input-color:                           $gray-300;
+$input-border-color:                    $gray-900;
+
+$input-focus-border-color:              $gray-800;
+
+$input-group-addon-bg:                  $gray-900;
+
+// Cards
+
+$card-bg:                           $gray-900;
+
+// List group
+
+$list-group-bg:                     $gray-900;
+
+$list-group-hover-bg:               $gray-700;
+$list-group-action-active-bg:       $gray-800;

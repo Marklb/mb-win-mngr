@@ -1,5 +1,6 @@
-import { Component, OnInit, OnChanges, Input,
-  SimpleChanges, SimpleChange } from '@angular/core'
+import { Component, OnInit, OnDestroy, ChangeDetectorRef,
+  Output, EventEmitter } from '@angular/core'
+import { Subscription } from 'rxjs/Subscription'
 
 import { ElectronService } from '../../providers/electron.service'
 
@@ -10,30 +11,67 @@ import { Process } from '../../../models/process'
   templateUrl: './processes-list.component.html',
   styleUrls: ['./processes-list.component.scss']
 })
-export class ProcessesListComponent implements OnInit, OnChanges {
+export class ProcessesListComponent implements OnInit, OnDestroy {
 
-  @Input() selectedProcess: any
-  @Input() nodes: any[] = []
+  private processesSubscription: Subscription
 
-  constructor(private electronService: ElectronService) { }
+  @Output('clickCloseIcon')
+  clickCloseIcon: EventEmitter<string> = new EventEmitter<string>()
+
+  @Output('clickProcessRow')
+  clickProcessRow: EventEmitter<string> = new EventEmitter<string>()
+
+  private nodesOriginal = []
+  private nodes = []
+
+  constructor(private ref: ChangeDetectorRef,
+              private electronService: ElectronService) { }
 
   ngOnInit() {
+    this.electronService.refreshProcesses()
+
+    this.processesSubscription = this.electronService.getProcesses()
+      .subscribe((processes: Process[]) => {
+        this.nodes = processes
+        this.nodesOriginal = processes
+        this.ref.detectChanges()
+      })
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('ProcessesListComponent: ngOnChanges')
-    // console.log('ngOnChanges')
-    // console.log(changes)
+  ngOnDestroy() {
+    this.processesSubscription.unsubscribe()
   }
 
-  onSelectProcess(event: any, process: Process) {
-    console.log('Select Process')
-    console.log(process)
-    if (this.selectedProcess === process) {
-      this.electronService.setSelectedProcess()
-    } else {
-      this.electronService.setSelectedProcess(process)
+  onSearchKeypress(event: any) {
+    // console.log('onSearchKeypress')
+    // console.log(event)
+  }
+
+  onSearchKeydown(event: any) {
+    // console.log('onSearchKeydown', this.searchInputValue)
+    // console.log(event)
+  }
+
+  onSearchKeyup(event: any) {
+    // console.log('onSearchKeydown', this.searchInputValue)
+    // console.log(event)
+
+    this.nodes = this.nodesOriginal.filter(node => node.title.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1)
+  }
+
+  onTableRowActivate(event: any) {
+    // console.log('Clicked', event)
+    if (event.type === 'click') {
+      this.clickProcessRow.emit(event)
     }
+  }
+
+  onRefreshIconClick(event: any) {
+    this.electronService.refreshProcesses()
+  }
+
+  onCloseIconClick(event: any) {
+    this.clickCloseIcon.emit(event)
   }
 
 }
