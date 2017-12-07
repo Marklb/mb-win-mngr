@@ -40,6 +40,11 @@ ipcMain.on('winapi:getProcesses', (event, arg) => {
   event.sender.send('winapi:getProcessesReply', procs2)
 })
 
+ipcMain.on('winapi:getWindow', (event, arg) => {
+  const win = robotjs.Window(arg.hWnd)
+  console.dir(win)
+})
+
 ipcMain.on('winapi:getAppUserModelIID', (event, arg) => {
   console.log('winapi:getAppUserModelIID')
   console.log(arg)

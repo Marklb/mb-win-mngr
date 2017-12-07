@@ -75,4 +75,8 @@ export class ElectronService {
       appUserModelIID: appUserModelIID })
   }
 
+  public async getWindow(hWnd: number): Promise<any> {
+    this.ipcRenderer.send('winapi:getWindow', { hWnd: hWnd })
+  }
+
 }

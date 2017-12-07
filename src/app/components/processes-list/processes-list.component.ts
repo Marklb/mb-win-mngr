@@ -16,10 +16,10 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
   private processesSubscription: Subscription
 
   @Output('clickCloseIcon')
-  clickCloseIcon: EventEmitter<string> = new EventEmitter<string>()
+  clickCloseIcon: EventEmitter<any> = new EventEmitter<any>()
 
   @Output('clickProcessRow')
-  clickProcessRow: EventEmitter<string> = new EventEmitter<string>()
+  clickProcessRow: EventEmitter<any> = new EventEmitter<any>()
 
   private nodesOriginal = []
   private nodes = []

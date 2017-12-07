@@ -10,7 +10,11 @@
       (clickProcessRow)="onClickProcess($event)">
     </app-processes-list>
 
-    <app-process-settings *ngIf="procSettingsVisible"></app-process-settings>
+    <app-process-settings *ngIf="procSettingsVisible"
+      [hWnd]="this.selectedProcess.hWnd"
+      (clickCloseIcon)="procSettingsVisible = false"></app-process-settings>
+
+    <!-- <router-outlet></router-outlet> -->
 
   </div>
 </div>

@@ -19,15 +19,24 @@ app.on('ready', function () {
     width: size.width,
     height: size.height,
     autoHideMenuBar: true
+    // show: false
   })
 
   // Specify entry point
   // win.loadURL('http://localhost:4200')
   win.loadURL(__dirname + '/dist/index.html')
+  // win.loadURL(__dirname + '/dist/index.html?page=1')
 
   // Show dev tools
   // Remove this line before distributing
   win.webContents.openDevTools()
+
+  // win.once('ready-to-show', () => {
+  //   console.log('ready-to-show')
+  //   win.show()
+  //   // win.loadURL('/crisis-center')
+  //   // win.reload()
+  // })
 
   // Remove window once app is closed
   win.on('closed', function () {

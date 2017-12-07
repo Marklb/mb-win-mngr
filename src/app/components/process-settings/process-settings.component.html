@@ -1,3 +1,77 @@
-<p>
-  process-settings works!
-</p>
+<div class="card border-dark" fxLayout="column" fxFlexFill ngDraggable [handle]="DragHandle">
+  <div class="card-header" style="padding: 0.35rem 0.60rem" #DragHandle>
+    {{processName}}
+    <div class="float-right">
+      <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+      <i class="fa fa-refresh" aria-hidden="true" (click)="onRefreshIconClick($event)"></i>
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      <i class="fa fa-times" aria-hidden="true" (click)="onCloseIconClick($event)"></i>
+    </div>
+    <!-- <i class="fa fa-times close" aria-hidden="true"></i> -->
+  </div>
+  <!-- <div class="input-group input-group-sm" fxFlex="0 1 auto">
+    <input type="text" class="form-control"
+      placeholder="Search for..." aria-label="Search for..."
+      (keypress)="onSearchKeypress($event)"
+      (keydown)="onSearchKeydown($event)"
+      (keyup)="onSearchKeyup($event)">
+    <span class="input-group-addon">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </span>
+  </div> -->
+
+  <div style="overflow-y: auto;" fxFlex fxFlexFill>
+
+
+    <ngb-accordion #acc="ngbAccordion"
+      activeIds="ngb-panel-0"
+      fxFlex fxFlexFill>
+      <ngb-panel class="mb-test">
+        <ng-template ngbPanelTitle>
+          <span><i class="fa fa-angle-right" aria-hidden="true"></i> General</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+          aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+          sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+          craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+          labore sustainable VHS.
+        </ng-template>
+      </ngb-panel>
+
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span><i class="fa fa-angle-right" aria-hidden="true"></i> Not Used</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+          aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+          sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+          craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+          labore sustainable VHS.
+        </ng-template>
+      </ngb-panel>
+
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span><i class="fa fa-angle-right" aria-hidden="true"></i> Not Used</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
+          aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+          sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,
+          craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
+          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+          labore sustainable VHS.
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+
+
+  </div>
+  <div class="card-footer text-muted" style="padding: 0.35rem 0.60rem" fxFlex="0 1 auto">
+    Status: ...
+  </div>
+</div>

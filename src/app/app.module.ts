@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { CommonModule, APP_BASE_HREF } from '@angular/common'
+import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { AngularDraggableModule } from 'angular2-draggable'
@@ -15,6 +16,24 @@ import { ProcessesListComponent } from './components/processes-list/processes-li
 import { ProcessSettingsComponent } from './components/process-settings/process-settings.component'
 import { WindowGroupsComponent } from './components/window-groups/window-groups.component'
 
+const appRoutes: Routes = [
+  { path: 'crisis-center', component: WindowGroupsComponent },
+  { path: 'hero/:id',      component: WindowGroupsComponent },
+  {
+    path: 'heroes',
+    component: ProcessesListComponent,
+    data: { title: 'Heroes List' }
+  },
+  // { path: 'index.html/crisis-center',
+  //   redirectTo: '/crisis-center',
+  //   pathMatch: 'full'
+  // },
+  { path: '',
+    redirectTo: '/heroes',
+    pathMatch: 'full'
+  },
+  { path: '**', component: WindowGroupsComponent }
+]
 
 @NgModule({
   declarations: [
@@ -24,6 +43,13 @@ import { WindowGroupsComponent } from './components/window-groups/window-groups.
     WindowGroupsComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      {
+        useHash: true,
+        enableTracing: true // <-- debugging purposes only
+      }
+    ),
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
