@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 
 import { Process } from '../../models/process'
+import { WindowData } from 'models/window-data'
 
 @Injectable()
 export class ElectronService {
@@ -75,8 +76,13 @@ export class ElectronService {
       appUserModelIID: appUserModelIID })
   }
 
-  public async getWindow(hWnd: number): Promise<any> {
-    this.ipcRenderer.send('winapi:getWindow', { hWnd: hWnd })
+  public async getWindowData(hWnd: number): Promise<WindowData> {
+    this.ipcRenderer.send('winapi:getWindowData', { hWnd: hWnd })
+    return new Promise<WindowData>((resolve: any, reject: any) => {
+      this.ipcRenderer.once('winapi:reply:once:getWindowData', (event: any, arg: any) => {
+        resolve(arg)
+      })
+    })
   }
 
 }

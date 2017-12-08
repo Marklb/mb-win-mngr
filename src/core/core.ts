@@ -1,9 +1,21 @@
+import { WindowData } from './../models/window-data';
 import * as winApi from 'mb-winapi-node'
 import { Process } from '../models/process'
+import { WindowData } from '../models/window-data'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
 
 // console.log(winApi)
+
+const getWindowData = async (hWnd: number): Promise<WindowData> => {
+  const win = robotjs.Window(hWnd)
+  const winData = new WindowData
+  winData.hWnd = win.getHandle()
+  winData.pid = win.getPID()
+  winData.title = win.getTitle()
+  winData.appUserModelId = await winApi.getAppUserModelIID(hWnd)
+  return winData
+}
 
 ipcMain.on('winapi:getProcesses', (event, arg) => {
   console.log('winapi:getProcesses')
@@ -40,9 +52,11 @@ ipcMain.on('winapi:getProcesses', (event, arg) => {
   event.sender.send('winapi:getProcessesReply', procs2)
 })
 
-ipcMain.on('winapi:getWindow', (event, arg) => {
-  const win = robotjs.Window(arg.hWnd)
-  console.dir(win)
+ipcMain.on('winapi:getWindowData', (event, arg) => {
+  getWindowData(arg.hWnd).then((winData: WindowData) => {
+    console.dir(winData)
+    event.sender.send('winapi:reply:once:getWindowData', winData)
+  })
 })
 
 ipcMain.on('winapi:getAppUserModelIID', (event, arg) => {

@@ -1,3 +1,7 @@
 :host ::ng-deep .card-header {
   padding: 0.35rem 0.60rem;
 }
+
+:host ::ng-deep .card-body {
+  padding: 0.60rem;
+}

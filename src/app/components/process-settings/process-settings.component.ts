@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription'
 import { ElectronService } from '../../providers/electron.service'
 
 import { Process } from '../../../models/process'
+import { WindowData } from '../../../models/window-data'
 
 @Component({
   selector: 'app-process-settings',
@@ -15,7 +16,11 @@ export class ProcessSettingsComponent implements OnInit, OnDestroy {
 
   private _hWnd: number
 
+  private appUserModelIdInput: string
+
   public processName: string = '<NO NAME>'
+  public windowData: WindowData
+
 
   @Output('clickCloseIcon')
   clickCloseIcon: EventEmitter<any> = new EventEmitter<any>()
@@ -24,7 +29,12 @@ export class ProcessSettingsComponent implements OnInit, OnDestroy {
   set hWnd(hWnd: number) {
     this._hWnd = hWnd
     this.processName = `${hWnd}`
-    this.electronService.getWindow(hWnd)
+    this.electronService.getWindowData(hWnd).then((winData: WindowData) => {
+      console.log(winData)
+      this.windowData = winData
+      this.appUserModelIdInput = winData.appUserModelId
+      this.processName = `[${hWnd}] ${winData.title}`
+    })
   }
 
   constructor(private ref: ChangeDetectorRef,
@@ -59,6 +69,12 @@ export class ProcessSettingsComponent implements OnInit, OnDestroy {
 
   onCloseIconClick(event: any) {
     this.clickCloseIcon.emit(event)
+  }
+
+  onClickAppUserModelIdSetBtn(event: any) {
+    console.log('Id', this.appUserModelIdInput)
+    this.electronService.setAppUserModelIID(this.windowData.hWnd,
+      this.appUserModelIdInput)
   }
 
 }
