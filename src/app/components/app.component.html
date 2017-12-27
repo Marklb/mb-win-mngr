@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <button type="button" class="btn btn-dark btn-sm"
     (click)="procListVisible = true">Show Process Selector</button>
     <button type="button" class="btn btn-dark btn-sm"
@@ -14,7 +14,13 @@
       [hWnd]="this.selectedProcess.hWnd"
       (clickCloseIcon)="procSettingsVisible = false"></app-process-settings>
 
-    <!-- <router-outlet></router-outlet> -->
+    <router-outlet></router-outlet>
 
   </div>
+</div> -->
+
+<div class="container-fluid">
+  <app-electron-window-base>
+    <router-outlet></router-outlet>
+  </app-electron-window-base>
 </div>

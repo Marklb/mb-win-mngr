@@ -15,24 +15,44 @@ import { AppComponent } from './components/app.component'
 import { ProcessesListComponent } from './components/processes-list/processes-list.component'
 import { ProcessSettingsComponent } from './components/process-settings/process-settings.component'
 import { WindowGroupsComponent } from './components/window-groups/window-groups.component'
+import { ElectronWindowBaseComponent } from './components/electron-window-base/electron-window-base.component'
+import { MainComponent } from './components/main/main.component'
+import { RouteNotFoundComponent } from './components/route-not-found/route-not-found.component'
+import { HotkeysManagerComponent } from './components/hotkeys-manager/hotkeys-manager.component'
+import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
+
+// const appRoutes: Routes = [
+//   { path: 'crisis-center', component: WindowGroupsComponent },
+//   { path: 'hero/:id',      component: WindowGroupsComponent },
+//   {
+//     path: 'heroes',
+//     component: ProcessesListComponent,
+//     data: { title: 'Heroes List' }
+//   },
+//   // { path: 'index.html/crisis-center',
+//   //   redirectTo: '/crisis-center',
+//   //   pathMatch: 'full'
+//   // },
+//   { path: '',
+//     redirectTo: '/heroes',
+//     pathMatch: 'full'
+//   },
+//   { path: '**', component: WindowGroupsComponent }
+// ]
 
 const appRoutes: Routes = [
-  { path: 'crisis-center', component: WindowGroupsComponent },
-  { path: 'hero/:id',      component: WindowGroupsComponent },
-  {
-    path: 'heroes',
-    component: ProcessesListComponent,
-    data: { title: 'Heroes List' }
-  },
-  // { path: 'index.html/crisis-center',
-  //   redirectTo: '/crisis-center',
-  //   pathMatch: 'full'
-  // },
+  { path: 'debug-panel', component: DebugPanelComponent },
+  { path: 'hotkeys-manager', component: HotkeysManagerComponent },
+  { path: 'window-groups', component: WindowGroupsComponent },
+  { path: 'window-settings', component: ProcessSettingsComponent },
+  { path: 'windows-list', component: ProcessesListComponent },
+  { path: 'main', component: MainComponent },
+  // { path: '', component: MainComponent },
   { path: '',
-    redirectTo: '/heroes',
+    redirectTo: '/main',
     pathMatch: 'full'
   },
-  { path: '**', component: WindowGroupsComponent }
+  { path: '**', component: RouteNotFoundComponent }
 ]
 
 @NgModule({
@@ -40,7 +60,12 @@ const appRoutes: Routes = [
     AppComponent,
     ProcessesListComponent,
     ProcessSettingsComponent,
-    WindowGroupsComponent
+    WindowGroupsComponent,
+    ElectronWindowBaseComponent,
+    MainComponent,
+    RouteNotFoundComponent,
+    HotkeysManagerComponent,
+    DebugPanelComponent
   ],
   imports: [
     RouterModule.forRoot(

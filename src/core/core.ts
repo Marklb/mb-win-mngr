@@ -1,7 +1,7 @@
-import { WindowData } from './../models/window-data';
 import * as winApi from 'mb-winapi-node'
 import { Process } from '../models/process'
 import { WindowData } from '../models/window-data'
+import { IpcServer } from '../shared/ipc'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
 

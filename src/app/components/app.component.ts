@@ -18,17 +18,21 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.sub = this.route
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        // this.page = +params['page'] || 0;
-        const page = +params['page'] || 0
-        console.log(page)
-        if (page > 0) {
-          this.router.navigate(['crisis-center'])
-        }
-      });
+    // this.sub = this.route
+    //   .queryParams
+    //   .subscribe(params => {
+    //     // Defaults to 0 if no query param provided.
+    //     // this.page = +params['page'] || 0;
+    //     console.log(params)
+    //     console.log(params['page'])
+    //     const page = +params['page'] || 0
+    //     console.log('page', page)
+    //     // if (page > 0) {
+    //     //   this.router.navigate(['main'])
+    //     // }
+
+    //     // this.router.navigate(['debug-panel'])
+    //   });
   }
 
   ngOnDestroy() {
