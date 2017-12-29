@@ -1,3 +1,4 @@
+import { WindowsManager } from './windows-manager'
 import * as winApi from 'mb-winapi-node'
 import { Process } from '../models/process'
 import { WindowData } from '../models/window-data'
@@ -90,6 +91,8 @@ ipcMain.on('winapi:test', (event, arg) => {
 })
 
 export class Core {
+
+  public windowsManager = new WindowsManager
 
   constructor() {
     console.log('init core')

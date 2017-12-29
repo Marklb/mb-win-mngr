@@ -1,9 +1,13 @@
 // ./main.js
+// import { WindowUrls } from './dist/core/core/windows-manager'
+const { WindowUrls } = require('./dist/core/core/windows-manager')
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const fs = require('fs')
 
 // require('electron-reload')(__dirname)
+
+// global.__basedir = __dirname;
 
 // E:/Git/mb-win-mngr/dist
 
@@ -65,59 +69,63 @@ const fs = require('fs')
 
 const { Core } = require('./dist/core/core/core')
 
-let win = null
+// let win = null
+
+const core = new Core
 
 app.on('ready', function () {
-  const electronScreen = require('electron').screen
-  const size = electronScreen.getPrimaryDisplay().workAreaSize
+  core.windowsManager.openWindow(WindowUrls.DebugWindow)
 
-  // Initialize the window to our specified dimensions
-  win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height,
-    autoHideMenuBar: true
-    // show: false
-  })
+  // const electronScreen = require('electron').screen
+  // const size = electronScreen.getPrimaryDisplay().workAreaSize
 
-  // Specify entry point
-  // win.loadURL('http://localhost:4200')
-  // win.loadURL(__dirname + '/dist/index.html')
-  // win.loadURL(__dirname + '/dist/index.html?page=4')
-  win.loadURL(__dirname + '/dist/index.html#/debug-panel')
-  // win.loadURL(__dirname + '/dist/index.html')
-
-  // win.loadURL(file);
-
-  // Show dev tools
-  // Remove this line before distributing
-  win.webContents.openDevTools()
-
-  // win.webContents.executeJavaScript(content1)
-  // win.webContents.executeJavaScript(content2)
-  // win.webContents.executeJavaScript(content3)
-  // win.webContents.executeJavaScript(content4)
-  // win.webContents.executeJavaScript(content5)
-
-  // win.once('ready-to-show', () => {
-  //   console.log('ready-to-show')
-  //   win.show()
-  //   // win.loadURL('/crisis-center')
-  //   // win.reload()
+  // // Initialize the window to our specified dimensions
+  // win = new BrowserWindow({
+  //   x: 0,
+  //   y: 0,
+  //   width: size.width,
+  //   height: size.height,
+  //   autoHideMenuBar: true
+  //   // show: false
   // })
 
-  // Remove window once app is closed
-  win.on('closed', function () {
-    win = null
-  })
+  // // Specify entry point
+  // // win.loadURL('http://localhost:4200')
+  // // win.loadURL(__dirname + '/dist/index.html')
+  // // win.loadURL(__dirname + '/dist/index.html?page=4')
+  // win.loadURL(__dirname + '/dist/index.html#/debug-panel')
+  // // win.loadURL(__dirname + '/dist/index.html')
+
+  // // win.loadURL(file);
+
+  // // Show dev tools
+  // // Remove this line before distributing
+  // win.webContents.openDevTools()
+
+  // // win.webContents.executeJavaScript(content1)
+  // // win.webContents.executeJavaScript(content2)
+  // // win.webContents.executeJavaScript(content3)
+  // // win.webContents.executeJavaScript(content4)
+  // // win.webContents.executeJavaScript(content5)
+
+  // // win.once('ready-to-show', () => {
+  // //   console.log('ready-to-show')
+  // //   win.show()
+  // //   // win.loadURL('/crisis-center')
+  // //   // win.reload()
+  // // })
+
+  // // Remove window once app is closed
+  // win.on('closed', function () {
+  //   win = null
+  // })
 
 });
 
 app.on('activate', () => {
-  if (win === null) {
-    createWindow()
-  }
+  // if (win === null) {
+  //   createWindow()
+  // }
 })
 
 app.on('window-all-closed', function () {
