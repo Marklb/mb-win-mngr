@@ -8,24 +8,37 @@ import * as childProcess from 'child_process'
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 
-import { Process } from '../../models/process'
+import { Process } from 'models/process'
 import { WindowData } from 'models/window-data'
+
+import { IpcData, IpcConstants, IpcAction, IpcEvent } from 'shared/ipc'
+import { IpcClient } from 'shared/ipc/ipc-client'
+import { WinApiTypes } from 'core/utilities/win-api-utils'
 
 @Injectable()
 export class ElectronService {
 
-  private ipcRenderer: typeof ipcRenderer
-  private childProcess: typeof childProcess
+  // public ipcRenderer: typeof ipcRenderer
+  public childProcess: typeof childProcess
+  public ipcRenderer: typeof Electron.ipcRenderer
+  // public childProcess: typeof childProcess
+  public electronRemote: Electron.Remote
 
   private processesSubject = new Subject<Process[]>()
   private selectedProcess = new Subject<Process>()
   private appUserModelIIDProcess = new Subject<string>()
+  private windowsSubject = new Subject<WinApiTypes.Window[]>()
+
+  public ipcClient: IpcClient
 
   constructor() {
     // Conditional imports
     if (this.isElectron()) {
       this.ipcRenderer = window.require('electron').ipcRenderer
       this.childProcess = window.require('child_process')
+      this.electronRemote = window.require('electron').remote
+
+      this.ipcClient = new IpcClient
 
       this.ipcRenderer.on('winapi:getProcessesReply', (event, arg) => {
         this.processesSubject.next(arg)
@@ -83,6 +96,14 @@ export class ElectronService {
         resolve(arg)
       })
     })
+  }
+
+  public getWindows(): Observable<WinApiTypes.Window[]> {
+    return this.windowsSubject.asObservable()
+  }
+
+  public refreshWindows(): void {
+    this.ipcClient.send(IpcAction.GetOpenWindows)
   }
 
 }

@@ -1,7 +1,7 @@
-<div class="card border-dark" fxLayout="column" fxFlexFill ngDraggable [handle]="DragHandle">
-  <div class="card-header" style="padding: 0.35rem 0.60rem" #DragHandle>
+<div class="card border-dark" fxLayout="column" fxFlexFill>
+  <div class="card-header" style="padding: 0.35rem 0.60rem; -webkit-app-region: drag;">
     {{processName}}
-    <div class="float-right">
+    <div class="float-right" style="-webkit-app-region: no-drag; -webkit-user-select: none; user-select: none;">
       <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
       <i class="fa fa-refresh" aria-hidden="true" (click)="onRefreshIconClick($event)"></i>
       <i class="fa fa-cog" aria-hidden="true"></i>

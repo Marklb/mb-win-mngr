@@ -14,6 +14,7 @@ import { ElectronService } from './providers/electron.service'
 import { AppComponent } from './components/app.component'
 import { ProcessesListComponent } from './components/processes-list/processes-list.component'
 import { ProcessSettingsComponent } from './components/process-settings/process-settings.component'
+import { WindowSettingsBaseComponent } from './components/window-settings-base/window-settings-base.component'
 import { WindowGroupsComponent } from './components/window-groups/window-groups.component'
 import { ElectronWindowBaseComponent } from './components/electron-window-base/electron-window-base.component'
 import { MainComponent } from './components/main/main.component'
@@ -44,8 +45,8 @@ const appRoutes: Routes = [
   { path: 'debug-panel', component: DebugPanelComponent },
   { path: 'hotkeys-manager', component: HotkeysManagerComponent },
   { path: 'window-groups', component: WindowGroupsComponent },
-  { path: 'window-settings', component: ProcessSettingsComponent },
-  { path: 'windows-list', component: ProcessesListComponent },
+  { path: 'window-settings/:hWnd', component: WindowSettingsBaseComponent },
+  { path: 'processes-list', component: ProcessesListComponent, data: { popout: 'processes-list' } },
   { path: 'main', component: MainComponent },
   // { path: '', component: MainComponent },
   { path: '',
@@ -65,14 +66,15 @@ const appRoutes: Routes = [
     MainComponent,
     RouteNotFoundComponent,
     HotkeysManagerComponent,
-    DebugPanelComponent
+    DebugPanelComponent,
+    WindowSettingsBaseComponent
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
       {
         useHash: true,
-        enableTracing: true // <-- debugging purposes only
+        // enableTracing: true // <-- debugging purposes only
       }
     ),
     BrowserModule,

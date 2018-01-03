@@ -1,104 +1,87 @@
 import { WindowsManager } from './windows-manager'
 import * as winApi from 'mb-winapi-node'
+import * as winApiUtils from './utilities/win-api-utils'
 import { Process } from '../models/process'
 import { WindowData } from '../models/window-data'
-import { IpcServer } from '../shared/ipc'
+import { IpcServer } from '../shared/ipc/ipc-server'
+import { IpcAction, IpcEvent, IpcData, IpcDataType } from '../shared/ipc'
+import { WinApiTypes } from './utilities/win-api-utils'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
+const { WindowUrls } = require('./windows-manager-utils')
 
-// console.log(winApi)
-
-const getWindowData = async (hWnd: number): Promise<WindowData> => {
-  const win = robotjs.Window(hWnd)
-  const winData = new WindowData
-  winData.hWnd = win.getHandle()
-  winData.pid = win.getPID()
-  winData.title = win.getTitle()
-  winData.appUserModelId = await winApi.getAppUserModelIID(hWnd)
-  return winData
-}
-
-ipcMain.on('winapi:getProcesses', (event, arg) => {
-  console.log('winapi:getProcesses')
-  console.log(arg)
-  // console.log(winApi.getProcesses())
-  const procs = winApi.getProcesses()
-  // winApi.getProcesses()
-
-  // console.log(robotjs)
-  // console.log(robotjs.Window.getList())
-  // const procs2 = robotjs.Process.getList()
-  // // console.log(procs2)
-  // for (const p of procs2) {
-  //   console.log(p)
-  //   console.log(p.getName())
-  // }
-
-  const procs2 = []
-
-  const wins = robotjs.Window.getList()
-  for (const w of wins) {
-    console.log(w.getTitle())
-    const win = {
-      hWnd: w.getHandle(),
-      pid: w.getPID(),
-      title: w.getTitle()
-    } as Process
-    procs2.push(win)
-  }
-  console.log('---')
-  console.log(procs2)
-
-  // event.sender.send('winapi:getProcessesReply', procs)
-  event.sender.send('winapi:getProcessesReply', procs2)
-})
-
-ipcMain.on('winapi:getWindowData', (event, arg) => {
-  getWindowData(arg.hWnd).then((winData: WindowData) => {
-    console.dir(winData)
-    event.sender.send('winapi:reply:once:getWindowData', winData)
-  })
-})
-
-ipcMain.on('winapi:getAppUserModelIID', (event, arg) => {
-  console.log('winapi:getAppUserModelIID')
-  console.log(arg)
-  // const appUserModelIID = winApi.getAppUserModelIID(arg.hWnd)
-  // event.sender.send('winapi:getAppUserModelIIDReplay', appUserModelIID)
-
-  winApi.getAppUserModelIID(arg.hWnd)
-    .then(id => {
-      console.log(id)
-      event.sender.send('winapi:getAppUserModelIIDReply', id)
-    })
-})
-
-ipcMain.on('winapi:setAppUserModelIID', (event, arg) => {
-  console.log('winapi:setAppUserModelIID')
-  console.log(arg)
-  // const appUserModelIID = winApi.setAppUserModelIID(arg.hWnd)
-  // event.sender.send('winapi:setAppUserModelIIDReplay', appUserModelIID)
-
-  winApi.setAppUserModelIID(arg.hWnd, arg.appUserModelIID)
-    .then(() => {
-      event.sender.send('winapi:setAppUserModelIIDReply')
-    })
-})
-
-ipcMain.on('winapi:test', (event, arg) => {
-  // console.log(arg)
-  // winApi.test()
-})
 
 export class Core {
 
   public windowsManager = new WindowsManager
+  public ipcServer = new IpcServer
 
   constructor() {
     console.log('init core')
+    this._registerIpcEvents()
+  }
+
+  public init(): void {
+    const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
+      width: 600,
+      height: 800,
+      frame: false
+    } as Electron.BrowserWindowConstructorOptions)
+    win1.webContents.openDevTools()
+
+    // const win2 = core.windowsManager.openWindow(WindowUrls.DebugWindow)
+
+
+    // win1.on('ready-to-show', () => { win2.focus() })
+    // win2.on('ready-to-show', () => { win2.focus() })
+  }
+
+  private _registerIpcEvents(): void {
+    //
+    // GetOpenWindows
+    //
+    this.ipcServer.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
+      // console.log('IpcAction.GetOpenWindows', ipcEvent)
+      const data = new IpcData
+      data.actionName = IpcAction.GetOpenWindows
+      data.data = { windows: await winApiUtils.getWindows() }
+      this.ipcServer.send(data, ipcEvent.event.sender)
+    })
+
+    //
+    // OpenElectronWindow
+    //
+    this.ipcServer.listen(IpcAction.OpenElectronWindow, async (ipcEvent: IpcEvent) => {
+      console.log('IpcAction.OpenElectronWindow', ipcEvent)
+    })
+
+    //
+    // WindowSelect
+    //
+    this.ipcServer.listen(IpcAction.WindowSelect, async (ipcEvent: IpcEvent) => {
+      // console.log('IpcAction.WindowSelect', ipcEvent)
+      const win = this.windowsManager.openWindow(WindowUrls.WindowSettings + '/' + ipcEvent.data.data.hWnd, {
+        width: 600,
+        height: 800,
+        frame: false
+      } as Electron.BrowserWindowConstructorOptions)
+      win.webContents.openDevTools()
+    })
+
+    //
+    // GetWindowData
+    //
+    this.ipcServer.listen(IpcAction.GetWindowData, async (ipcEvent: IpcEvent) => {
+      console.log('IpcAction.GetWindowData', ipcEvent)
+      const hWnd: number = ipcEvent.data.data.hWnd
+      console.log('hWnd', hWnd)
+      try {
+        const w: WinApiTypes.Window = await winApiUtils.getWindow(hWnd)
+        console.log(w)
+      } catch (e) {
+        console.log(e)
+      }
+    })
   }
 
 }
-
-// winapi:getAppUserModelIID
-// winapi:getAppUserModelIIDReplay

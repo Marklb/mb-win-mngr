@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef,
   Output, Input, EventEmitter } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
 
-import { ElectronService } from '../../providers/electron.service'
+import { ElectronService } from 'app/providers/electron.service'
 
-import { Process } from '../../../models/process'
-import { WindowData } from '../../../models/window-data'
+import { Process } from 'models/process'
+import { WindowData } from 'models/window-data'
+import { IpcAction, IpcEvent } from 'shared/ipc'
 
 @Component({
   selector: 'app-process-settings',
@@ -29,22 +30,30 @@ export class ProcessSettingsComponent implements OnInit, OnDestroy {
   set hWnd(hWnd: number) {
     this._hWnd = hWnd
     this.processName = `${hWnd}`
-    this.electronService.getWindowData(hWnd).then((winData: WindowData) => {
-      console.log(winData)
-      this.windowData = winData
-      this.appUserModelIdInput = winData.appUserModelId
-      this.processName = `[${hWnd}] ${winData.title}`
-    })
+    // this.electronService.getWindowData(hWnd).then((winData: WindowData) => {
+    //   console.log(winData)
+    //   this.windowData = winData
+    //   this.appUserModelIdInput = winData.appUserModelId
+    //   this.processName = `[${hWnd}] ${winData.title}`
+    // })
+    this.electronService.ipcClient.send(IpcAction.GetWindowData, { hWnd: hWnd })
   }
 
   constructor(private ref: ChangeDetectorRef,
               private electronService: ElectronService) { }
 
   ngOnInit() {
+    this._registerIpcEvents()
   }
 
   ngOnDestroy() {
     // this.processesSubscription.unsubscribe()
+  }
+
+  private _registerIpcEvents(): void {
+    this.electronService.ipcClient.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
+      console.log('IpcAction.GetOpenWindows', ipcEvent)
+    })
   }
 
   // onSearchKeypress(event: any) {
