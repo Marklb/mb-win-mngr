@@ -1,4 +1,8 @@
-<!-- <p>
-  electron-window-base works!
-</p> -->
-<ng-content></ng-content>
+<div class="card border-dark" fxLayout="column" fxFlexFill>
+  <div class="card-header" style="padding: 0.10rem 0.60rem; -webkit-app-region: drag;">
+    <app-window-ui-title-bar></app-window-ui-title-bar>
+  </div>
+  <div style="overflow-y: auto;" fxFlex fxFlexFill>
+    <ng-content></ng-content>
+  </div>
+</div>

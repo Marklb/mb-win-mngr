@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxDatatableModule } from '@swimlane/ngx-datatable'
 
 import { ElectronService } from './providers/electron.service'
+import { AppWindowService } from './providers/app-window.service'
 
 import { AppComponent } from './components/app.component'
 import { ProcessesListComponent } from './components/processes-list/processes-list.component'
@@ -21,29 +22,13 @@ import { MainComponent } from './components/main/main.component'
 import { RouteNotFoundComponent } from './components/route-not-found/route-not-found.component'
 import { HotkeysManagerComponent } from './components/hotkeys-manager/hotkeys-manager.component'
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
+import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-title-bar/window-ui-title-bar.component'
+import { WindowBaseHotkeysManagerComponent } from './components/window-base'
 
-// const appRoutes: Routes = [
-//   { path: 'crisis-center', component: WindowGroupsComponent },
-//   { path: 'hero/:id',      component: WindowGroupsComponent },
-//   {
-//     path: 'heroes',
-//     component: ProcessesListComponent,
-//     data: { title: 'Heroes List' }
-//   },
-//   // { path: 'index.html/crisis-center',
-//   //   redirectTo: '/crisis-center',
-//   //   pathMatch: 'full'
-//   // },
-//   { path: '',
-//     redirectTo: '/heroes',
-//     pathMatch: 'full'
-//   },
-//   { path: '**', component: WindowGroupsComponent }
-// ]
 
 const appRoutes: Routes = [
   { path: 'debug-panel', component: DebugPanelComponent },
-  { path: 'hotkeys-manager', component: HotkeysManagerComponent },
+  { path: 'hotkeys-manager', component: WindowBaseHotkeysManagerComponent },
   { path: 'window-groups', component: WindowGroupsComponent },
   { path: 'window-settings/:hWnd', component: WindowSettingsBaseComponent },
   { path: 'processes-list', component: ProcessesListComponent, data: { popout: 'processes-list' } },
@@ -67,7 +52,9 @@ const appRoutes: Routes = [
     RouteNotFoundComponent,
     HotkeysManagerComponent,
     DebugPanelComponent,
-    WindowSettingsBaseComponent
+    WindowSettingsBaseComponent,
+    WindowUiTitleBarComponent,
+    WindowBaseHotkeysManagerComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -86,7 +73,10 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     NgxDatatableModule
   ],
-  providers: [ElectronService],
+  providers: [
+    ElectronService,
+    AppWindowService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

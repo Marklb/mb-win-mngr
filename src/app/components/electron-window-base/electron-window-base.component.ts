@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { AppWindowService } from 'app/providers/app-window.service'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-electron-window-base',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ElectronWindowBaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+              private appWindowService: AppWindowService) {
+    const params = route.snapshot.params
+
+  }
 
   ngOnInit() {
   }
