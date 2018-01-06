@@ -1,0 +1,18 @@
+<!-- <template *ngFor="let hotkey of hotkeys">
+  <div style="display: block; width: 100%;">{{ hotkey.accelerator }}</div>
+</template> -->
+
+<!-- <p>HotkeysList</p> -->
+<div *ngFor="let hotkey of hotkeys" style="display: block; width: 100%;">
+  <ng-template [ngIf]="true">
+    <span style="display: block; width: 100%;">----{{ hotkey.accelerator }}----</span>
+  </ng-template>
+  <span *ngIf="hotkey.accelerator === 'Ctrl+3'; else elseBlock">{{ hotkey.accelerator }}</span>
+  <ng-template #elseBlock>
+    <p>Meh</p>
+    <!-- <ng-content></ng-content> -->
+  </ng-template>
+</div>
+
+<ng-content></ng-content>
+<!-- <app-hotkey-panel></app-hotkey-panel> -->

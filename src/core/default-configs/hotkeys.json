@@ -1,0 +1,36 @@
+{
+  "hotkeys": [
+    {
+      "accelerator": "Ctrl+1",
+      "action": "test:action1"
+    },
+    {
+      "accelerator": "Ctrl+2",
+      "action": "test:action2"
+    },
+    {
+      "accelerator": "Ctrl+3",
+      "action": "test:action3"
+    },
+    {
+      "accelerator": "Ctrl+4",
+      "action": "test:action4"
+    },
+    {
+      "accelerator": "Ctrl+5",
+      "action": "test:action5"
+    },
+    {
+      "accelerator": "Ctrl+6",
+      "action": "test:action6"
+    },
+    {
+      "accelerator": "Ctrl+7",
+      "action": "test:action7"
+    },
+    {
+      "accelerator": "Ctrl+8",
+      "action": "test:action8"
+    }
+  ]
+}

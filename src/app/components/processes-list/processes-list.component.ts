@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef,
   Output, EventEmitter } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
-import { ElectronService } from '../../providers/electron.service'
+import { ElectronService } from 'app/providers/electron.service'
 import { IpcData, IpcDataType, IpcAction, IpcEvent } from 'shared/ipc'
 import { WinApiTypes } from 'core/utilities/win-api-utils'
 import { Process } from 'models/process'

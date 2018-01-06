@@ -20,7 +20,7 @@ import { WindowGroupsComponent } from './components/window-groups/window-groups.
 import { ElectronWindowBaseComponent } from './components/electron-window-base/electron-window-base.component'
 import { MainComponent } from './components/main/main.component'
 import { RouteNotFoundComponent } from './components/route-not-found/route-not-found.component'
-import { HotkeysManagerComponent } from './components/hotkeys-manager/hotkeys-manager.component'
+import { HotkeysManagerComponent, HotkeysListComponent, HotkeyPanelComponent } from './components/hotkeys'
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-title-bar/window-ui-title-bar.component'
 import { WindowBaseHotkeysManagerComponent } from './components/window-base'
@@ -51,6 +51,8 @@ const appRoutes: Routes = [
     MainComponent,
     RouteNotFoundComponent,
     HotkeysManagerComponent,
+    HotkeysListComponent,
+    HotkeyPanelComponent,
     DebugPanelComponent,
     WindowSettingsBaseComponent,
     WindowUiTitleBarComponent,

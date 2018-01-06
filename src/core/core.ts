@@ -6,22 +6,32 @@ import { WindowData } from '../models/window-data'
 import { IpcServer } from '../shared/ipc/ipc-server'
 import { IpcAction, IpcEvent, IpcData, IpcDataType } from '../shared/ipc'
 import { WinApiTypes } from './utilities/win-api-utils'
+import { HotkeyManager } from './hotkeys'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
 const { WindowUrls } = require('./windows-manager-utils')
-
 
 export class Core {
 
   public windowsManager = new WindowsManager
   public ipcServer = new IpcServer
+  public hotkeyManager: HotkeyManager
 
   constructor() {
-    console.log('init core')
-    this._registerIpcEvents()
+    console.log('create core')
   }
 
   public init(): void {
+    console.log('init core')
+    this.hotkeyManager = new HotkeyManager(this.ipcServer)
+
+    //
+    this.hotkeyManager.init()
+
+    //
+    this._registerIpcEvents()
+    this.hotkeyManager.loadConfig('E:/Git/mb-win-mngr/src/core/default-configs/hotkeys.json')
+
     // const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
     //   width: 600,
     //   height: 800,
@@ -35,6 +45,7 @@ export class Core {
       frame: false
     } as Electron.BrowserWindowConstructorOptions)
     win1.webContents.openDevTools()
+    require('devtron').install()
 
     // const win2 = core.windowsManager.openWindow(WindowUrls.DebugWindow)
 

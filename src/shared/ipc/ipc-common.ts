@@ -13,7 +13,9 @@ export enum IpcAction {
   SubscribeToOpenWindows = 'SUBSCRIBE_TO_OPEN_WINDOWS',
   OpenElectronWindow = 'OPEN_ELECTRON_WINDOW',
   WindowSelect = 'WINDOW_SELECT',
-  GetWindowData = 'GET_WINDOW_DATA'
+  GetWindowData = 'GET_WINDOW_DATA',
+  // HotkeyManager
+  HotkeyManagerGetHotkeys = 'HotkeyManager::GET_HOTKEYS'
 }
 
 export class IpcData {
@@ -31,3 +33,11 @@ export interface IpcEvent {
 export type IpcFunc = (ipcEvent: IpcEvent) => Promise<any>
 
 export interface RegisteredIpcAction { [actionName: string]: IpcFunc[] }
+
+export class IpcSerializationObj {
+  serializedData: any
+}
+
+export interface IpcSerializable {
+  ipcSerialize(): IpcSerializationObj
+}

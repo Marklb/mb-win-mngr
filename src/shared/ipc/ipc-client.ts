@@ -1,3 +1,5 @@
+import { Injectable, NgZone } from '@angular/core'
+
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 // import { ipcRenderer } from 'electron'
@@ -11,7 +13,7 @@ export class IpcClient {
 
   private registeredIpcActions: RegisteredIpcAction = {}
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.ipcRenderer.on(IpcConstants.MsgFromServer, this.onIpcEvent.bind(this))
   }
 
@@ -20,10 +22,18 @@ export class IpcClient {
     const actions = this.registeredIpcActions[arg.actionName]
     if (actions !== undefined) {
       for (const action of actions) {
-        action({
-          event: event,
-          data: arg
-        } as IpcEvent)
+        // setTimeout(() => {
+        //   action({
+        //     event: event,
+        //     data: arg
+        //   } as IpcEvent)
+        // })
+        this.zone.run(() => {
+          action({
+            event: event,
+            data: arg
+          } as IpcEvent)
+        })
       }
     }
   }
