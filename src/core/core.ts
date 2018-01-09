@@ -7,9 +7,10 @@ import { IpcServer } from '../shared/ipc/ipc-server'
 import { IpcAction, IpcEvent, IpcData, IpcDataType } from '../shared/ipc'
 import { WinApiTypes } from './utilities/win-api-utils'
 import { HotkeyManager } from './hotkeys'
+import { WindowUrls } from './windows-manager-utils'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
-const { WindowUrls } = require('./windows-manager-utils')
+
 
 export class Core {
 
@@ -32,19 +33,20 @@ export class Core {
     this._registerIpcEvents()
     this.hotkeyManager.loadConfig('E:/Git/mb-win-mngr/src/core/default-configs/hotkeys.json')
 
-    // const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
-    //   width: 600,
-    //   height: 800,
-    //   frame: false
-    // } as Electron.BrowserWindowConstructorOptions)
-    // win1.webContents.openDevTools()
-
-    const win1 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
+    const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
       width: 600,
       height: 800,
       frame: false
     } as Electron.BrowserWindowConstructorOptions)
     win1.webContents.openDevTools()
+
+    // const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
+    //   width: 600,
+    //   height: 800,
+    //   frame: false
+    // } as Electron.BrowserWindowConstructorOptions)
+    // win2.webContents.openDevTools()
+
     require('devtron').install()
 
     // const win2 = core.windowsManager.openWindow(WindowUrls.DebugWindow)
@@ -90,12 +92,13 @@ export class Core {
     // GetWindowData
     //
     this.ipcServer.listen(IpcAction.GetWindowData, async (ipcEvent: IpcEvent) => {
-      console.log('IpcAction.GetWindowData', ipcEvent)
-      const hWnd: number = ipcEvent.data.data.hWnd
-      console.log('hWnd', hWnd)
+      const hWnd: number = parseInt(ipcEvent.data.data.hWnd, 10)
       try {
         const w: WinApiTypes.Window = await winApiUtils.getWindow(hWnd)
-        console.log(w)
+        const data = new IpcData
+        data.actionName = IpcAction.GetWindowData
+        data.data = { windowData: w }
+        this.ipcServer.send(data, ipcEvent.event.sender)
       } catch (e) {
         console.log(e)
       }

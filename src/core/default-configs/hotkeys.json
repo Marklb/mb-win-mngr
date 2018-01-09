@@ -31,6 +31,10 @@
     {
       "accelerator": "Ctrl+8",
       "action": "test:action8"
+    },
+    {
+      "accelerator": "Ctrl+9",
+      "action": "test:action9"
     }
   ]
 }

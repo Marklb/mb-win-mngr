@@ -2,4 +2,9 @@
 <p #other>Nothing</p> -->
 <!-- <p>Test</p> -->
 
-<p *ngIf="hotkey">~{{ hotkey.accelerator }}~</p>
+<!-- <p *ngIf="hotkey">~{{ hotkey.accelerator }}~</p> -->
+
+<div *ngIf="hotkey" class="card hotkey-card">
+  <p>{{ hotkey.accelerator }}</p>
+  <span>{{ hotkey.action }}</span>
+</div>

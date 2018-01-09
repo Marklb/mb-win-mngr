@@ -22,6 +22,8 @@ export class ProcessSettingsComponent implements OnInit, OnDestroy {
   public processName: string = '<NO NAME>'
   public windowData: WindowData
 
+  @Output('processChange')
+  processChange: EventEmitter<any> = new EventEmitter<any>()
 
   @Output('clickCloseIcon')
   clickCloseIcon: EventEmitter<any> = new EventEmitter<any>()
@@ -51,8 +53,11 @@ export class ProcessSettingsComponent implements OnInit, OnDestroy {
   }
 
   private _registerIpcEvents(): void {
-    this.electronService.ipcClient.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
-      console.log('IpcAction.GetOpenWindows', ipcEvent)
+    this.electronService.ipcClient.listen(IpcAction.GetWindowData, async (ipcEvent: IpcEvent) => {
+      console.log('IpcAction.GetWindowData', ipcEvent)
+      const winData = ipcEvent.data.data.windowData
+      this.windowData = winData
+      this.processChange.emit(ipcEvent.data.data)
     })
   }
 
