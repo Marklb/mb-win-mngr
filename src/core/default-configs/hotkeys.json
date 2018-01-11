@@ -2,39 +2,48 @@
   "hotkeys": [
     {
       "accelerator": "Ctrl+1",
-      "action": "test:action1"
+      "action": "test:action1",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+2",
-      "action": "test:action2"
+      "action": "test:action2",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+3",
-      "action": "test:action3"
+      "action": "test:action3",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+4",
-      "action": "test:action4"
+      "action": "test:action4",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+5",
-      "action": "test:action5"
+      "action": "test:action5",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+6",
-      "action": "test:action6"
+      "action": "test:action6",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+7",
-      "action": "test:action7"
+      "action": "test:action7",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+8",
-      "action": "test:action8"
+      "action": "test:action8",
+      "scope": "global"
     },
     {
       "accelerator": "Ctrl+9",
-      "action": "test:action9"
+      "action": "test:action9",
+      "scope": "global"
     }
   ]
 }

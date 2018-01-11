@@ -33,19 +33,19 @@ export class Core {
     this._registerIpcEvents()
     this.hotkeyManager.loadConfig('E:/Git/mb-win-mngr/src/core/default-configs/hotkeys.json')
 
-    const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
-      width: 600,
-      height: 800,
-      frame: false
-    } as Electron.BrowserWindowConstructorOptions)
-    win1.webContents.openDevTools()
-
-    // const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
+    // const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
     //   width: 600,
     //   height: 800,
     //   frame: false
     // } as Electron.BrowserWindowConstructorOptions)
-    // win2.webContents.openDevTools()
+    // win1.webContents.openDevTools()
+
+    const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
+      width: 600,
+      height: 800,
+      frame: false
+    } as Electron.BrowserWindowConstructorOptions)
+    win2.webContents.openDevTools()
 
     require('devtron').install()
 
