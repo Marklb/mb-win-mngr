@@ -7,11 +7,12 @@
 <div *ngIf="hotkey" class="card hotkey-card">
   <p>{{ hotkey.accelerator }}</p>
   <div style="display: block;">
-    <div style="display: inline-block;">
-        <span>{{ hotkey.action }}</span>
+    <div class="action-container">
+        <span class="action-text">{{ hotkey.action }}</span>
+        <i class="fa fa-play fa-fw action-play-btn" (click)="onClickActionPlay($event)"></i>
     </div>
     <div style="float: right;">
-        <span>{{ hotkey?.scope }}</span>
+        <span class="scope-text">{{ hotkey?.scope }}</span>
     </div>
   </div>
 </div>

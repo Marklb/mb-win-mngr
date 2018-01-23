@@ -10,23 +10,42 @@ export class HotkeyManager {
 
   constructor(private ipcServer: IpcServer) { }
 
+  /**
+   *
+   */
   public init(): void {
     this._registerIpcEvents()
   }
 
+  /**
+   *
+   */
   private _registerIpcEvents(): void {
     //
     // GetHotkeys
     //
     this.ipcServer.listen(IpcAction.HotkeyManagerGetHotkeys, async (ipcEvent: IpcEvent) => {
-      console.log('IpcAction.HotkeyManagerGetHotkeys', ipcEvent)
+      // console.log('IpcAction.HotkeyManagerGetHotkeys', ipcEvent)
       const data = new IpcData
       data.actionName = IpcAction.HotkeyManagerGetHotkeys
       data.data = { hotkeys: await this.getIpcSerializedHotkeys() }
       this.ipcServer.send(data, ipcEvent.event.sender)
     })
+
+    //
+    // AttemptAction
+    //
+    this.ipcServer.listen(IpcAction.HotkeyManagerAttemptAction, async (ipcEvent: IpcEvent) => {
+      // console.log('IpcAction.HotkeyManagerAttemptAction', ipcEvent)
+      const action = ipcEvent.data.data
+      console.log('AttemptAction: ', action)
+    })
   }
 
+  /**
+   *
+   * @param configFileUrl
+   */
   public loadConfig(configFileUrl: string): void {
     fs.readFile(configFileUrl, 'utf8', (err, data) => {
       if (err) { throw err }
@@ -42,6 +61,9 @@ export class HotkeyManager {
     })
   }
 
+  /**
+   *
+   */
   public async getIpcSerializedHotkeys(): Promise<IpcSerializationObj[]> {
     const list: IpcSerializationObj[] = []
 

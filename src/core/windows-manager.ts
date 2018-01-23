@@ -23,7 +23,8 @@ export class WindowsManager {
       y: 0,
       width: Math.min(size.width, 2000),
       height: Math.min(size.height, 1200),
-      autoHideMenuBar: true
+      backgroundColor: '#1c1c1d',
+      autoHideMenuBar: true,
       // show: false
     }, options)
 

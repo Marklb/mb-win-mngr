@@ -27,17 +27,13 @@ import { WindowBaseHotkeysManagerComponent } from './components/window-base'
 
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'debug-panel', component: DebugPanelComponent },
   { path: 'hotkeys-manager', component: WindowBaseHotkeysManagerComponent },
   { path: 'window-groups', component: WindowGroupsComponent },
   { path: 'window-settings/:hWnd', component: WindowSettingsBaseComponent },
   { path: 'processes-list', component: ProcessesListComponent, data: { popout: 'processes-list' } },
   { path: 'main', component: MainComponent },
-  // { path: '', component: MainComponent },
-  { path: '',
-    redirectTo: '/main',
-    pathMatch: 'full'
-  },
   { path: '**', component: RouteNotFoundComponent }
 ]
 

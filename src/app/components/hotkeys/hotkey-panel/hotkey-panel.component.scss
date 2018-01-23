@@ -1,8 +1,42 @@
+$hover-blue: rgba(0, 80, 200, 1);
+
 .hotkey-card {
   background-color: rgba(40,40,40,1);
   padding: 5px;
+  min-width: 285px;
 }
 
 .hotkey-card:hover {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.action-container {
+  display: inline-block;
+  cursor: default;
+  box-sizing: border-box;
+  // border: 1px solid blue;
+  line-height: 15px;
+
+  .action-text {
+    cursor: default;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .action-play-btn {
+    font-size: 12px;
+    line-height: 15px;
+    box-sizing: border-box;
+    // border: 1px solid red;
+
+    &:hover {
+      color: $hover-blue;
+    }
+  }
+
+}
+
+.scope-text {
+  font-size: 10px;
+  color: rgba(100, 100 ,100 ,1);
 }
