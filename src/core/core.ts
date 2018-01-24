@@ -8,6 +8,8 @@ import { IpcAction, IpcEvent, IpcData, IpcDataType } from '../shared/ipc'
 import { WinApiTypes } from './utilities/win-api-utils'
 import { HotkeyManager } from './hotkeys'
 import { WindowUrls } from './windows-manager-utils'
+import { ActionsManager } from './actions-manager'
+import { Subscription } from 'rxjs/Subscription'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
 
@@ -17,6 +19,9 @@ export class Core {
   public windowsManager = new WindowsManager
   public ipcServer = new IpcServer
   public hotkeyManager: HotkeyManager
+  public actionsManager: ActionsManager
+
+  private _subscriptions: Subscription[] = []
 
   constructor() {
     console.log('create core')
@@ -24,7 +29,8 @@ export class Core {
 
   public init(): void {
     console.log('init core')
-    this.hotkeyManager = new HotkeyManager(this.ipcServer)
+    this.actionsManager = new ActionsManager
+    this.hotkeyManager = new HotkeyManager(this.ipcServer, this.actionsManager)
 
     //
     this.hotkeyManager.init()
@@ -32,6 +38,9 @@ export class Core {
     //
     this._registerIpcEvents()
     this.hotkeyManager.loadConfig('E:/Git/mb-win-mngr/src/core/default-configs/hotkeys.json')
+
+    //
+    this._registerActions()
 
     // const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
     //   width: 600,
@@ -103,6 +112,35 @@ export class Core {
         console.log(e)
       }
     })
+  }
+
+  private _registerActions(): void {
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action1').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action2').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action3').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action4').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action5').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action6').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action7').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action8').subscribe(data => console.log(data)))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('test:action9').subscribe(data => console.log(data)))
   }
 
 }

@@ -40,6 +40,7 @@
     "electron": "^1.7.9",
     "electron-reload": "^1.2.2",
     "font-awesome": "^4.7.0",
+    "mb-hotkeys": "^1.0.1",
     "mb-winapi-node": "^1.0.27",
     "robot-js": "git://github.com/p120ph37/robot-js.git#prebuilt",
     "rxjs": "^5.5.2",

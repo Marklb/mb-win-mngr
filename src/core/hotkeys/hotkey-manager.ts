@@ -2,19 +2,26 @@ import { Hotkey } from './hotkey'
 import { HotkeyConfigItem } from './hotkey-config-item'
 import { IpcServer } from '../../shared/ipc/ipc-server'
 import { IpcEvent, IpcData, IpcAction, IpcSerializationObj } from '../../shared/ipc'
+import { ActionsManager } from '../actions-manager'
+import { MBHotkeys, MBHotkeyEvent, MBHotkeysEnums, MBHotkeysConstants } from 'mb-hotkeys'
 const fs = require('fs')
 
 export class HotkeyManager {
 
   public hotkeys: Hotkey[] = []
+  public mbHotkeys: MBHotkeys = new MBHotkeys()
 
-  constructor(private ipcServer: IpcServer) { }
+  constructor(private ipcServer: IpcServer,
+              private actionsManager: ActionsManager) { }
 
   /**
    *
    */
   public init(): void {
     this._registerIpcEvents()
+    console.log('_startListeningTask')
+    this.mbHotkeys.startListening()
+    console.log('_startListeningTask')
   }
 
   /**
@@ -37,8 +44,9 @@ export class HotkeyManager {
     //
     this.ipcServer.listen(IpcAction.HotkeyManagerAttemptAction, async (ipcEvent: IpcEvent) => {
       // console.log('IpcAction.HotkeyManagerAttemptAction', ipcEvent)
-      const action = ipcEvent.data.data
-      console.log('AttemptAction: ', action)
+      const evtData = ipcEvent.data.data
+      console.log('AttemptAction: ', evtData)
+      this.actionsManager.triggerAction(evtData.action)
     })
   }
 
@@ -53,8 +61,14 @@ export class HotkeyManager {
       const configJson = JSON.parse(data)
       const temp: Hotkey[] = []
       for (const h of configJson.hotkeys) {
-        const hk = h as HotkeyConfigItem
-        temp.push(new Hotkey(hk.accelerator, hk.action, hk.scope))
+        const hkci = h as HotkeyConfigItem
+        const hk = new Hotkey(hkci.accelerator, hkci.action, hkci.scope)
+        hk.active = true
+        this.mbHotkeys.registerSequence(hkci.accelerator, (event: MBHotkeyEvent) => {
+          console.log(`-== [${hkci.accelerator}] ==-`)
+          console.log('event', event)
+        })
+        temp.push(hk)
       }
 
       this.hotkeys = temp
