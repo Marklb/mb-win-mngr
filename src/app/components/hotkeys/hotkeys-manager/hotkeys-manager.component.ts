@@ -27,4 +27,17 @@ export class HotkeysManagerComponent implements OnInit {
     })
   }
 
+  private onSearchKeypress(event: any): void {
+
+  }
+
+  private onSearchKeydown(event: any): void {
+
+  }
+
+  private onSearchKeyup(event: any): void {
+
+  }
+
+
 }

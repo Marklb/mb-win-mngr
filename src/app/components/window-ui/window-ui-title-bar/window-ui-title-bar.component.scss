@@ -1,19 +1,21 @@
-// :host {
-//   background-color: rgba(10, 10, 10, 1);
-//   width: 100%;
-//   padding-left: 5px;
-//   -webkit-app-region: drag;
-// }
+.title-text {
+  padding-left: 5px;
+}
 
-// .title {
-//   padding-bottom: 2px;
-// }
+.right-btns {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-// .title-text {
-//   color: rgba(230, 230, 230, 1);
-//   // font-family: Courier New, Courier, monospace;
-//   font-size: 0.8rem;
-//   margin-bottom: 1px;
-// }
+  > li {
+    width: 24px;
+    height: 24px;
+    box-sizing: border-box;
+    text-align: center;
 
-// -webkit-app-region: no-drag; -webkit-user-select: none; user-select: none;
+    &:hover {
+      background-color: rgba(10, 10, 10, 1);
+    }
+  }
+}

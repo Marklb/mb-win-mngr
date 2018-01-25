@@ -1,7 +1,14 @@
-<span>{{title}}</span>
+<span class="title-text">{{ title }}</span>
 <div class="float-right" style="-webkit-app-region: no-drag; -webkit-user-select: none; user-select: none;">
-  <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
-  <i class="fa fa-refresh" aria-hidden="true" (click)="onRefreshIconClick($event)"></i>
-  <i class="fa fa-cog" aria-hidden="true" (click)="onCogIconClick($event)"></i>
-  <i class="fa fa-times" style="margin-left: 5px;" aria-hidden="true" (click)="onCloseIconClick($event)"></i>
+  <ul class="right-btns">
+    <li (click)="onRefreshIconClick($event)">
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+    </li>
+    <li (click)="onCogIconClick($event)">
+      <i class="fa fa-cog" aria-hidden="true"></i>
+    </li>
+    <li (click)="onCloseIconClick($event)">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </li>
+  </ul>
 </div>
