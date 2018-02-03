@@ -9,6 +9,8 @@ import { WinApiTypes } from './utilities/win-api-utils'
 import { HotkeyManager } from './hotkeys'
 import { WindowUrls } from './windows-manager-utils'
 import { ActionsManager } from './actions-manager'
+import { ExtensionManager } from './extension-manager/extension-manager'
+import { VirtualDesktopExtension } from './extension-manager/extensions'
 import { Subscription } from 'rxjs/Subscription'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
@@ -20,6 +22,7 @@ export class Core {
   public ipcServer = new IpcServer
   public hotkeyManager: HotkeyManager
   public actionsManager: ActionsManager
+  public extensionManager: ExtensionManager
 
   private _subscriptions: Subscription[] = []
 
@@ -34,6 +37,11 @@ export class Core {
 
     //
     this.hotkeyManager.init()
+
+    //
+    this.extensionManager = new ExtensionManager(this, [
+      VirtualDesktopExtension
+    ])
 
     //
     this._registerIpcEvents()
@@ -117,7 +125,9 @@ export class Core {
 
   private _registerActions(): void {
     this._subscriptions.push(this.actionsManager
-      .registerAction('test:action1').subscribe(data => console.log(data)))
+      .registerAction('test:action1').subscribe(data => {
+        console.log('\'test:action1\'', winApi.user32.GetForegroundWindow())
+      }))
 
     this._subscriptions.push(this.actionsManager
       .registerAction('test:action2').subscribe(data => console.log(data)))

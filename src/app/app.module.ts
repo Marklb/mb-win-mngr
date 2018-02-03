@@ -24,7 +24,10 @@ import { HotkeysManagerComponent, HotkeysListComponent, HotkeyPanelComponent } f
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-title-bar/window-ui-title-bar.component'
 import { WindowBaseHotkeysManagerComponent } from './components/window-base'
+import { ExtensionBaseComponent } from './components/extension-base/extension-base.component'
 
+import { virtualDesktopUiRoutes } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.router'
+import { VirtualDesktopUiModule } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -33,6 +36,10 @@ const appRoutes: Routes = [
   { path: 'window-groups', component: WindowGroupsComponent },
   { path: 'window-settings/:hWnd', component: WindowSettingsBaseComponent },
   { path: 'processes-list', component: ProcessesListComponent, data: { popout: 'processes-list' } },
+  {
+    path: 'extension', component: ExtensionBaseComponent,
+    children: [...virtualDesktopUiRoutes]
+  },
   { path: 'main', component: MainComponent },
   { path: '**', component: RouteNotFoundComponent }
 ]
@@ -52,7 +59,8 @@ const appRoutes: Routes = [
     DebugPanelComponent,
     WindowSettingsBaseComponent,
     WindowUiTitleBarComponent,
-    WindowBaseHotkeysManagerComponent
+    WindowBaseHotkeysManagerComponent,
+    ExtensionBaseComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -69,7 +77,8 @@ const appRoutes: Routes = [
     FlexLayoutModule,
     AngularDraggableModule,
     NgbModule.forRoot(),
-    NgxDatatableModule
+    NgxDatatableModule,
+    VirtualDesktopUiModule
   ],
   providers: [
     ElectronService,

@@ -76,24 +76,27 @@ export class HotkeyManager {
         if (err) { reject(err) }
 
         const configJson = JSON.parse(data)
-        const temp: Hotkey[] = []
+        // const temp: Hotkey[] = []
         for (const h of configJson.hotkeys) {
           const hkci = h as HotkeyConfigItem
-          const hk = new Hotkey(hkci.accelerator, hkci.action, hkci.scope)
-          hk.active = true
+          // const hk = new Hotkey(hkci.accelerator, hkci.action, hkci.scope)
+          // hk.active = true
+          const hk = this.registerHotkey(hkci)
+
           // this.mbHotkeys.registerSequence(hkci.accelerator, (event: MBHotkeyEvent) => {
           //   console.log(`-== [${hkci.accelerator}] ==-`)
           //   console.log('event', event)
           // })
-          this._forkedMBHotkeyProcess.send({
-            type: 'register_hotkey',
-            accelerator: hkci.accelerator,
-            action: hkci.action
-          })
-          temp.push(hk)
+
+          // this._forkedMBHotkeyProcess.send({
+          //   type: 'register_hotkey',
+          //   accelerator: hkci.accelerator,
+          //   action: hkci.action
+          // })
+          // temp.push(hk)
         }
 
-        this.hotkeys = temp
+        // this.hotkeys = temp
 
         resolve()
       })
@@ -119,6 +122,20 @@ export class HotkeyManager {
     }
 
     return list
+  }
+
+  public registerHotkey(hkci: HotkeyConfigItem): Hotkey {
+    const hk = new Hotkey(hkci.accelerator, hkci.action, hkci.scope)
+    hk.active = true
+
+    this._forkedMBHotkeyProcess.send({
+      type: 'register_hotkey',
+      accelerator: hkci.accelerator,
+      action: hkci.action
+    })
+    this.hotkeys.push(hk)
+
+    return hk
   }
 
 }

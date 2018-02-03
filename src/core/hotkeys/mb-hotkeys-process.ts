@@ -2,6 +2,8 @@ import { MBHotkeys, MBHotkeyEvent, MBHotkeysEnums, MBHotkeysConstants } from 'mb
 
 const mbHotkeys = new MBHotkeys()
 
+declare const process: any
+
 process.on('message', (msg) => {
   // console.log('Message from parent:', msg)
   if (msg.type === 'register_hotkey') {
@@ -15,16 +17,4 @@ process.on('message', (msg) => {
   } else if (msg.type === 'stop_listening') {
     mbHotkeys.stopListening()
   }
-});
-
-// let counter = 0
-
-// setInterval(() => {
-//   process.send({ counter: counter++ })
-// }, 1000)
-
-// export class MBHotkeyProcess {
-
-//   constructor() { }
-
-// }
+})
