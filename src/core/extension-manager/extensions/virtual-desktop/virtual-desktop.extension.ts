@@ -15,6 +15,9 @@ export class VirtualDesktopExtension implements IExtension {
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
 
+  private _windowOpen: boolean = false
+  private _windowRef: any
+
   constructor(private core: Core) {
     console.log('VirtualDesktopExtension.contructor')
   }
@@ -32,13 +35,23 @@ export class VirtualDesktopExtension implements IExtension {
   private _initActions(): void {
     this._subscriptions.push(this.core.actionsManager
       .registerAction('virtual-desktop:open-stats-window').subscribe(data => {
-        console.log('Execute Action [virtual-desktop:open-stats-window]')
-        const win1 = this.core.windowsManager.openWindow(winUrl, {
-          width: 600,
-          height: 800,
-          frame: false
-        } as Electron.BrowserWindowConstructorOptions)
-        win1.webContents.openDevTools()
+        if (!this._windowOpen) {
+          console.log('Execute Action [virtual-desktop:open-stats-window]')
+          const win = this.core.windowsManager.openWindow(winUrl, {
+            width: 600,
+            height: 800,
+            frame: false
+          } as Electron.BrowserWindowConstructorOptions)
+          win.webContents.openDevTools()
+          this._windowRef = win
+          this._windowOpen = true
+        } else {
+          if (this._windowRef) {
+            this._windowRef.close()
+            this._windowRef = null
+          }
+          this._windowOpen = false
+        }
       }))
   }
 
