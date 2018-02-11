@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
+import { Inject } from '../../shared/common/injector'
 
 
 export interface ActionEvent {
@@ -14,6 +15,7 @@ export interface ObservableActionsItem {
 
 export interface ObservableActions { [identifier: string]: ObservableActionsItem }
 
+@Inject
 export class ActionsManager {
 
   private _actions: ObservableActions = {}

@@ -3,7 +3,9 @@ import { IpcConstants, IpcData, IpcFunc, IpcAction, IpcEvent, IpcDataType,
 import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 import { ipcMain, BrowserWindow } from 'electron'
+import { Inject } from '../common/injector'
 
+@Inject
 export class IpcServer {
 
   private ipcMain: typeof ipcMain = ipcMain
@@ -28,7 +30,7 @@ export class IpcServer {
     }
   }
 
-  public listen(actionName: IpcAction, func: IpcFunc) {
+  public listen(actionName: IpcAction | string, func: IpcFunc) {
     if (this.registeredIpcActions[actionName] === undefined) {
       this.registeredIpcActions[actionName] = []
     }

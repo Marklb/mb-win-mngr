@@ -1,4 +1,5 @@
 import { WindowUrls } from './windows-manager-utils'
+import { Inject } from '../shared/common/injector'
 const { app, BrowserWindow } = require('electron')
 
 export class RegisteredWindowRef {
@@ -6,7 +7,7 @@ export class RegisteredWindowRef {
   public winRef: Electron.BrowserWindow
 }
 
-
+@Inject
 export class WindowsManager {
 
   private _registeredWindows: RegisteredWindowRef[] = []
@@ -14,7 +15,7 @@ export class WindowsManager {
   constructor() { }
 
   public openWindow(windowUrl: string, options: Electron.BrowserWindowConstructorOptions): Electron.BrowserWindow {
-    console.log(windowUrl)
+    // console.log(windowUrl)
     const electronScreen = require('electron').screen
     const size = electronScreen.getPrimaryDisplay().workAreaSize
 

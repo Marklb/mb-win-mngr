@@ -1,14 +1,16 @@
-<span class="title-text">{{ title }}</span>
-<div class="float-right" style="-webkit-app-region: no-drag; -webkit-user-select: none; user-select: none;">
-  <ul class="right-btns">
-    <li (click)="onRefreshIconClick($event)">
-      <i class="fa fa-refresh" aria-hidden="true"></i>
-    </li>
-    <li (click)="onCogIconClick($event)">
-      <i class="fa fa-cog" aria-hidden="true"></i>
-    </li>
-    <li (click)="onCloseIconClick($event)">
-      <i class="fa fa-times" aria-hidden="true"></i>
-    </li>
-  </ul>
+<div class="bar-wrapper">
+  <span class="title-text text-truncate">{{ title }}</span>
+  <div class="float-right" style="-webkit-app-region: no-drag; -webkit-user-select: none; user-select: none;">
+    <ul class="right-btns">
+      <li (click)="onRefreshIconClick($event)">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </li>
+      <li (click)="onCogIconClick($event)">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </li>
+      <li (click)="onCloseIconClick($event)">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </li>
+    </ul>
+  </div>
 </div>

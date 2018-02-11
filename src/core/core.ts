@@ -12,28 +12,53 @@ import { ActionsManager } from './actions-manager'
 import { ExtensionManager } from './extension-manager/extension-manager'
 import { VirtualDesktopExtension } from './extension-manager/extensions'
 import { Subscription } from 'rxjs/Subscription'
+import configureStore, { StoreContainer } from '../shared/redux/store/configureStore'
+import { setGithubEnabled } from '../shared/redux/actions/settings'
+import { Inject, Injector } from '../shared/common/injector'
+import { Store } from 'redux'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
 
+declare var global: any
 
+// @Inject
 export class Core {
 
-  public windowsManager = new WindowsManager
-  public ipcServer = new IpcServer
+  public windowsManager: WindowsManager
+  public ipcServer: IpcServer
   public hotkeyManager: HotkeyManager
   public actionsManager: ActionsManager
   public extensionManager: ExtensionManager
 
   private _subscriptions: Subscription[] = []
 
+  public storeContainer: StoreContainer
+  public store: Store<any>
+
   constructor() {
     console.log('create core')
   }
 
-  public init(): void {
+  public async init(): Promise<any> {
     console.log('init core')
-    this.actionsManager = new ActionsManager
-    this.hotkeyManager = new HotkeyManager(this.ipcServer, this.actionsManager)
+    this.store = configureStore(global.state, 'main')
+    this.storeContainer = Injector.get(StoreContainer)
+    this.storeContainer.store = this.store
+
+    this.store.subscribe(async () => {
+      // persist store changes
+      // TODO: should this be blocking / wait? _.throttle?
+      // await storage.set('state', store.getState());
+      console.log('Core state: ', this.store.getState())
+    })
+
+    this.ipcServer = Injector.get(IpcServer)
+    this.windowsManager = Injector.get(WindowsManager)
+    this.actionsManager = Injector.get(ActionsManager)
+    // this.hotkeyManager = new HotkeyManager(this.ipcServer, this.actionsManager)
+    this.hotkeyManager = Injector.get(HotkeyManager)
+
+    this._registerActions()
 
     //
     this.hotkeyManager.init()
@@ -42,6 +67,8 @@ export class Core {
     this.extensionManager = new ExtensionManager(this, [
       VirtualDesktopExtension
     ])
+    await this.extensionManager.loadExtensions()
+    console.log('Done loading extensions')
 
     //
     this._registerIpcEvents()
@@ -49,7 +76,7 @@ export class Core {
       .then(() => { this.hotkeyManager.startListening() })
 
     //
-    this._registerActions()
+    // this._registerActions()
 
     const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
       width: 600,
@@ -130,7 +157,9 @@ export class Core {
       }))
 
     this._subscriptions.push(this.actionsManager
-      .registerAction('test:action2').subscribe(data => console.log(data)))
+      .registerAction('test:action2').subscribe(data => {
+        this.store.dispatch(setGithubEnabled(true))
+      }))
 
     this._subscriptions.push(this.actionsManager
       .registerAction('test:action3').subscribe(data => console.log(data)))

@@ -1,13 +1,9 @@
 import { Core } from '../core'
-
-// https://stackoverflow.com/questions/41017287/cannot-use-new-with-expression-typescript
-
-export interface IExtension {
-  extensionId: string
-  extensionName: string
-  initialize(): void
-  destroy(): void
-}
+import * as fs from 'fs-extra'
+import * as stripJsonComments from 'strip-json-comments'
+import { IExtension } from './extension'
+import 'reflect-metadata'
+import { Injector } from '../../shared/common/injector'
 
 export class ExtensionManager {
 
@@ -15,13 +11,27 @@ export class ExtensionManager {
 
   constructor(private core: Core,
               private extensions: any[]) {
-    console.log('ExtensionManager: Start loading extensions')
-    for (const extEntry of extensions) {
-      const ext: IExtension = new (<any>extEntry)(core)
+  }
+
+  public async loadExtensions(): Promise<any> {
+    // console.log('ExtensionManager: Start loading extensions')
+    for (const extEntry of this.extensions) {
+      const ext: IExtension = new (<any>extEntry)()
+      // const ext: IExtension = Injector.get(extEntry)
+      try {
+        ext.extensionConfig = await this.getConfig(ext)
+      } catch (e) {
+        console.log('error: ', e)
+      }
       ext.initialize()
       this._loadedExtensions.push(ext)
     }
-    console.log('ExtensionManager: Done loading extensions')
+    // console.log('ExtensionManager: Done loading extensions')
+  }
+
+  private async getConfig(ext: IExtension): Promise<any> {
+    const res = await fs.readFile(ext.extensionConfigPath, 'utf8')
+    return JSON.parse(stripJsonComments(res))
   }
 
 }

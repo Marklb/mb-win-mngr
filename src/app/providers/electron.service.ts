@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core'
+// import configureStore from 'shared/redux/store/configureStore'
+// import { getInitialStateRenderer } from 'electron-redux'
 
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
@@ -31,9 +33,18 @@ export class ElectronService {
 
   public ipcClient: IpcClient
 
+  public store: any
+
   constructor(public zone: NgZone) {
     // Conditional imports
     if (this.isElectron()) {
+      const getInitialStateRenderer = window.require('electron-redux').getInitialStateRenderer
+      const initialState = getInitialStateRenderer()
+
+      const configureStore = window.require('./core/shared/redux/store/configureStore').default
+      this.store = configureStore(initialState, 'renderer')
+
+
       this.ipcRenderer = window.require('electron').ipcRenderer
       this.childProcess = window.require('child_process')
       this.electronRemote = window.require('electron').remote
@@ -50,6 +61,13 @@ export class ElectronService {
 
       this.ipcRenderer.on('winapi:setAppUserModelIIDReply', (event, arg) => {
         // this.appUserModelIIDProcess.next(arg)
+      })
+
+      this.store.subscribe(async () => {
+        // persist store changes
+        // TODO: should this be blocking / wait? _.throttle?
+        // await storage.set('state', store.getState());
+        console.log('state: ', this.store.getState())
       })
     }
 

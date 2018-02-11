@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {
+      "groupName": "VD Group 1",
+      "processes": []
+    },
+    {
+      "groupName": "VD Group 2",
+      "processes": []
+    },
+    {
+      "groupName": "VD Group 3",
+      "processes": []
+    }
+  ]
+}

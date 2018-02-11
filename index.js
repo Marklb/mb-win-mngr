@@ -6,11 +6,14 @@ const fs = require('fs')
 
 const { WindowUrls } = require('./dist/core/core/windows-manager')
 const { Core } = require('./dist/core/core/core')
+// const { Injector } = require('./dist/core/shared/common/injector')
 
 let core
 
 app.on('ready', () => {
   core = new Core
+  // console.log(Core)
+  // core = Injector.get(Core)
   core.init()
 })
 

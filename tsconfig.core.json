@@ -20,5 +20,9 @@
   "include": [
     "src/core/**/*",
     "src/models/**/*"
+  ],
+  "exclude": [
+    "**/renderer/*",
+    "**/*.spec.ts"
   ]
 }

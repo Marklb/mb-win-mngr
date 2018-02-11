@@ -5,8 +5,10 @@ import { IpcEvent, IpcData, IpcAction, IpcSerializationObj } from '../../shared/
 import { ActionsManager } from '../actions-manager'
 import { MBHotkeys, MBHotkeyEvent, MBHotkeysEnums, MBHotkeysConstants } from 'mb-hotkeys'
 import { fork } from 'child_process'
+import { Inject } from '../../shared/common/injector'
 const fs = require('fs')
 
+@Inject
 export class HotkeyManager {
 
   public hotkeys: Hotkey[] = []

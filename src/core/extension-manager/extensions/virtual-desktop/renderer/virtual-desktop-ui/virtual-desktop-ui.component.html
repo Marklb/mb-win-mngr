@@ -1,26 +1,29 @@
-<div class="card">
+<div class="card" *ngIf="selectedVirtualDesktop">
   <div class="card-header p-1">
     <div class="input-group btn-group-sm">
       <div class="input-group-prepend">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="button"
+          (click)="onClickPrevBtn($event)">
           <i class="fa fa-angle-double-left"></i>
         </button>
       </div>
       <div class="card" style="width: 100%;">
         <div class="card-body text-center p-1">
-          <span>Virtual Desktop</span>
+          <!-- <span>Virtual Desktop</span> -->
+          <span>{{ selectedVirtualDesktop.desktopName }}</span>
         </div>
       </div>
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="button"
+          (click)="onClickNextBtn($event)">
           <i class="fa fa-angle-double-right"></i>
         </button>
       </div>
     </div>
   </div>
-  <div class="card-body">
+  <div class="card-body p-1">
     <!-- 1 -->
-    <div class="card">1: {{ hwnd1 }}</div>
+    <div class="card border border-primary">1: {{ hwnd1 }}</div>
     <!-- 2 -->
     <div class="card">2: {{ hwnd2 }}</div>
     <!-- 3 -->

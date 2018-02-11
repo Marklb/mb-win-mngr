@@ -20,7 +20,7 @@ export enum IpcAction {
 }
 
 export class IpcData {
-  public actionName: IpcAction
+  public actionName: IpcAction | string
   public type: IpcDataType
   public data: any
   public subscribe: boolean = false

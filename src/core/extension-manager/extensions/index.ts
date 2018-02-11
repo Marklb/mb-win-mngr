@@ -1,1 +1,1 @@
-export * from './virtual-desktop/virtual-desktop.extension'
+export * from './virtual-desktop/main/virtual-desktop.extension'
