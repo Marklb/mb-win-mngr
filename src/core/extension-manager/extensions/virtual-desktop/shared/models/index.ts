@@ -5,4 +5,5 @@ export interface IVirtualDesktop {
 export interface IVirtualDesktopInitialState {
   virtualDesktops: IVirtualDesktop[]
   selectedVirtualDesktopIndex: number
+  currentState: number
 }

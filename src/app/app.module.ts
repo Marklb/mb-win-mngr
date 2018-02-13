@@ -26,8 +26,10 @@ import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-titl
 import { WindowBaseHotkeysManagerComponent } from './components/window-base'
 import { ExtensionBaseComponent } from './components/extension-base/extension-base.component'
 
-import { virtualDesktopUiRoutes } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.router'
-import { VirtualDesktopUiModule } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.module';
+import { virtualDesktopUiRoutes
+  } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.router'
+import { VirtualDesktopUiModule
+  } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.module'
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
