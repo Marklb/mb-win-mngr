@@ -1,7 +1,5 @@
 import { IExtension } from '../../../extension'
 import { Core } from '../../../../core'
-import * as winApi from 'mb-winapi-node'
-import * as winApiUtils from '../../../../utilities/win-api-utils'
 import { Subscription } from 'rxjs/Subscription'
 import { Hotkey, HotkeyManager } from '../../../../hotkeys'
 import { IpcAction, IpcEvent, IpcData } from '../../../../../shared/ipc'
@@ -15,7 +13,12 @@ import { WindowsManager } from '../../../../windows-manager'
 import { IpcServer } from '../../../../../shared/ipc/ipc-server'
 import { StoreContainer } from '../../../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
-import { addVirtualDesktop, updateVirtualDesktopIndex } from '../shared/redux/actions/virtual-desktop'
+import { addVirtualDesktop, updateVirtualDesktopIndex, setVirtualDesktopState,
+  setVirtualDesktopProcess } from '../shared/redux/actions/virtual-desktop'
+import { VirtualDesktopActionState } from '../shared/models'
+import * as winApi from 'mb-winapi-node'
+import * as winApiUtils from '../../../../utilities/win-api-utils'
+const robotjs = require ('robot-js')
 
 const winUrl: string = `file:///E:/Git/mb-win-mngr/dist/index.html#/extension/virtual-desktop-ui`
 
@@ -60,11 +63,9 @@ export class VirtualDesktopExtension implements IExtension {
 
     console.log('this.extensionConfig: ', this.extensionConfig)
     for (const grp of this.extensionConfig.groups) {
-      // const newGrp = new VirtualDesktopGroup
-      // newGrp.groupName = grp.groupName
-      // this.groups.push(newGrp)
       this.store.dispatch(addVirtualDesktop({
-        desktopName: grp.groupName
+        desktopName: grp.groupName,
+        processItems: []
       }))
       this.store.dispatch(updateVirtualDesktopIndex())
     }
@@ -76,8 +77,94 @@ export class VirtualDesktopExtension implements IExtension {
 
   private _initActions(): void {
     this._subscriptions.push(this.actionsManager
-      .registerAction('virtual-desktop:open-stats-window').subscribe(data => {
+      .registerAction('virtual-desktop:open-stats-window')
+      .subscribe(data => {
         this.openWindow()
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:set-action-state-process-select')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopState(VirtualDesktopActionState.ProcessSelect))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:set-action-state-disabled')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopState(VirtualDesktopActionState.Disabled))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:set-action-state-working')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopState(VirtualDesktopActionState.Working))
+      }))
+
+    // Process Selection/Switching keys
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-1')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(1, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-2')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(2, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-3')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(3, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-4')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(4, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-5')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(5, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-6')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(6, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-7')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(7, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-8')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(8, winApi.user32.GetForegroundWindow()))
+      }))
+
+    this._subscriptions.push(this.actionsManager
+      .registerAction('virtual-desktop:process-key-9')
+      .subscribe(data => {
+        this.store.dispatch(
+          setVirtualDesktopProcess(9, winApi.user32.GetForegroundWindow()))
       }))
   }
 
@@ -87,20 +174,84 @@ export class VirtualDesktopExtension implements IExtension {
       action: 'virtual-desktop:open-stats-window',
       scope: 'global'
     }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'NumDivide',
+      action: 'virtual-desktop:set-action-state-working',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'NumMultiply',
+      action: 'virtual-desktop:set-action-state-disabled',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'NumMinus',
+      action: 'virtual-desktop:set-action-state-process-select',
+      scope: 'global'
+    }))
+
+    // Process Selection/Switching keys
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num1',
+      action: 'virtual-desktop:process-key-1',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num2',
+      action: 'virtual-desktop:process-key-2',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num3',
+      action: 'virtual-desktop:process-key-3',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num4',
+      action: 'virtual-desktop:process-key-4',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num5',
+      action: 'virtual-desktop:process-key-5',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num6',
+      action: 'virtual-desktop:process-key-6',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num7',
+      action: 'virtual-desktop:process-key-7',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num8',
+      action: 'virtual-desktop:process-key-8',
+      scope: 'global'
+    }))
+
+    this._registeredHotkeys.push(this.hotkeyManager.registerHotkey({
+      accelerator: 'Num9',
+      action: 'virtual-desktop:process-key-9',
+      scope: 'global'
+    }))
+
   }
 
-  public _initIpcEvents(): void {
-    this.ipcServer.listen('VirtualDesktopExtension::GET_GROUPS', async (ipcEvent: IpcEvent) => {
-      console.log('VirtualDesktopExtension::GET_GROUPS')
-      console.log(this.groups)
+  private _initIpcEvents(): void {
 
-      const serializedGroups: VirtualDesktopGroupInfo[] = []
-
-      const data = new IpcData
-      data.actionName = 'VirtualDesktopExtension::GET_GROUPS_RESPONSE'
-      data.data = { groups: this.groups }
-      this.ipcServer.send(data, ipcEvent.event.sender)
-    })
   }
 
   public openWindow(): void {

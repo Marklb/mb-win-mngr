@@ -3,6 +3,7 @@ import { ElectronService } from 'app/providers/electron.service'
 import { IpcEvent } from 'shared/ipc'
 import { VirtualDesktopGroupInfo } from 'core/extension-manager/extensions/virtual-desktop/main/virtual-desktop-common'
 import { previousVirtualDesktopIndex, nextVirtualDesktopIndex } from '../../shared/redux/actions/virtual-desktop'
+import { IVirtualDesktopProcessItem } from '../../../virtual-desktop/shared/models'
 
 @Component({
   selector: 'app-virtual-desktop-ui',
@@ -13,21 +14,35 @@ export class VirtualDesktopUiComponent implements OnInit {
 
   // public virtualDesktops: VirtualDesktopGroupInfo[] = []
   public selectedVirtualDesktopIndex: number = -1
+  public actionState: string
+  public processItems: IVirtualDesktopProcessItem[] = []
 
   constructor(private ref: ChangeDetectorRef,
               private electronService: ElectronService) {
-    this.electronService.store.subscribe(async () => {
-      const state = this.electronService.store.getState()
-      console.log('state: ', state)
-      this.updateSelectedVirtualDesktopIndex()
-      this.ref.detectChanges()
-    })
-
-    this.updateSelectedVirtualDesktopIndex()
+    this.electronService.store.subscribe(async () => { this.onStateUpdated() })
   }
 
   ngOnInit() {
+    this.onStateUpdated()
+  }
 
+  private onStateUpdated(): void {
+    const state = this.electronService.store.getState()
+    console.log('state: ', state)
+    this.updateSelectedVirtualDesktopIndex()
+    this.actionState = state.virtualDesktop.actionState
+
+    const i = state.virtualDesktop.selectedVirtualDesktopIndex
+    if (i !== undefined) {
+      const vDesktop = state.virtualDesktop.virtualDesktops[i]
+      const items = vDesktop.processItems
+      // for (const item of items) {
+      //   // this.processItems[item.index - 1] = item
+      // }
+      this.processItems = [...items]
+    }
+
+    this.ref.detectChanges()
   }
 
   public updateSelectedVirtualDesktopIndex(): void {

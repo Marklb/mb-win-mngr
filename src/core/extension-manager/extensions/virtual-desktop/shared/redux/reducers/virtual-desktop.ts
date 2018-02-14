@@ -1,17 +1,19 @@
-import { IVirtualDesktop, IVirtualDesktopInitialState } from '../../models'
+import { IVirtualDesktop, IVirtualDesktopInitialState, VirtualDesktopActionState } from '../../models'
 
 import {
   ADD_VIRTUAL_DESKTOP,
   UPDATE_VIRTUAL_DESKTOP_INDEX,
   PREVIOUS_VIRTUAL_DESKTOP_INDEX,
-  NEXT_VIRTUAL_DESKTOP_INDEX
+  NEXT_VIRTUAL_DESKTOP_INDEX,
+  SET_VIRTUAL_DESKTOP_STATE,
+  SET_VIRTUAL_DESKTOP_PROCESS
 } from '../actions/virtual-desktop'
 
 
 const initialState: IVirtualDesktopInitialState = {
   virtualDesktops: [],
   selectedVirtualDesktopIndex: -1,
-  currentState: 0
+  actionState: VirtualDesktopActionState.Disabled
 }
 
 export default function virtualDesktop(state = initialState, action) {
@@ -55,6 +57,44 @@ export default function virtualDesktop(state = initialState, action) {
       return {
         ...state,
         selectedVirtualDesktopIndex: i,
+      }
+    }
+
+    case SET_VIRTUAL_DESKTOP_STATE: {
+      return {
+        ...state,
+        actionState: action.payload
+      }
+    }
+
+    case SET_VIRTUAL_DESKTOP_PROCESS: {
+      if (state.actionState === VirtualDesktopActionState.ProcessSelect) {
+        const item = action.payload
+
+        const i = state.selectedVirtualDesktopIndex
+        const vDesktop = state.virtualDesktops[i]
+        let items = vDesktop.processItems
+
+        if (items === undefined) {
+          items = []
+        }
+
+        const idx = items.findIndex(x => x.index === item.index)
+
+        if (idx === -1) {
+          items.push(item)
+        } else {
+          items[idx].hWnd = item.hWnd
+        }
+
+        return {
+          ...state,
+          virtualDesktops: state.virtualDesktops
+        }
+      } else {
+        return {
+          ...state
+        }
       }
     }
 

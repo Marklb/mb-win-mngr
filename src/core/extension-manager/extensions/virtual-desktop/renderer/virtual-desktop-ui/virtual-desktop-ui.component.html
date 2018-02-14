@@ -21,26 +21,12 @@
     </div>
   </div>
   <div class="card-body p-1" fxFlex="grow">
-    <!-- 1 -->
-    <div class="card border border-primary">1: {{ hwnd1 }}</div>
-    <!-- 2 -->
-    <div class="card">2: {{ hwnd2 }}</div>
-    <!-- 3 -->
-    <div class="card">3: {{ hwnd3 }}</div>
-    <!-- 4 -->
-    <div class="card">4: {{ hwnd4 }}</div>
-    <!-- 5 -->
-    <div class="card">5: {{ hwnd5 }}</div>
-    <!-- 6 -->
-    <div class="card">6: {{ hwnd6 }}</div>
-    <!-- 7 -->
-    <div class="card">7: {{ hwnd7 }}</div>
-    <!-- 8 -->
-    <div class="card">8: {{ hwnd8 }}</div>
-    <!-- 9 -->
-    <div class="card">9: {{ hwnd9 }}</div>
+    <div *ngFor="let item of processItems" class="card p-2 mb-1">
+      <span style="color: rgba(180,180,180,1)">{{ item.index }}: </span>
+      <span>{{ item?.hWnd }}</span>
+    </div>
   </div>
   <div class="card-footer p-1">
-    <span>Status: </span>
+    <span>Status: {{ actionState }}</span>
   </div>
 </div>
