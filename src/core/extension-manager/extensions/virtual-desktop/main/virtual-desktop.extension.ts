@@ -29,7 +29,7 @@ export class VirtualDesktopExtension implements IExtension {
   extensionId: string = 'virtual-desktop'
   extensionName: string = 'Virtual Desktop'
   extensionConfig: any = {}
-  extensionConfigPath: string = 'E:/Git/mb-win-mngr/src/core/extension-manager/extensions/virtual-desktop/main/virtual-desktop-config.json'
+  extensionConfigPath: string = 'E:/Git/mb-win-mngr/src/core/extension-manager/extensions/virtual-desktop/main/virtual-desktop.config.json'
 
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
