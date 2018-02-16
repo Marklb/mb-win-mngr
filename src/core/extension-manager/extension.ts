@@ -11,6 +11,7 @@ export interface IExtension {
   extensionConfig: any
   extensionConfigPath: string
   initialize(): void
+  ready(): void
   destroy(): void
 }
 

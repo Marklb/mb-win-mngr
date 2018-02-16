@@ -31,6 +31,21 @@ import { virtualDesktopUiRoutes
 import { VirtualDesktopUiModule
   } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.module'
 
+import { windowSettingsUiRoutes
+  } from '../core/extension-manager/extensions/window-settings/renderer/window-settings-ui/window-settings-ui.router'
+import { WindowSettingsUiModule
+  } from '../core/extension-manager/extensions/window-settings/renderer/window-settings-ui/window-settings-ui.module'
+
+const extensionRoutes = [
+  ...virtualDesktopUiRoutes,
+  ...windowSettingsUiRoutes
+]
+
+const extensionModules = [
+  VirtualDesktopUiModule,
+  WindowSettingsUiModule
+]
+
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'debug-panel', component: DebugPanelComponent },
@@ -40,7 +55,7 @@ const appRoutes: Routes = [
   { path: 'processes-list', component: ProcessesListComponent, data: { popout: 'processes-list' } },
   {
     path: 'extension', component: ExtensionBaseComponent,
-    children: [...virtualDesktopUiRoutes]
+    children: extensionRoutes
   },
   { path: 'main', component: MainComponent },
   { path: '**', component: RouteNotFoundComponent }
@@ -80,7 +95,7 @@ const appRoutes: Routes = [
     AngularDraggableModule,
     NgbModule.forRoot(),
     NgxDatatableModule,
-    VirtualDesktopUiModule
+    ...extensionModules
   ],
   providers: [
     ElectronService,

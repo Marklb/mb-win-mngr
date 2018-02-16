@@ -17,3 +17,7 @@
 .form-control:focus {
   box-shadow: none;
 }
+
+.noselect {
+  user-select: none;
+}

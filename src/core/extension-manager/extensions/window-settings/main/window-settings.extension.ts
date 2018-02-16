@@ -27,8 +27,9 @@ export class WindowSettingsExtension implements IExtension {
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
 
-  private _windowOpen: boolean = false
-  private _windowRef: any
+  // private _windowOpen: boolean = false
+  // private _windowRef: any
+  private _windowRefs: any[] = []
 
   public store: Store<any>
 
@@ -44,11 +45,15 @@ export class WindowSettingsExtension implements IExtension {
     this._initHotkeys()
     this._initIpcEvents()
 
-    this.store.subscribe(async () => {
-      console.log('WindowSettingsExtension state: ', this.store.getState())
-    })
+    // this.store.subscribe(async () => {
+    //   console.log('WindowSettingsExtension state: ', this.store.getState())
+    // })
 
-    console.log('this.extensionConfig: ', this.extensionConfig)
+    // console.log('this.extensionConfig: ', this.extensionConfig)
+  }
+
+  ready(): void {
+    this.openWindow('settings-window-1')
   }
 
   destroy(): void {
@@ -69,6 +74,40 @@ export class WindowSettingsExtension implements IExtension {
 
   private _initIpcEvents(): void {
 
+  }
+
+  public openWindow(name: string): void {
+    // if (!this._windowOpen) {
+    //   const win = this.windowsManager.openWindow(winUrl, {
+    //     width: 600,
+    //     height: 800,
+    //     frame: false
+    //   } as Electron.BrowserWindowConstructorOptions)
+    //   win.webContents.openDevTools()
+    //   this._windowRef = win
+    //   this._windowOpen = true
+    // } else {
+    //   if (this._windowRef) {
+    //     this._windowRef.close()
+    //     this._windowRef = null
+    //   }
+    //   this._windowOpen = false
+    // }
+
+    const wRefItem = this._windowRefs.find(x => x.name === name)
+    if (wRefItem === undefined) {
+      const win = this.windowsManager.openWindow(`${winUrl}/${name}`, {
+        width: 600,
+        height: 800,
+        frame: false
+      } as Electron.BrowserWindowConstructorOptions)
+      win.webContents.openDevTools()
+
+      this._windowRefs.push({
+        name: name,
+        ref: win
+      })
+    }
   }
 
 }

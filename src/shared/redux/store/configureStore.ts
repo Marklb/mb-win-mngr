@@ -12,6 +12,7 @@ import {
 } from 'electron-redux'
 import getRootReducer from '../reducers'
 import { Inject } from '../../common/injector'
+import { composeWithDevTools } from 'remote-redux-devtools'
 
 /**
  * @param  {Object} initialState
@@ -65,6 +66,7 @@ export default function configureStore(initialState, scope = 'main') {
 
   const rootReducer = getRootReducer(scope)
   const enhancer: StoreEnhancer<any> = compose(...enhanced)
+  // const enhancer: StoreEnhancer<any> = composeWithDevTools(...enhanced)
   const store = createStore(rootReducer, initialState, enhancer)
 
   // if (!process.env.NODE_ENV && module.hot) {

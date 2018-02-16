@@ -10,7 +10,7 @@ import { HotkeyManager } from './hotkeys'
 import { WindowUrls } from './windows-manager-utils'
 import { ActionsManager } from './actions-manager'
 import { ExtensionManager } from './extension-manager/extension-manager'
-import { VirtualDesktopExtension } from './extension-manager/extensions'
+import { VirtualDesktopExtension, WindowSettingsExtension } from './extension-manager/extensions'
 import { Subscription } from 'rxjs/Subscription'
 import configureStore, { StoreContainer } from '../shared/redux/store/configureStore'
 import { setGithubEnabled } from '../shared/redux/actions/settings'
@@ -35,22 +35,16 @@ export class Core {
   public storeContainer: StoreContainer
   public store: Store<any>
 
-  constructor() {
-    console.log('create core')
-  }
+  constructor() { }
 
   public async init(): Promise<any> {
-    console.log('init core')
     this.store = configureStore(global.state, 'main')
     this.storeContainer = Injector.get(StoreContainer)
     this.storeContainer.store = this.store
 
-    this.store.subscribe(async () => {
-      // persist store changes
-      // TODO: should this be blocking / wait? _.throttle?
-      // await storage.set('state', store.getState());
-      console.log('Core state: ', this.store.getState())
-    })
+    // this.store.subscribe(async () => {
+    //   console.log('Core state: ', this.store.getState())
+    // })
 
     this.ipcServer = Injector.get(IpcServer)
     this.windowsManager = Injector.get(WindowsManager)
@@ -65,10 +59,10 @@ export class Core {
 
     //
     this.extensionManager = new ExtensionManager(this, [
-      VirtualDesktopExtension
+      VirtualDesktopExtension,
+      WindowSettingsExtension
     ])
     await this.extensionManager.loadExtensions()
-    console.log('Done loading extensions')
 
     //
     this._registerIpcEvents()
@@ -99,6 +93,10 @@ export class Core {
 
     // win1.on('ready-to-show', () => { win2.focus() })
     // win2.on('ready-to-show', () => { win2.focus() })
+
+    // TODO: Move to a good location
+    // Init done
+    await this.extensionManager.ready()
   }
 
   private _registerIpcEvents(): void {

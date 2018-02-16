@@ -29,6 +29,12 @@ export class ExtensionManager {
     // console.log('ExtensionManager: Done loading extensions')
   }
 
+  public async ready(): Promise<any> {
+    for (const ext of this._loadedExtensions) {
+      ext.ready()
+    }
+  }
+
   private async getConfig(ext: IExtension): Promise<any> {
     const res = await fs.readFile(ext.extensionConfigPath, 'utf8')
     return JSON.parse(stripJsonComments(res))

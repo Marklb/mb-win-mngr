@@ -63,12 +63,12 @@ export class ElectronService {
         // this.appUserModelIIDProcess.next(arg)
       })
 
-      this.store.subscribe(async () => {
-        // persist store changes
-        // TODO: should this be blocking / wait? _.throttle?
-        // await storage.set('state', store.getState());
-        console.log('state: ', this.store.getState())
-      })
+      // this.store.subscribe(async () => {
+      //   // persist store changes
+      //   // TODO: should this be blocking / wait? _.throttle?
+      //   // await storage.set('state', store.getState());
+      //   console.log('state: ', this.store.getState())
+      // })
     }
 
   }

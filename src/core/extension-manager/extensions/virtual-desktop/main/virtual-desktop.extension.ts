@@ -54,14 +54,14 @@ export class VirtualDesktopExtension implements IExtension {
     this._initHotkeys()
     this._initIpcEvents()
 
-    this.store.subscribe(async () => {
-      // persist store changes
-      // TODO: should this be blocking / wait? _.throttle?
-      // await storage.set('state', store.getState());
-      console.log('VirtualDesktopExtension state: ', this.store.getState())
-    })
+    // this.store.subscribe(async () => {
+    //   // persist store changes
+    //   // TODO: should this be blocking / wait? _.throttle?
+    //   // await storage.set('state', store.getState());
+    //   console.log('VirtualDesktopExtension state: ', this.store.getState())
+    // })
 
-    console.log('this.extensionConfig: ', this.extensionConfig)
+    // console.log('this.extensionConfig: ', this.extensionConfig)
     for (const grp of this.extensionConfig.groups) {
       this.store.dispatch(addVirtualDesktop({
         desktopName: grp.groupName,
@@ -69,6 +69,10 @@ export class VirtualDesktopExtension implements IExtension {
       }))
       this.store.dispatch(updateVirtualDesktopIndex())
     }
+  }
+
+  ready(): void {
+
   }
 
   destroy(): void {
