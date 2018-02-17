@@ -6,7 +6,7 @@ import { combineReducers } from 'redux'
 // import project from './project'
 // import github from './github'
 import settings from './settings'
-import virtualDesktop from '../../../core/extension-manager/extensions/virtual-desktop/shared/redux/reducers/virtual-desktop'
+import virtualDesktop from '../../../extensions/virtual-desktop/shared/redux/reducers/virtual-desktop'
 
 export const _reducers = {
   virtualDesktop

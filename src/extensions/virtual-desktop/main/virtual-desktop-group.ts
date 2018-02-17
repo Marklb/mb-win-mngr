@@ -1,4 +1,4 @@
-import { IpcSerializable, IpcSerializationObj } from '../../../../../shared/ipc/ipc-common'
+import { IpcSerializable, IpcSerializationObj } from '../../../shared/ipc/ipc-common'
 import { VirtualDesktopGroupInfo, VirtualDesktopProcessGroupInfo } from './virtual-desktop-common'
 
 

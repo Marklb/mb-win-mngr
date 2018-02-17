@@ -25,26 +25,8 @@ import { DebugPanelComponent } from './components/debug-panel/debug-panel.compon
 import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-title-bar/window-ui-title-bar.component'
 import { WindowBaseHotkeysManagerComponent } from './components/window-base'
 import { ExtensionBaseComponent } from './components/extension-base/extension-base.component'
+import { extensionRoutes, extensionModules } from 'extensions'
 
-import { virtualDesktopUiRoutes
-  } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.router'
-import { VirtualDesktopUiModule
-  } from '../core/extension-manager/extensions/virtual-desktop/renderer/virtual-desktop-ui/virtual-desktop-ui.module'
-
-import { windowSettingsUiRoutes
-  } from '../core/extension-manager/extensions/window-settings/renderer/window-settings-ui/window-settings-ui.router'
-import { WindowSettingsUiModule
-  } from '../core/extension-manager/extensions/window-settings/renderer/window-settings-ui/window-settings-ui.module'
-
-const extensionRoutes = [
-  ...virtualDesktopUiRoutes,
-  ...windowSettingsUiRoutes
-]
-
-const extensionModules = [
-  VirtualDesktopUiModule,
-  WindowSettingsUiModule
-]
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },

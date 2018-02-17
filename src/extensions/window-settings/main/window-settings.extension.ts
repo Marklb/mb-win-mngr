@@ -1,20 +1,19 @@
-import { IExtension } from '../../../extension'
-import { Core } from '../../../../core'
+import { IExtension, Extension } from '../../../core/extension-manager/extension'
+import { Core } from '../../../core/core'
 import { Subscription } from 'rxjs/Subscription'
-import { Hotkey, HotkeyManager } from '../../../../hotkeys'
-import { WinApiTypes } from '../../../../utilities/win-api-utils'
-import { Extension } from '../../../extension'
-import { ActionsManager } from '../../../../actions-manager'
-import { WindowsManager } from '../../../../windows-manager'
-import { StoreContainer } from '../../../../../shared/redux/store/configureStore'
+import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
+import { WinApiTypes } from '../../../core/utilities/win-api-utils'
+import { ActionsManager } from '../../../core/actions-manager'
+import { WindowsManager } from '../../../core/windows-manager'
+import { StoreContainer } from '../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
-import {  } from '../shared/redux/actions/window-settings'
-import {  } from '../shared/models'
 import * as winApi from 'mb-winapi-node'
-import * as winApiUtils from '../../../../utilities/win-api-utils'
+import * as winApiUtils from '../../../core/utilities/win-api-utils'
 const robotjs = require ('robot-js')
 
-const winUrl: string = `file:///E:/Git/mb-win-mngr/dist/index.html#/extension/window-settings-ui`
+const extensionRootPath: string = 'E:/Git/mb-win-mngr/src/extensions/window-settings'
+
+const winUrl: string = `file:///E:/Git/mb-win-mngr/dist/renderer/index.html#/extension/window-settings-ui`
 
 @Extension({})
 export class WindowSettingsExtension implements IExtension {
@@ -22,13 +21,11 @@ export class WindowSettingsExtension implements IExtension {
   extensionId: string = 'window-settings'
   extensionName: string = 'Window Settings'
   extensionConfig: any = {}
-  extensionConfigPath: string = 'E:/Git/mb-win-mngr/src/core/extension-manager/extensions/window-settings/main/window-settings.config.json'
+  extensionConfigPath: string = `${extensionRootPath}/config/window-settings.config.json`
 
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
 
-  // private _windowOpen: boolean = false
-  // private _windowRef: any
   private _windowRefs: any[] = []
 
   public store: Store<any>

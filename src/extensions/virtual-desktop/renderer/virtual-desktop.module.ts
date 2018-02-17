@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { FlexLayoutModule } from '@angular/flex-layout'
 
-import { VirtualDesktopUiComponent } from './virtual-desktop-ui.component'
+import { VirtualDesktopUiComponent } from './virtual-desktop-ui/virtual-desktop-ui.component'
 
 @NgModule({
   imports: [
@@ -16,4 +16,4 @@ import { VirtualDesktopUiComponent } from './virtual-desktop-ui.component'
   ],
   declarations: [VirtualDesktopUiComponent]
 })
-export class VirtualDesktopUiModule { }
+export class VirtualDesktopModule { }

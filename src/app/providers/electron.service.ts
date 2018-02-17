@@ -41,7 +41,7 @@ export class ElectronService {
       const getInitialStateRenderer = window.require('electron-redux').getInitialStateRenderer
       const initialState = getInitialStateRenderer()
 
-      const configureStore = window.require('./core/shared/redux/store/configureStore').default
+      const configureStore = window.require('../core/shared/redux/store/configureStore').default
       this.store = configureStore(initialState, 'renderer')
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { ElectronService } from '../../../../../../app/providers/electron.service'
-import { AppWindowService } from '../../../../../../app/providers/app-window.service'
+import { ElectronService } from 'app/providers/electron.service'
+import { AppWindowService } from 'app/providers/app-window.service'
 
 @Component({
   selector: 'app-window-settings-ui',
