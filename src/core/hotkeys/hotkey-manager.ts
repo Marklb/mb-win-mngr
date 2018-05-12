@@ -3,7 +3,7 @@ import { HotkeyConfigItem } from './hotkey-config-item'
 import { IpcServer } from '../../shared/ipc/ipc-server'
 import { IpcEvent, IpcData, IpcAction, IpcSerializationObj } from '../../shared/ipc'
 import { ActionsManager } from '../actions-manager'
-import { MBHotkeys, MBHotkeyEvent, MBHotkeysEnums, MBHotkeysConstants } from 'mb-hotkeys'
+import { MBHotkeys, MBHotkeyEvent, MBHotkeysConstants } from '@marklb/mb-hotkeys'
 import { fork } from 'child_process'
 import { Inject } from '../../shared/common/injector'
 const fs = require('fs')

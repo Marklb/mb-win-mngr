@@ -1,13 +1,13 @@
 import { IExtension, Extension } from '../../../core/extension-manager/extension'
 import { Core } from '../../../core/core'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
 import { WinApiTypes } from '../../../core/utilities/win-api-utils'
 import { ActionsManager } from '../../../core/actions-manager'
 import { WindowsManager } from '../../../core/windows-manager'
 import { StoreContainer } from '../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
-import * as winApi from 'mb-winapi-node'
+import * as winApi from '@marklb/mb-winapi-node'
 import * as winApiUtils from '../../../core/utilities/win-api-utils'
 const robotjs = require ('robot-js')
 

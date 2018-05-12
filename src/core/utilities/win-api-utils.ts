@@ -1,4 +1,4 @@
-import * as winApi from 'mb-winapi-node'
+import * as winApi from '@marklb/mb-winapi-node'
 const robotjs = require ('robot-js')
 
 export namespace WinApiTypes {

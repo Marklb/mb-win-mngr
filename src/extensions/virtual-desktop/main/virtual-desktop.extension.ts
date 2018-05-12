@@ -1,6 +1,6 @@
 import { IExtension, Extension } from '../../../core/extension-manager/extension'
 import { Core } from '../../../core/core'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
 import { IpcAction, IpcEvent, IpcData } from '../../../shared/ipc'
 import { WinApiTypes } from '../../../core/utilities/win-api-utils'
@@ -15,7 +15,7 @@ import { Store } from 'redux'
 import { addVirtualDesktop, updateVirtualDesktopIndex, setVirtualDesktopState,
   setVirtualDesktopProcess } from '../shared/redux/actions/virtual-desktop'
 import { VirtualDesktopActionState } from '../shared/models'
-import * as winApi from 'mb-winapi-node'
+import * as winApi from '@marklb/mb-winapi-node'
 import * as winApiUtils from '../../../core/utilities/win-api-utils'
 const robotjs = require ('robot-js')
 

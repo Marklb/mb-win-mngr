@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef,
   Output, Input, EventEmitter } from '@angular/core'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 
 import { ElectronService } from 'app/providers/electron.service'
 

@@ -1,7 +1,5 @@
 import { Injectable, NgZone } from '@angular/core'
-
-import { Observable } from 'rxjs/Observable'
-import { Subject } from 'rxjs/Subject'
+import { Observable, Subject } from 'rxjs'
 // import { ipcRenderer } from 'electron'
 const { ipcRenderer } = window.require('electron')
 import { IpcConstants, IpcData, IpcDataType, IpcAction, IpcEvent, IpcFunc,

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Subject } from 'rxjs/Subject'
-import { Observable } from 'rxjs/Observable'
+import { Subject, Observable } from 'rxjs'
 
 import { ipcRenderer } from 'electron'
 import * as childProcess from 'child_process'

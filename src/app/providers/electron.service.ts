@@ -7,8 +7,7 @@ import { Injectable, NgZone } from '@angular/core'
 import { ipcRenderer } from 'electron'
 import * as childProcess from 'child_process'
 
-import { Observable } from 'rxjs/Observable'
-import { Subject } from 'rxjs/Subject'
+import { Observable, Subject } from 'rxjs'
 
 import { Process } from 'models/process'
 import { WindowData } from 'models/window-data'

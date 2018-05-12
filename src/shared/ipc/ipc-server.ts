@@ -1,7 +1,6 @@
 import { IpcConstants, IpcData, IpcFunc, IpcAction, IpcEvent, IpcDataType,
   RegisteredIpcAction } from './ipc-common'
-import { Observable } from 'rxjs/Observable'
-import { Subject } from 'rxjs/Subject'
+import { Observable, Subject } from 'rxjs'
 import { ipcMain, BrowserWindow } from 'electron'
 import { Inject } from '../common/injector'
 

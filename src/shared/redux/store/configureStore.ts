@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose, StoreEnhancer, Store } from 'redux'
 // import { persistState } from 'redux-devtools'
-import thunk from 'redux-thunk'
+// import thunk from 'redux-thunk'
 import * as promiseMiddleware from 'redux-promise'
 import { createLogger } from 'redux-logger'
 import {
@@ -27,7 +27,7 @@ export default function configureStore(initialState, scope = 'main') {
   // const router = routerMiddleware(hashHistory)
 
   let middleware = [
-    thunk,
+    // thunk,
     promiseMiddleware,
   ]
 
