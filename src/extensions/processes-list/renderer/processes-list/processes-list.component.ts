@@ -61,7 +61,11 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
   onTableRowActivate(event: any) {
     if (event.type === 'click') {
       // console.log('Clicked', event)
-      this.electronService.ipcClient.send(IpcAction.WindowSelect, {
+      // this.electronService.ipcClient.send(IpcAction.WindowSelect, {
+      //   hWnd: event.row.hWnd
+      // })
+
+      this.electronService.triggerAction('window-settings:open-window', {
         hWnd: event.row.hWnd
       })
     }

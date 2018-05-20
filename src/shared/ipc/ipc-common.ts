@@ -16,7 +16,9 @@ export enum IpcAction {
   GetWindowData = 'GET_WINDOW_DATA',
   // HotkeyManager
   HotkeyManagerGetHotkeys = 'HotkeyManager::GET_HOTKEYS',
-  HotkeyManagerAttemptAction = 'HotkeyManager::ATTEMPT_ACTION'
+  HotkeyManagerAttemptAction = 'HotkeyManager::ATTEMPT_ACTION',
+  // ActionsManager
+  ActionsManagerTriggerAction = 'ActionsManager::TRIGGER_ACTION'
 }
 
 export class IpcData {

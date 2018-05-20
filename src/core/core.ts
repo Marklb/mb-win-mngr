@@ -144,6 +144,17 @@ export class Core {
         console.log(e)
       }
     })
+
+    //
+    //
+    //
+    this.ipcServer.listen(IpcAction.ActionsManagerTriggerAction, async (ipcEvent: IpcEvent) => {
+      try {
+        this.actionsManager.triggerAction(ipcEvent.data.data.identifier, ipcEvent.data.data.data)
+      } catch (e) {
+        console.log(e)
+      }
+    })
   }
 
   private _registerActions(): void {

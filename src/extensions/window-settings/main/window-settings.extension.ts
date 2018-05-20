@@ -2,18 +2,15 @@ import { IExtension, Extension } from '../../../core/extension-manager/extension
 import { Core } from '../../../core/core'
 import { Subscription } from 'rxjs'
 import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
-import { WinApiTypes } from '../../../core/utilities/win-api-utils'
 import { ActionsManager } from '../../../core/actions-manager'
 import { WindowsManager } from '../../../core/windows-manager'
 import { StoreContainer } from '../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
 import * as winApi from '@marklb/mb-winapi-node'
-import * as winApiUtils from '../../../core/utilities/win-api-utils'
+import { WinApiTypes, toRouteUrl } from '../../../core/utilities'
 const robotjs = require ('robot-js')
 
 const extensionRootPath: string = 'E:/Git/mb-win-mngr/src/extensions/window-settings'
-
-const winUrl: string = `file:///E:/Git/mb-win-mngr/dist/renderer/index.html#/extension/window-settings-ui`
 
 @Extension({})
 export class WindowSettingsExtension implements IExtension {
@@ -27,6 +24,8 @@ export class WindowSettingsExtension implements IExtension {
   private _registeredHotkeys: Hotkey[] = []
 
   private _windowRefs: any[] = []
+
+  public winUrl: string = toRouteUrl('extension/window-settings-ui')
 
   public store: Store<any>
 
@@ -58,11 +57,11 @@ export class WindowSettingsExtension implements IExtension {
   }
 
   private _initActions(): void {
-    // this._subscriptions.push(this.actionsManager
-    //   .registerAction('window-settings:')
-    //   .subscribe(data => {
-
-    //   }))
+    this._subscriptions.push(this.actionsManager
+      .registerAction('window-settings:open-window')
+      .subscribe(event => {
+        this.openWindow(`${event.data.hWnd}`)
+      }))
   }
 
   private _initHotkeys(): void {
@@ -74,31 +73,13 @@ export class WindowSettingsExtension implements IExtension {
   }
 
   public openWindow(name: string): void {
-    // if (!this._windowOpen) {
-    //   const win = this.windowsManager.openWindow(winUrl, {
-    //     width: 600,
-    //     height: 800,
-    //     frame: false
-    //   } as Electron.BrowserWindowConstructorOptions)
-    //   win.webContents.openDevTools()
-    //   this._windowRef = win
-    //   this._windowOpen = true
-    // } else {
-    //   if (this._windowRef) {
-    //     this._windowRef.close()
-    //     this._windowRef = null
-    //   }
-    //   this._windowOpen = false
-    // }
-
     const wRefItem = this._windowRefs.find(x => x.name === name)
     if (wRefItem === undefined) {
-      console.log('url', `${winUrl}/${name}`)
-      const win = this.windowsManager.openWindow(`${winUrl}/${name}`, {
+      const win = this.windowsManager.openWindow(`${this.winUrl}/${name}`, {
         width: 600,
         height: 800,
         frame: false
-      } as Electron.BrowserWindowConstructorOptions)
+      })
       win.webContents.openDevTools()
 
       this._windowRefs.push({

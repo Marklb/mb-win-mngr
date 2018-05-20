@@ -76,6 +76,13 @@ export class ElectronService {
     return window && window.process && window.process.type
   }
 
+  public triggerAction(identifier: string, data?: any): void {
+    this.ipcClient.send(IpcAction.ActionsManagerTriggerAction, {
+      identifier: identifier,
+      data: data
+    })
+  }
+
   public refreshProcesses(): void {
     this.ipcRenderer.send('winapi:getProcesses', {filter: 'test'})
   }
