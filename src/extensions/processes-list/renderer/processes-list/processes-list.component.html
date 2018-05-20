@@ -11,7 +11,7 @@
   </div> -->
   <div class="input-group input-group-sm" fxFlex="0 1 auto">
     <input type="text" class="form-control"
-      placeholder="Search for..." aria-label="Search for..."
+      placeholder="Filter..." aria-label="Filter..."
       (keypress)="onSearchKeypress($event)"
       (keydown)="onSearchKeydown($event)"
       (keyup)="onSearchKeyup($event)">
@@ -22,7 +22,7 @@
 
   <ngx-datatable
     fxFlex fxFlexFill
-    class="dark"
+    class="bootstrap"
     [rows]="nodes"
     [columnMode]="'flex'"
     [headerHeight]="30"

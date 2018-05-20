@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { SharedModule } from 'app/shared/shared.module'
-import { CardWidgetComponent } from 'app/shared/card-widget/card-widget.component'
 
 import { WindowSettingsUiComponent } from './window-settings-ui/window-settings-ui.component'
 
@@ -10,9 +9,8 @@ import { WindowSettingsUiComponent } from './window-settings-ui/window-settings-
 @NgModule({
   imports: [
     CommonModule,
-    // SharedModule
+    SharedModule
   ],
-  // declarations: [WindowSettingsUiComponent]
-  declarations: [WindowSettingsUiComponent, CardWidgetComponent]
+  declarations: [WindowSettingsUiComponent]
 })
 export class WindowSettingsModule { }

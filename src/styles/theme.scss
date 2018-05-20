@@ -21,3 +21,19 @@
 .noselect {
   user-select: none;
 }
+
+ngx-datatable {
+  .datatable-row-group {
+    &:hover {
+      background-color: rgba(50, 50, 50, 0.3);
+    }
+  }
+
+  .datatable-body-cell {
+    padding: 0 !important;
+
+    .datatable-body-cell-label {
+      padding-top: 3px !important;
+    }
+  }
+}

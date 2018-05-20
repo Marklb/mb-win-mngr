@@ -15,45 +15,21 @@ import { WindowUrls } from 'core/windows-manager-utils'
 })
 export class ProcessesListComponent implements OnInit, OnDestroy {
 
-  private processesSubscription: Subscription
-
-  @Output('clickCloseIcon')
-  clickCloseIcon: EventEmitter<any> = new EventEmitter<any>()
-
-  @Output('clickProcessRow')
-  clickProcessRow: EventEmitter<any> = new EventEmitter<any>()
-
   private nodesOriginal = []
   private nodes = []
 
-  private isPopout: boolean = false
-
-  constructor(private ref: ChangeDetectorRef,
-              private route: ActivatedRoute,
-              private electronService: ElectronService) {
-    const data = route.snapshot.data
-    if (data['popout'] !== undefined && data['popout'] === 'processes-list') {
-      this.isPopout = true
-    }
-  }
+  constructor(
+    private ref: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private electronService: ElectronService
+  ) { }
 
   ngOnInit() {
-    // this.electronService.refreshProcesses()
-
-    // this.processesSubscription = this.electronService.getProcesses()
-    //   .subscribe((processes: Process[]) => {
-    //     this.nodes = processes
-    //     this.nodesOriginal = processes
-    //     this.ref.detectChanges()
-    //   })
-
     this._registerIpcEvents()
     this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
   }
 
-  ngOnDestroy() {
-    // this.processesSubscription.unsubscribe()
-  }
+  ngOnDestroy() { }
 
   private _registerIpcEvents(): void {
     this.electronService.ipcClient.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
@@ -83,31 +59,17 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
   }
 
   onTableRowActivate(event: any) {
-    // console.log('Clicked', event)
     if (event.type === 'click') {
-      if (!this.isPopout) {
-        this.clickProcessRow.emit(event)
-      } else {
-        if (event.type === 'click') {
-          this.electronService.ipcClient.send(IpcAction.WindowSelect, {
-            hWnd: event.row.hWnd
-          })
-        }
-      }
+      // console.log('Clicked', event)
+      this.electronService.ipcClient.send(IpcAction.WindowSelect, {
+        hWnd: event.row.hWnd
+      })
     }
   }
 
   onRefreshIconClick(event: any) {
     // this.electronService.refreshProcesses()
     this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
-  }
-
-  onCloseIconClick(event: any) {
-    if (!this.isPopout) {
-      this.clickCloseIcon.emit(event)
-    } else {
-      this.electronService.electronRemote.getCurrentWindow().close()
-    }
   }
 
 }

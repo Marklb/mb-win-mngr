@@ -10,8 +10,6 @@ import { HotkeyManager } from './hotkeys'
 import { WindowUrls } from './windows-manager-utils'
 import { ActionsManager } from './actions-manager'
 import { ExtensionManager } from './extension-manager/extension-manager'
-import { VirtualDesktopExtension } from '../extensions/virtual-desktop/main/virtual-desktop.extension'
-import { WindowSettingsExtension } from '../extensions/window-settings/main/window-settings.extension'
 import { Subscription } from 'rxjs'
 import configureStore, { StoreContainer } from '../shared/redux/store/configureStore'
 import { setGithubEnabled } from '../shared/redux/actions/settings'
@@ -19,6 +17,10 @@ import { Inject, Injector } from '../shared/common/injector'
 import { Store } from 'redux'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
+
+import { VirtualDesktopExtension } from '../extensions/virtual-desktop/main/virtual-desktop.extension'
+import { WindowSettingsExtension } from '../extensions/window-settings/main/window-settings.extension'
+import { ProcessesListExtension } from '../extensions/processes-list/main/processes-list.extension'
 
 declare var global: any
 
@@ -61,7 +63,8 @@ export class Core {
     //
     this.extensionManager = new ExtensionManager(this, [
       VirtualDesktopExtension,
-      WindowSettingsExtension
+      WindowSettingsExtension,
+      ProcessesListExtension
     ])
     await this.extensionManager.loadExtensions()
 
@@ -73,13 +76,7 @@ export class Core {
     //
     // this._registerActions()
 
-    const win1 = this.windowsManager.openWindow(WindowUrls.ProcessesListWindow, {
-      width: 600,
-      height: 800,
-      frame: false
-    } as Electron.BrowserWindowConstructorOptions)
-    win1.webContents.openDevTools()
-
+    // TODO: Move to an extension
     const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
       width: 600,
       height: 800,

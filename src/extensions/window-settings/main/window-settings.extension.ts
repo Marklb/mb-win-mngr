@@ -93,6 +93,7 @@ export class WindowSettingsExtension implements IExtension {
 
     const wRefItem = this._windowRefs.find(x => x.name === name)
     if (wRefItem === undefined) {
+      console.log('url', `${winUrl}/${name}`)
       const win = this.windowsManager.openWindow(`${winUrl}/${name}`, {
         width: 600,
         height: 800,

@@ -15,7 +15,7 @@ export class WindowsManager {
   constructor() { }
 
   public openWindow(windowUrl: string, options: Electron.BrowserWindowConstructorOptions): Electron.BrowserWindow {
-    // console.log(windowUrl)
+    console.log(windowUrl)
     const electronScreen = require('electron').screen
     const size = electronScreen.getPrimaryDisplay().workAreaSize
 

@@ -7,11 +7,8 @@ import { Component, OnInit, Input } from '@angular/core'
 })
 export class CardWidgetComponent implements OnInit {
 
-  @Input('expanded')
-  public expanded: boolean = false
-
-  @Input('title')
-  public title: string
+  @Input() public expanded: boolean = false
+  @Input() public title: string
 
   constructor() { }
 
