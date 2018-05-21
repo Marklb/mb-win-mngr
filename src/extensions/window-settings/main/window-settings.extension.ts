@@ -8,6 +8,7 @@ import { StoreContainer } from '../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
 import * as winApi from '@marklb/mb-winapi-node'
 import { WinApiTypes, toRouteUrl } from '../../../core/utilities'
+import { createWindowSettingsWindowInstance } from '../shared/redux/actions/window-settings'
 const robotjs = require ('robot-js')
 
 const extensionRootPath: string = 'E:/Git/mb-win-mngr/src/extensions/window-settings'
@@ -41,9 +42,9 @@ export class WindowSettingsExtension implements IExtension {
     this._initHotkeys()
     this._initIpcEvents()
 
-    // this.store.subscribe(async () => {
-    //   console.log('WindowSettingsExtension state: ', this.store.getState())
-    // })
+    this.store.subscribe(async () => {
+      console.log('WindowSettingsExtension state: ', this.store.getState())
+    })
 
     // console.log('this.extensionConfig: ', this.extensionConfig)
   }
@@ -60,7 +61,8 @@ export class WindowSettingsExtension implements IExtension {
     this._subscriptions.push(this.actionsManager
       .registerAction('window-settings:open-window')
       .subscribe(event => {
-        this.openWindow(`${event.data.hWnd}`)
+        // this.openWindow(`${event.data.hWnd}`)
+        this.store.dispatch(createWindowSettingsWindowInstance(`${event.data.hWnd}`))
       }))
   }
 

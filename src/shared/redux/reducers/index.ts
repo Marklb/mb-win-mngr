@@ -7,9 +7,11 @@ import { combineReducers } from 'redux'
 // import github from './github'
 import settings from './settings'
 import virtualDesktop from '../../../extensions/virtual-desktop/shared/redux/reducers/virtual-desktop'
+import windowSettings from '../../../extensions/window-settings/shared/redux/reducers/window-settings'
 
 export const _reducers = {
-  virtualDesktop
+  virtualDesktop,
+  windowSettings
 }
 
 export default function getRootReducer(scope = 'main') {
