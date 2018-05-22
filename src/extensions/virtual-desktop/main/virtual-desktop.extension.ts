@@ -17,11 +17,10 @@ import { addVirtualDesktop, updateVirtualDesktopIndex, setVirtualDesktopState,
 import { VirtualDesktopActionState } from '../shared/models'
 import * as winApi from '@marklb/mb-winapi-node'
 import * as winApiUtils from '../../../core/utilities/win-api-utils'
+import { extensionsPath, toRouteUrl } from '../../../core/utilities'
 const robotjs = require ('robot-js')
 
-const extensionRootPath: string = 'E:/Git/mb-win-mngr/src/extensions/virtual-desktop'
-
-const winUrl: string = `file:///E:/Git/mb-win-mngr/dist/renderer/index.html#/extension/virtual-desktop-ui`
+const extensionRootPath: string = `${extensionsPath()}/virtual-desktop`
 
 // @Inject
 @Extension({})
@@ -39,6 +38,8 @@ export class VirtualDesktopExtension implements IExtension {
   private _windowRef: any
 
   public groups: VirtualDesktopGroup[] = []
+
+  public winUrl: string = toRouteUrl('extension/virtual-desktop')
 
   public store: Store<any>
 
@@ -261,11 +262,11 @@ export class VirtualDesktopExtension implements IExtension {
 
   public openWindow(): void {
     if (!this._windowOpen) {
-      const win = this.windowsManager.openWindow(winUrl, {
+      const win = this.windowsManager.openWindow(this.winUrl, {
         width: 600,
         height: 800,
         frame: false
-      } as Electron.BrowserWindowConstructorOptions)
+      })
       win.webContents.openDevTools()
       this._windowRef = win
       this._windowOpen = true

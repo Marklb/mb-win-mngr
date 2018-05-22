@@ -7,11 +7,11 @@ import { WindowsManager } from '../../../core/windows-manager'
 import { StoreContainer } from '../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
 import * as winApi from '@marklb/mb-winapi-node'
-import { WinApiTypes, toRouteUrl } from '../../../core/utilities'
+import { WinApiTypes, toRouteUrl, extensionsPath } from '../../../core/utilities'
 import { createWindowSettingsWindowInstance } from '../shared/redux/actions/window-settings'
 const robotjs = require ('robot-js')
 
-const extensionRootPath: string = 'E:/Git/mb-win-mngr/src/extensions/window-settings'
+const extensionRootPath: string = `${extensionsPath()}/window-settings`
 
 @Extension({})
 export class WindowSettingsExtension implements IExtension {

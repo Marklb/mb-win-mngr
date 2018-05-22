@@ -7,10 +7,10 @@ import { WindowsManager } from '../../../core/windows-manager'
 import { StoreContainer } from '../../../shared/redux/store/configureStore'
 import { Store } from 'redux'
 import * as winApi from '@marklb/mb-winapi-node'
-import { WinApiTypes, toRouteUrl } from '../../../core/utilities'
+import { WinApiTypes, toRouteUrl, extensionsPath } from '../../../core/utilities'
 const robotjs = require ('robot-js')
 
-const extensionRootPath: string = 'E:/Git/mb-win-mngr/src/extensions/processes-list'
+const extensionRootPath: string = `${extensionsPath()}/processes-list`
 
 @Extension({})
 export class ProcessesListExtension implements IExtension {

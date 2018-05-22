@@ -52,7 +52,7 @@
     "reflect-metadata": "^0.1.12",
     "robot-js": "^2.0.0",
     "rxjs": "^6.1.0",
-    "rxjs-compat": "^6.1.0",
+    "rxjs-compat": "^6.2.0",
     "strip-json-comments": "^2.0.1",
     "zone.js": "^0.8.26"
   },

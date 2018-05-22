@@ -5,3 +5,7 @@ export const toRouteUrl = (url: string) => {
   // return app.getAppPath() + url
   return 'file:///E:/Git/mb-win-mngr/dist/renderer/index.html#/' + url
 }
+
+export const extensionsPath = () => {
+  return 'E:/Git/mb-win-mngr/src/extensions'
+}
