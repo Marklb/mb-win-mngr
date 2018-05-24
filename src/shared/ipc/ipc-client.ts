@@ -43,6 +43,14 @@ export class IpcClient {
     this.registeredIpcActions[actionName].push(func)
   }
 
+  public unlisten(actionName: IpcAction | string, func: IpcFunc) {
+    if (this.registeredIpcActions[actionName] === undefined) {
+      this.registeredIpcActions[actionName] = []
+    }
+    this.registeredIpcActions[actionName] =
+      this.registeredIpcActions[actionName].filter(f => f !== func)
+  }
+
   send(action: IpcAction | string, data: any = {}) {
     const ipcData = new IpcData
     ipcData.actionName = action

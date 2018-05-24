@@ -1,23 +1,37 @@
-<!-- <div class="pb-1"></div> -->
+<ng-container *ngIf="(windowSettingsUi.hWnd$ | async) as hWnd; else noHwndTpl">
+  <ng-container *ngIf="(windowSettingsUi.loading$ | async) as loading; else loadedTpl">
+    Loading {{ hWnd }} {{ loading }}
+  </ng-container>
+  <ng-template #loadedTpl>
+    <app-card-widget [title]="'General'">
+      <ng-container *ngIf="(windowSettingsUi.windowData$ | async) as windowData">
+        <div *ngIf="windowData" style="padding: 5px;">
+          <!-- <pre>{{ windowData | json }}</pre> -->
+          <span style="display: block;">Pid: {{ windowData.pid }}</span>
+          <span style="display: block;">hWnd: {{ windowData.hWnd }}</span>
+          <span  style="display: block;">Title: {{ windowData.title }}</span>
+        </div>
+      </ng-container>
+    </app-card-widget>
 
-<app-card-widget [title]="'General'">
-  test
-</app-card-widget>
+    <app-card-widget [title]="'Other'">
+      <ng-container *ngIf="(windowSettingsUi.windowData$ | async) as windowData">
+        <app-app-user-model-id-input
+          [appUserModelIdInput]="windowData.appUserModelId"
+          [hWnd]="windowData.hWnd">
+        </app-app-user-model-id-input>
+      </ng-container>
+    </app-card-widget>
 
-<!-- <div class="pb-1"></div> -->
+    <app-card-widget [title]="'Other2'">
+      test
+    </app-card-widget>
 
-<app-card-widget [title]="'Other'">
-  test
-</app-card-widget>
-
-<!-- <div class="pb-1"></div> -->
-
-<app-card-widget [title]="'Other2'">
-  test
-</app-card-widget>
-
-<!-- <div class="pb-1"></div> -->
-
-<app-card-widget [title]="'Other3'">
-  test
-</app-card-widget>
+    <app-card-widget [title]="'Other3'">
+      test
+    </app-card-widget>
+  </ng-template>
+</ng-container>
+<ng-template #noHwndTpl>
+  No hWnd
+</ng-template>
