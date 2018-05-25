@@ -36,6 +36,14 @@ export class IpcServer {
     this.registeredIpcActions[actionName].push(func)
   }
 
+  public unlisten(actionName: IpcAction | string, func: IpcFunc) {
+    if (this.registeredIpcActions[actionName] === undefined) {
+      this.registeredIpcActions[actionName] = []
+    }
+    this.registeredIpcActions[actionName] =
+      this.registeredIpcActions[actionName].filter(f => f !== func)
+  }
+
   public send(data: IpcData, win: BrowserWindow = undefined) {
     if (data.type === undefined) {
       data.type = IpcDataType.ElectronMain

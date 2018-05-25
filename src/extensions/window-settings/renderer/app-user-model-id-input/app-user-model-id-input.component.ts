@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { ElectronService } from 'app/providers/electron.service'
 import { IpcEvent, IpcAction } from 'shared/ipc'
+import { WindowSettingsUiService } from '../window-settings-ui.service'
 
 @Component({
   selector: 'app-app-user-model-id-input',
@@ -23,35 +24,15 @@ export class AppUserModelIdInputComponent implements OnInit {
 
   constructor(
     public electronService: ElectronService,
+    public windowSettingsUi: WindowSettingsUiService,
   ) { }
 
   ngOnInit() {
   }
 
   onClickAppUserModelIdSetBtn(event: any) {
-    console.log('this.hWnd', this.hWnd)
-    console.log('this.appUserModelIdInput', this.appUserModelIdInput)
-    // this.electronService.setAppUserModelIID(this.hWnd, this.appUserModelIdInput)
-  }
-
-  private async _setId(hWnd: number, id: string) {
-    return new Promise<void>((resolve, reject) => {
-      const listenFunc = async (ipcEvent: IpcEvent) => {
-        console.log('IpcAction. set:id', ipcEvent)
-        // const winData = ipcEvent.data.data.windowData
-        // this.windowData = winData
-        // this.processChange.emit(ipcEvent.data.data)
-        this.electronService.ipcClient.unlisten('set:id', listenFunc)
-
-        // resolve(winData)
-        resolve()
-      }
-
-      this.electronService.ipcClient.listen('set:id', listenFunc)
-
-      this.electronService.ipcClient.send('set:id', { hWnd: hWnd, appUserModelIdInput: id })
-      console.log('sent')
-    })
+    this.windowSettingsUi.setAppUserModelId(this.appUserModelIdInput)
+      .subscribe(_ => console.log('onClickAppUserModelIdSetBtn done'))
   }
 
 }

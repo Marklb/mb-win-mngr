@@ -13,8 +13,6 @@ import { ElectronService } from './providers/electron.service'
 import { AppWindowService } from './providers/app-window.service'
 
 import { AppComponent } from './components/app.component'
-import { ProcessSettingsComponent } from './components/process-settings/process-settings.component'
-import { WindowSettingsBaseComponent } from './components/window-settings-base/window-settings-base.component'
 import { WindowGroupsComponent } from './components/window-groups/window-groups.component'
 import { ElectronWindowBaseComponent } from './components/electron-window-base/electron-window-base.component'
 import { MainComponent } from './components/main/main.component'
@@ -32,7 +30,6 @@ const appRoutes: Routes = [
   { path: 'debug-panel', component: DebugPanelComponent },
   { path: 'hotkeys-manager', component: WindowBaseHotkeysManagerComponent },
   { path: 'window-groups', component: WindowGroupsComponent },
-  { path: 'window-settings/:hWnd', component: WindowSettingsBaseComponent },
   {
     path: 'extension', component: ExtensionBaseComponent,
     children: extensionRoutes
@@ -44,7 +41,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProcessSettingsComponent,
     WindowGroupsComponent,
     ElectronWindowBaseComponent,
     MainComponent,
@@ -53,7 +49,6 @@ const appRoutes: Routes = [
     HotkeysListComponent,
     HotkeyPanelComponent,
     DebugPanelComponent,
-    WindowSettingsBaseComponent,
     WindowUiTitleBarComponent,
     WindowBaseHotkeysManagerComponent,
     ExtensionBaseComponent

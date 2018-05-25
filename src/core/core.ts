@@ -77,12 +77,12 @@ export class Core {
     // this._registerActions()
 
     // TODO: Move to an extension
-    const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
-      width: 600,
-      height: 800,
-      frame: false
-    } as Electron.BrowserWindowConstructorOptions)
-    win2.webContents.openDevTools()
+    // const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
+    //   width: 600,
+    //   height: 800,
+    //   frame: false
+    // } as Electron.BrowserWindowConstructorOptions)
+    // win2.webContents.openDevTools()
 
     require('devtron').install()
 

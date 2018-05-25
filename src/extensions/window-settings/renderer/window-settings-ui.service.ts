@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import { ElectronService } from 'app/providers/electron.service'
 import { WindowSettingsUiComponent } from './window-settings-ui/window-settings-ui.component'
-import { Subject, BehaviorSubject } from 'rxjs'
+import { Subject, BehaviorSubject, from, of, Observable } from 'rxjs'
+import { take, switchMap, tap, switchMapTo } from 'rxjs/operators'
 import { IpcAction, IpcEvent } from 'shared/ipc'
 import { Process } from 'models/process'
 import { WindowData } from 'models/window-data'
@@ -40,6 +41,11 @@ export class WindowSettingsUiService {
     console.log('setHwnd END')
   }
 
+  public reload(): Observable<void> {
+    return this.hWnd$
+      .pipe(switchMap(hWnd => from(this.setHwnd(hWnd))))
+  }
+
   private async _loadWindowData(hWnd: number) {
     return new Promise<WindowData>((resolve, reject) => {
       const listenFunc = async (ipcEvent: IpcEvent) => {
@@ -56,6 +62,19 @@ export class WindowSettingsUiService {
 
       this.electronService.ipcClient.send(IpcAction.GetWindowData, { hWnd: hWnd })
     })
+  }
+
+  public setAppUserModelId(id: string): Observable<void> {
+    return this.hWnd$
+      .pipe(take(1))
+      .pipe(tap(hWnd => console.log('hWnd', hWnd)))
+      .pipe(switchMap(hWnd =>
+        from(this.electronService.ipcClient.asyncSend('ext:setAppUserModelId', {
+          hWnd: hWnd,
+          appUserModelId: id
+        })
+      )))
+      .pipe(tap(_ => this.reload()))
   }
 
 }

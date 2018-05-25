@@ -51,13 +51,26 @@ export class IpcClient {
       this.registeredIpcActions[actionName].filter(f => f !== func)
   }
 
-  send(action: IpcAction | string, data: any = {}) {
+  public send(action: IpcAction | string, data: any = {}) {
     const ipcData = new IpcData
     ipcData.actionName = action
     ipcData.type = IpcDataType.ElectronRenderer
     ipcData.data = data
     // console.log('IpcClient.send: ', ipcData)
     this.ipcRenderer.send(IpcConstants.MsgFromClient, ipcData)
+  }
+
+  public async asyncSend(action: IpcAction | string, data: any = {}): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const listenFunc = async (ipcEvent: IpcEvent) => {
+        this.unlisten(action, listenFunc)
+        resolve(ipcEvent)
+      }
+
+      this.listen(action, listenFunc)
+
+      this.send(action, data)
+    })
   }
 
 }
