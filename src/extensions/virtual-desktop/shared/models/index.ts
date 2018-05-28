@@ -1,10 +1,10 @@
 export interface IVirtualDesktopProcessItem {
-  index: number,
+  index: number
   hWnd: number
 }
 
 export interface IVirtualDesktop {
-  desktopName: string,
+  desktopName: string
   processItems: IVirtualDesktopProcessItem[]
 }
 

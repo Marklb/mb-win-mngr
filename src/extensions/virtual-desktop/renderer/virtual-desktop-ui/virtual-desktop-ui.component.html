@@ -1,32 +1,8 @@
-<div class="card" *ngIf="selectedVirtualDesktop" fxFlex="grow">
-  <div class="card-header p-1">
-    <div class="input-group btn-group-sm">
-      <div class="input-group-prepend">
-        <button class="btn btn-outline-secondary" type="button"
-          (click)="onClickPrevBtn($event)">
-          <i class="fa fa-angle-double-left"></i>
-        </button>
-      </div>
-      <div class="card" style="width: 100%;">
-        <div class="card-body text-center p-1">
-          <span>{{ selectedVirtualDesktop.desktopName }}</span>
-        </div>
-      </div>
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button"
-          (click)="onClickNextBtn($event)">
-          <i class="fa fa-angle-double-right"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="card-body p-1" fxFlex="grow">
-    <div *ngFor="let item of processItems" class="card p-2 mb-1">
-      <span style="color: rgba(180,180,180,1)">{{ item.index }}: </span>
-      <span>{{ item?.hWnd }}</span>
-    </div>
-  </div>
-  <div class="card-footer p-1">
-    <span>Status: {{ actionState }}</span>
-  </div>
-</div>
+<ng-container *ngIf="(virtualDesktop.selectedGroup$ | async) as selectedGroup; else noneExist">
+  <virtual-desktop-switcher-bar></virtual-desktop-switcher-bar>
+  <virtual-desktop-none-exist></virtual-desktop-none-exist>
+  <virtual-desktop-processes-manager></virtual-desktop-processes-manager>
+</ng-container>
+<ng-template #noneExist>
+  <virtual-desktop-none-exist></virtual-desktop-none-exist>
+</ng-template>

@@ -1,0 +1,24 @@
+<div fxLayout="row">
+  <!-- Previous -->
+  <button class="btn btn-outline-secondary" type="button"
+    (click)="onClickPrevBtn($event)">
+    <i class="fa fa-angle-double-left"></i>
+  </button>
+  <!-- Current Desktop -->
+  <div class="card-body text-center p-1" fxFlex="grow">
+    <ng-container *ngIf="(selectedGroup$ | async) as selectedGroup; else noneTpl">
+      <span>{{ selectedGroup.groupName }}</span>
+    </ng-container>
+    <!-- <ng-container *ngIf="selectedGroup; else noneTpl">
+      <span>{{ selectedGroup.groupName }}</span>
+    </ng-container> -->
+    <ng-template #noneTpl>
+      <span>None</span>
+    </ng-template>
+  </div>
+  <!-- Next -->
+  <button class="btn btn-outline-secondary" type="button"
+    (click)="onClickNextBtn($event)">
+    <i class="fa fa-angle-double-right"></i>
+  </button>
+</div>

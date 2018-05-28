@@ -1,14 +1,15 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core'
 import { ElectronService } from 'app/providers/electron.service'
 import { IpcEvent } from 'shared/ipc'
-import { VirtualDesktopGroupInfo } from 'extensions/virtual-desktop/main/virtual-desktop-common'
 import { previousVirtualDesktopIndex, nextVirtualDesktopIndex } from '../../shared/redux/actions/virtual-desktop'
 import { IVirtualDesktopProcessItem } from '../../../virtual-desktop/shared/models'
+import { VirtualDesktopService } from '../virtual-desktop.service'
 
 @Component({
   selector: 'app-virtual-desktop-ui',
   templateUrl: './virtual-desktop-ui.component.html',
-  styleUrls: ['./virtual-desktop-ui.component.scss']
+  styleUrls: ['./virtual-desktop-ui.component.scss'],
+  providers: [ VirtualDesktopService ]
 })
 export class VirtualDesktopUiComponent implements OnInit {
 
@@ -17,13 +18,16 @@ export class VirtualDesktopUiComponent implements OnInit {
   public actionState: string
   public processItems: IVirtualDesktopProcessItem[] = []
 
-  constructor(private ref: ChangeDetectorRef,
-              private electronService: ElectronService) {
-    this.electronService.store.subscribe(async () => { this.onStateUpdated() })
+  constructor(
+    public ref: ChangeDetectorRef,
+    public electronService: ElectronService,
+    public virtualDesktop: VirtualDesktopService
+  ) {
+    // this.electronService.store.subscribe(async () => { this.onStateUpdated() })
   }
 
   ngOnInit() {
-    this.onStateUpdated()
+    // this.onStateUpdated()
   }
 
   private onStateUpdated(): void {
@@ -58,13 +62,4 @@ export class VirtualDesktopUiComponent implements OnInit {
       return vd.virtualDesktops[this.selectedVirtualDesktopIndex]
     }
   }
-
-  public onClickPrevBtn(event: any) {
-    this.electronService.store.dispatch(previousVirtualDesktopIndex())
-  }
-
-  public onClickNextBtn(event: any) {
-    this.electronService.store.dispatch(nextVirtualDesktopIndex())
-  }
-
 }

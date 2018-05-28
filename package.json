@@ -36,7 +36,7 @@
     "@marklb/mb-hotkeys": "^1.0.4",
     "@marklb/mb-winapi-node": "^1.0.33",
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
-    "@swimlane/ngx-datatable": "^12.0.0",
+    "@swimlane/ngx-datatable": "^13.0.0",
     "angular2-draggable": "^1.4.1",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.6",
