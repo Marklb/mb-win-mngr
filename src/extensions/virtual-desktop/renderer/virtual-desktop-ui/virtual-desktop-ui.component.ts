@@ -29,36 +29,37 @@ export class VirtualDesktopUiComponent implements OnInit {
     // this.onStateUpdated()
   }
 
-  private onStateUpdated(): void {
-    const state = this.electronService.store.getState()
-    console.log('state: ', state)
-    this.updateSelectedVirtualDesktopIndex()
-    this.actionState = state.virtualDesktop.actionState
+  // private onStateUpdated(): void {
+  //   const state = this.electronService.store.getState()
+  //   console.log('state: ', state)
+  //   this.updateSelectedVirtualDesktopIndex()
+  //   this.actionState = state.virtualDesktop.actionState
 
-    const i = state.virtualDesktop.selectedVirtualDesktopIndex
-    if (i !== undefined) {
-      const vDesktop = state.virtualDesktop.virtualDesktops[i]
-      const items = vDesktop.processItems
-      // for (const item of items) {
-      //   // this.processItems[item.index - 1] = item
-      // }
-      this.processItems = [...items]
-    }
+  //   const i = state.virtualDesktop.selectedVirtualDesktopIndex
+  //   if (i !== undefined) {
+  //     const vDesktop = state.virtualDesktop.virtualDesktops[i]
+  //     const items = vDesktop.processItems
+  //     // for (const item of items) {
+  //     //   // this.processItems[item.index - 1] = item
+  //     // }
+  //     this.processItems = [...items]
+  //   }
 
-    this.ref.detectChanges()
-  }
+  //   this.ref.detectChanges()
+  // }
 
   public updateSelectedVirtualDesktopIndex(): void {
-    const state = this.electronService.store.getState()
-    const idx = state.virtualDesktop.selectedVirtualDesktopIndex
-    this.selectedVirtualDesktopIndex = idx
+    // const state = this.electronService.store.getState()
+    // const idx = state.virtualDesktop.selectedVirtualDesktopIndex
+    // this.selectedVirtualDesktopIndex = idx
   }
 
   public get selectedVirtualDesktop(): any {
-    if (this.selectedVirtualDesktopIndex >= 0) {
-      const state = this.electronService.store.getState()
-      const vd = state.virtualDesktop
-      return vd.virtualDesktops[this.selectedVirtualDesktopIndex]
-    }
+    // if (this.selectedVirtualDesktopIndex >= 0) {
+    //   const state = this.electronService.store.getState()
+    //   const vd = state.virtualDesktop
+    //   return vd.virtualDesktops[this.selectedVirtualDesktopIndex]
+    // }
+    return null
   }
 }
