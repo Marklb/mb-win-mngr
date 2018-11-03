@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { Injector } from '../../shared/common/injector'
 
 export interface IExtensionOptions {
-  reduxReducers?: any[]
+  name?: string
 }
 
 export interface IExtension {

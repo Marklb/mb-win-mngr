@@ -5,11 +5,11 @@ import { processesListRoutes, ProcessesListModule } from './processes-list/rende
 export const extensionRoutes = [
   ...virtualDesktopRoutes,
   ...windowSettingsRoutes,
-  ...processesListRoutes
+  ...processesListRoutes,
 ]
 
 export const extensionModules = [
   VirtualDesktopModule,
   WindowSettingsModule,
-  ProcessesListModule
+  ProcessesListModule,
 ]

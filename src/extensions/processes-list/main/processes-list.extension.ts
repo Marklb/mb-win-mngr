@@ -4,8 +4,6 @@ import { Subscription } from 'rxjs'
 import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
 import { ActionsManager } from '../../../core/actions-manager'
 import { WindowsManager } from '../../../core/windows-manager'
-import { StoreContainer } from '../../../shared/redux/store/configureStore'
-import { Store } from 'redux'
 import * as winApi from '@marklb/mb-winapi-node'
 import { WinApiTypes, toRouteUrl, extensionsPath } from '../../../core/utilities'
 const robotjs = require ('robot-js')
@@ -28,16 +26,11 @@ export class ProcessesListExtension implements IExtension {
 
   public winUrl: string = toRouteUrl('extension/processes-list')
 
-  public store: Store<any>
-
   constructor(
     public actionsManager: ActionsManager,
     public windowsManager: WindowsManager,
     public hotkeyManager: HotkeyManager,
-    public storeContainer: StoreContainer
-  ) {
-    this.store = this.storeContainer.store
-  }
+  ) { }
 
   initialize(): void {
     this._initActions()

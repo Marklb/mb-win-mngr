@@ -9,10 +9,6 @@ import { Injector, Inject } from '../../../shared/common/injector'
 import { ActionsManager } from '../../../core/actions-manager'
 import { WindowsManager } from '../../../core/windows-manager'
 import { IpcServer } from '../../../shared/ipc/ipc-server'
-import { StoreContainer } from '../../../shared/redux/store/configureStore'
-import { Store } from 'redux'
-import { addVirtualDesktop, updateVirtualDesktopIndex, setVirtualDesktopState,
-  setVirtualDesktopProcess } from '../shared/redux/actions/virtual-desktop'
 import { VirtualDesktopActionState } from '../shared/models'
 import * as winApi from '@marklb/mb-winapi-node'
 import * as winApiUtils from '../../../core/utilities/win-api-utils'
@@ -326,6 +322,10 @@ export class VirtualDesktopExtension implements IExtension {
 
   }
 
+  /**
+   *
+   * @param group$
+   */
   public groupIndex(group$: Observable<VirtualDesktopGroup>): Observable<number> {
     return group$
       .pipe(switchMap(group =>
@@ -352,6 +352,10 @@ export class VirtualDesktopExtension implements IExtension {
       })
   }
 
+  /**
+   *
+   * @param idx
+   */
   public selectVirtualDesktopByIndex(idx: number) {
     console.log('selectVirtualDesktopByIndex', idx)
     forkJoin(

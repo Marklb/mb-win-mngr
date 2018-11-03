@@ -11,10 +11,7 @@ import { WindowUrls } from './windows-manager-utils'
 import { ActionsManager } from './actions-manager'
 import { ExtensionManager } from './extension-manager/extension-manager'
 import { Subscription } from 'rxjs'
-import configureStore, { StoreContainer } from '../shared/redux/store/configureStore'
-import { setGithubEnabled } from '../shared/redux/actions/settings'
 import { Inject, Injector } from '../shared/common/injector'
-import { Store } from 'redux'
 const { ipcMain } = require('electron')
 const robotjs = require ('robot-js')
 
@@ -35,20 +32,9 @@ export class Core {
 
   private _subscriptions: Subscription[] = []
 
-  public storeContainer: StoreContainer
-  public store: Store<any>
-
   constructor() { }
 
   public async init(): Promise<any> {
-    this.store = configureStore(global.state, 'main')
-    this.storeContainer = Injector.get(StoreContainer)
-    this.storeContainer.store = this.store
-
-    // this.store.subscribe(async () => {
-    //   console.log('Core state: ', this.store.getState())
-    // })
-
     this.ipcServer = Injector.get(IpcServer)
     this.windowsManager = Injector.get(WindowsManager)
     this.actionsManager = Injector.get(ActionsManager)
@@ -164,9 +150,7 @@ export class Core {
       }))
 
     this._subscriptions.push(this.actionsManager
-      .registerAction('test:action2').subscribe(data => {
-        this.store.dispatch(setGithubEnabled(true))
-      }))
+      .registerAction('test:action2').subscribe(data => console.log(data)))
 
     this._subscriptions.push(this.actionsManager
       .registerAction('test:action3').subscribe(data => console.log(data)))

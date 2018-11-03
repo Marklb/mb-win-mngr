@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core'
 import { ElectronService } from 'app/providers/electron.service'
 import { IpcEvent } from 'shared/ipc'
-import { previousVirtualDesktopIndex, nextVirtualDesktopIndex } from '../../shared/redux/actions/virtual-desktop'
 import { IVirtualDesktopProcessItem } from '../../../virtual-desktop/shared/models'
 import { VirtualDesktopService } from '../virtual-desktop.service'
 
