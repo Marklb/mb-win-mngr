@@ -30,8 +30,6 @@ export class ElectronService {
 
   public ipcClient: IpcClient
 
-  public store: any
-
   constructor(public zone: NgZone) {
     // Conditional imports
     if (this.isElectron()) {
