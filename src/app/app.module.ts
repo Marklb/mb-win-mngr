@@ -18,7 +18,6 @@ import { ElectronWindowBaseComponent } from './components/electron-window-base/e
 import { MainComponent } from './components/main/main.component'
 import { RouteNotFoundComponent } from './components/route-not-found/route-not-found.component'
 import { HotkeysManagerComponent, HotkeysListComponent, HotkeyPanelComponent } from './components/hotkeys'
-import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-title-bar/window-ui-title-bar.component'
 import { WindowBaseHotkeysManagerComponent } from './components/window-base'
 import { ExtensionBaseComponent } from './components/extension-base/extension-base.component'
@@ -27,7 +26,6 @@ import { extensionRoutes, extensionModules } from 'extensions'
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: 'debug-panel', component: DebugPanelComponent },
   { path: 'hotkeys-manager', component: WindowBaseHotkeysManagerComponent },
   { path: 'window-groups', component: WindowGroupsComponent },
   {
@@ -48,7 +46,6 @@ const appRoutes: Routes = [
     HotkeysManagerComponent,
     HotkeysListComponent,
     HotkeyPanelComponent,
-    DebugPanelComponent,
     WindowUiTitleBarComponent,
     WindowBaseHotkeysManagerComponent,
     ExtensionBaseComponent
@@ -70,10 +67,6 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     NgxDatatableModule,
     ...extensionModules
-  ],
-  providers: [
-    ElectronService,
-    AppWindowService
   ],
   bootstrap: [AppComponent]
 })

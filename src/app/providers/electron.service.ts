@@ -14,7 +14,7 @@ import { IpcData, IpcConstants, IpcAction, IpcEvent } from 'shared/ipc'
 import { IpcClient } from 'shared/ipc/ipc-client'
 import { WinApiTypes } from 'core/utilities/win-api-utils'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ElectronService {
 
   // public ipcRenderer: typeof ipcRenderer

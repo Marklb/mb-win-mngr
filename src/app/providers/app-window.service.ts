@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs'
 import { ipcRenderer } from 'electron'
 import * as childProcess from 'child_process'
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AppWindowService {
 
   public childProcess: typeof childProcess

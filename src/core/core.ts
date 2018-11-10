@@ -72,9 +72,6 @@ export class Core {
 
     require('devtron').install()
 
-    // const win2 = core.windowsManager.openWindow(WindowUrls.DebugWindow)
-
-
     // win1.on('ready-to-show', () => { win2.focus() })
     // win2.on('ready-to-show', () => { win2.focus() })
 
