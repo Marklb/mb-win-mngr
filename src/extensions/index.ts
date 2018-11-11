@@ -1,15 +1,14 @@
-import { virtualDesktopRoutes, VirtualDesktopModule } from './virtual-desktop/renderer'
-import { windowSettingsRoutes, WindowSettingsModule } from './window-settings/renderer'
-import { processesListRoutes, ProcessesListModule } from './processes-list/renderer'
-
 export const extensionRoutes = [
-  ...virtualDesktopRoutes,
-  ...windowSettingsRoutes,
-  ...processesListRoutes,
-]
-
-export const extensionModules = [
-  VirtualDesktopModule,
-  WindowSettingsModule,
-  ProcessesListModule,
+  {
+    path: 'processes-list',
+    loadChildren: 'extensions/processes-list/renderer/processes-list.module#ProcessesListModule'
+  },
+  {
+    path: 'virtual-desktop',
+    loadChildren: 'extensions/virtual-desktop/renderer/virtual-desktop.module#VirtualDesktopModule'
+  },
+  {
+    path: 'window-settings-ui',
+    loadChildren: 'extensions/window-settings/renderer/window-settings.module#WindowSettingsModule'
+  }
 ]

@@ -45,7 +45,7 @@ export class ProcessesListExtension implements IExtension {
   }
 
   ready(): void {
-    // this.openWindow()
+    this.openWindow()
   }
 
   destroy(): void {

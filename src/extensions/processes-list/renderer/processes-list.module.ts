@@ -7,6 +7,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable'
 
 import { SharedModule } from 'app/shared/shared.module'
 
+import { ProcessesListRoutingModule } from './processes-list-router.module';
+
 import { ProcessesListComponent } from './processes-list/processes-list.component'
 
 
@@ -16,7 +18,8 @@ import { ProcessesListComponent } from './processes-list/processes-list.componen
     FlexLayoutModule,
     NgbModule,
     NgxDatatableModule,
-    SharedModule
+    SharedModule,
+    ProcessesListRoutingModule
   ],
   declarations: [ProcessesListComponent]
 })
