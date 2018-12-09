@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@win-mngr/core": [
+        "../src/core"
+      ],
+      "@win-mngr/core/*": [
+        "../src/core/*"
+      ],
+
+      "@win-mngr/ui": [
+        "../src/ui"
+      ],
+      "@win-mngr/ui/*": [
+        "../src/ui/*"
+      ],
+
+      "@win-mngr/ui-libs": [
+        "../src/ui-libs"
+      ],
+      "@win-mngr/ui-libs/*": [
+        "../src/ui-libs/*"
+      ],
+
+      "@win-mngr/extensions/*": [
+        "../src/extensions/*"
+      ]
+    }
+  }
+}

@@ -3,7 +3,7 @@ import * as fs from 'fs-extra'
 import * as stripJsonComments from 'strip-json-comments'
 import { IExtension } from './extension'
 import 'reflect-metadata'
-import { Injector } from '../../shared/common/injector'
+import { Injector } from '../common/injector'
 
 export class ExtensionManager {
 

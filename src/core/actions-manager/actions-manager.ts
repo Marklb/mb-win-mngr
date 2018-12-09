@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs'
-import { Inject } from '../../shared/common/injector'
+import { Inject } from '../common/injector'
 
 
 export interface ActionEvent {

@@ -1,4 +1,4 @@
-import { IpcSerializable, IpcSerializationObj } from '../../shared/ipc/ipc-common'
+import { IpcSerializable, IpcSerializationObj } from '../ipc/ipc-common'
 import { HotkeyInfo } from './hotkey-info'
 
 export class Hotkey implements IpcSerializable {

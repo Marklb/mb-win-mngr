@@ -1,11 +1,11 @@
 import { Hotkey } from './hotkey'
 import { HotkeyConfigItem } from './hotkey-config-item'
-import { IpcServer } from '../../shared/ipc/ipc-server'
-import { IpcEvent, IpcData, IpcAction, IpcSerializationObj } from '../../shared/ipc'
+import { IpcServer } from '../ipc/ipc-server'
+import { IpcEvent, IpcData, IpcAction, IpcSerializationObj } from '../ipc'
 import { ActionsManager } from '../actions-manager'
 import { MBHotkeys, MBHotkeyEvent, MBHotkeysConstants } from '@marklb/mb-hotkeys'
 import { fork } from 'child_process'
-import { Inject } from '../../shared/common/injector'
+import { Inject } from '../common/injector'
 const fs = require('fs')
 
 @Inject
@@ -26,7 +26,7 @@ export class HotkeyManager {
     // console.log('_startListeningTask')
     // this.mbHotkeys.startListening()
 
-    this._forkedMBHotkeyProcess = fork('./dist/core/core/hotkeys/mb-hotkeys-process.js')
+    this._forkedMBHotkeyProcess = fork('./dist/core/hotkeys/mb-hotkeys-process.js')
 
     this._forkedMBHotkeyProcess.on('message', (msg) => {
       // console.log('Message from child', msg)

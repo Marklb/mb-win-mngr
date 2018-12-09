@@ -1,25 +1,15 @@
-import { WindowsManager } from './windows-manager'
+import { Subscription } from 'rxjs'
+
 import * as winApi from '@marklb/mb-winapi-node'
+
+import { WindowsManager, WindowUrls } from './windows-manager'
 import * as winApiUtils from './utilities/win-api-utils'
-import { Process } from '../models/process'
-import { WindowData } from '../models/window-data'
-import { IpcServer } from '../shared/ipc/ipc-server'
-import { IpcAction, IpcEvent, IpcData, IpcDataType } from '../shared/ipc'
 import { WinApiTypes } from './utilities/win-api-utils'
+import { IpcServer, IpcAction, IpcEvent, IpcData, IpcDataType } from './ipc'
 import { HotkeyManager } from './hotkeys'
-import { WindowUrls } from './windows-manager-utils'
 import { ActionsManager } from './actions-manager'
 import { ExtensionManager } from './extension-manager/extension-manager'
-import { Subscription } from 'rxjs'
-import { Inject, Injector } from '../shared/common/injector'
-const { ipcMain } = require('electron')
-const robotjs = require ('robot-js')
-
-import { VirtualDesktopExtension } from '../extensions/virtual-desktop/main/virtual-desktop.extension'
-import { WindowSettingsExtension } from '../extensions/window-settings/main/window-settings.extension'
-import { ProcessesListExtension } from '../extensions/processes-list/main/processes-list.extension'
-
-declare var global: any
+import { Injector } from './common/injector'
 
 // @Inject
 export class Core {
@@ -38,7 +28,6 @@ export class Core {
     this.ipcServer = Injector.get(IpcServer)
     this.windowsManager = Injector.get(WindowsManager)
     this.actionsManager = Injector.get(ActionsManager)
-    // this.hotkeyManager = new HotkeyManager(this.ipcServer, this.actionsManager)
     this.hotkeyManager = Injector.get(HotkeyManager)
 
     this._registerActions()
@@ -48,9 +37,11 @@ export class Core {
 
     //
     this.extensionManager = new ExtensionManager(this, [
-      VirtualDesktopExtension,
-      WindowSettingsExtension,
-      ProcessesListExtension
+      // VirtualDesktopExtension,
+      // WindowSettingsExtension,
+      // ProcessesListExtension,
+      // ExtTestAkitaExtension,
+      // WindowPresetsExtension
     ])
     await this.extensionManager.loadExtensions()
 
@@ -63,14 +54,15 @@ export class Core {
     // this._registerActions()
 
     // TODO: Move to an extension
-    const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
-      width: 600,
-      height: 800,
-      frame: false
-    } as Electron.BrowserWindowConstructorOptions)
-    win2.webContents.openDevTools()
+    // const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
+    //   width: 600,
+    //   height: 800,
+    //   frame: false
+    // } as Electron.BrowserWindowConstructorOptions)
+    // win2.webContents.openDevTools()
 
     require('devtron').install()
+    // require('electron-redux-devtools').install()
 
     // win1.on('ready-to-show', () => { win2.focus() })
     // win2.on('ready-to-show', () => { win2.focus() })

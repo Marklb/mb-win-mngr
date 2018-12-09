@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { Injector } from '../../shared/common/injector'
+import { Injector } from '../common/injector'
 
 export interface IExtensionOptions {
   name?: string
