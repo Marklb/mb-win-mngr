@@ -11,7 +11,7 @@
     "ng:build:watch": "ng build --watch",
     "core:build": "npm run core:clean && tsc -p src/core/tsconfig.core.json",
     "core:clean": "rimraf dist/core",
-    "core:build:watch": "npm run build:core -- --watch",
+    "core:build:watch": "npm run core:build -- --watch",
     "extensions:build": "tsc -p tsconfig.extensions.json",
     "extensions:build:watch": "tsc -p tsconfig.extensions.json --watch",
     "test": "ng test",
@@ -61,6 +61,7 @@
     "robot-js": "git+https://github.com/p120ph37/robot-js.git",
     "rxjs": "^6.3.3",
     "strip-json-comments": "^2.0.1",
+    "winston": "^3.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

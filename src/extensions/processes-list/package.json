@@ -1,0 +1,7 @@
+{
+  "name": "processes-list",
+  "displayName": "Processes List",
+  "description": "Lists processes.",
+  "version": "0.0.0",
+  "main": "./out/extension"
+}

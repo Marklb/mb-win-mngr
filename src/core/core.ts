@@ -25,6 +25,7 @@ export class Core {
   constructor() { }
 
   public async init(): Promise<any> {
+    console.log('Init Core')
     this.ipcServer = Injector.get(IpcServer)
     this.windowsManager = Injector.get(WindowsManager)
     this.actionsManager = Injector.get(ActionsManager)
