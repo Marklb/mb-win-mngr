@@ -7,12 +7,12 @@ import * as childProcess from 'child_process'
 
 import { Observable, Subject } from 'rxjs'
 
-import { Process } from 'models/process'
-import { WindowData } from 'models/window-data'
+import { Process } from '@win-mngr/core/models/process'
+import { WindowData } from '@win-mngr/core/models/window-data'
 
-import { IpcData, IpcConstants, IpcAction, IpcEvent } from 'shared/ipc'
-import { IpcClient } from 'shared/ipc/ipc-client'
-import { WinApiTypes } from 'core/utilities/win-api-utils'
+import { IpcData, IpcConstants, IpcAction, IpcEvent } from '@win-mngr/core/ipc/index'
+import { IpcClient } from '@win-mngr/core/ipc/ipc-client'
+import { WinApiTypes } from '@win-mngr/core/utilities/win-api-utils'
 
 @Injectable({ providedIn: 'root' })
 export class ElectronService {

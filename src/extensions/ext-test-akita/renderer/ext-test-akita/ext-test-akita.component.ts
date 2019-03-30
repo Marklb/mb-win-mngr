@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core'
 
-import { ElectronService } from 'app/providers/electron.service'
+import { ElectronService } from '@win-mngr/ui/app/providers/electron.service'
 
-import { TodosQuery, TodosService } from 'extensions/ext-test-akita/state'
+import { TodosQuery, TodosService } from '@win-mngr/extensions/ext-test-akita/state'
 
 @Component({
   selector: 'app-ext-test-akita',

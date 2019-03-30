@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
@@ -13,11 +14,13 @@ import { ProcessesListComponent } from './processes-list/processes-list.componen
 @NgModule({
   imports: [
     CommonModule,
+    BrowserModule,
     // FlexLayoutModule,
     // NgbModule,
     // NgxDatatableModule,
     // SharedModule,
   ],
-  declarations: [ProcessesListComponent]
+  declarations: [ProcessesListComponent],
+  bootstrap: [ProcessesListComponent]
 })
 export class ExtensionModule { }

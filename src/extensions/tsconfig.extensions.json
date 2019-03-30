@@ -1,12 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/renderer",
+    "outDir": "../../dist/extensions",
     "baseUrl": "./",
     "module": "commonjs"
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ]
+  }
 }

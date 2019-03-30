@@ -54,6 +54,65 @@ const insertStrAt = (str, ins, idx) => {
   return str.slice(0, idx) + ins + str.slice(idx)
 }
 
+// const defaultTask = () => {
+//   // const child = exec('npm run build:ng-watch', { async: true })
+//   // child.stdout.on('data', (data) => {
+//   //   console.log('data', c.red('[') + data + c.red(']'))
+//   //   parseLine(data)
+//   // })
+
+//   const ptyProcess = pty.spawn(shell, ['npm', 'run', 'build:ng-watch'], {
+//     name: 'xterm-color',
+//     cols: 200,
+//     rows: 30,
+//     cwd: __dirname,
+//     env: process.env
+//   });
+
+//   ptyProcess.on('data', function(data) {
+//     // console.log(data)
+//     const m = data.match(ansiRegex())
+//     // console.log(m, m && m.length > 0 ? data.indexOf(0) : '')
+//     // console.log(m, m && m.length > 0 ? data.charAt(m[0].length + 1) : '')
+
+//     const r = findClearRange(data)
+//     // console.log('r', r)
+
+//     if (r) {
+//       // process.stdout.write(insertStrAt(data, '~~', r[0] + r[1]))
+//       console.log('r', r, m)
+//       console.log(insertStrAt(data, '~~', r[0] + r[1] + 1))
+//     } else {
+//       // process.stdout.write(data)
+//       console.log(data)
+//     }
+
+
+//     // let idxStr = ''
+//     // for (let i = 0; i < m.length; i++) { idxStr += data.indexOf(m[i]) + ' ' }
+//     // console.log(m, idxStr)
+//     // console.log(typeof data)
+
+
+
+//     // process.stdout.write(c.blue('--'))
+//     // process.stdout.write(data)
+//     // if (data.indexOf('\%') !== -1) {
+//     //   let s = ''
+//     //   for (let i = 0; i < Math.min(10, data.length); i++) {
+//     //     // process.stdout.write(data.charCodeAt(i) + ' ')
+//     //     s += data.charCodeAt(i) + ' '
+//     //   }
+//     //   console.log(s)
+//     // }
+//     // parseLine(data)
+
+//     // console.log(c.red('-----------'))
+//     // console.log(c.red('--[') + data + c.blue(']--'))
+//     // console.log(c.blue('-----------'))
+//   });
+// }
+
 const defaultTask = () => {
   // const child = exec('npm run build:ng-watch', { async: true })
   // child.stdout.on('data', (data) => {
@@ -65,7 +124,7 @@ const defaultTask = () => {
     name: 'xterm-color',
     cols: 200,
     rows: 30,
-    cwd: __dirname,
+    cwd: `${__dirname}/src/extensions`,
     env: process.env
   });
 

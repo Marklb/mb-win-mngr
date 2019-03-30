@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools'
 
-import { SharedModule } from 'app/shared/shared.module'
+// import { SharedModule } from 'app/shared/shared.module'
 
 import { ExtTestAkitaRoutingModule } from './ext-test-akita-router.module'
 
@@ -14,7 +14,7 @@ import { ExtTestAkitaComponent } from './ext-test-akita/ext-test-akita.component
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    // SharedModule,
     HttpClientModule,
     AkitaNgDevtools.forRoot(),
     ExtTestAkitaRoutingModule

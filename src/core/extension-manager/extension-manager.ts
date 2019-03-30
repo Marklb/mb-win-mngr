@@ -7,6 +7,51 @@ import { IExtension } from './extension'
 import 'reflect-metadata'
 import { Injector } from '../common/injector'
 
+
+
+// const tsConfig = require('../../../tsconfig.json')
+const tsConfigPaths = require('tsconfig-paths')
+
+const baseUrl = './'; // Either absolute or relative path. If relative it's resolved to current working directory.
+
+// const cleanup = tsConfigPaths.register({
+//   baseUrl,
+//   // paths: tsConfig.compilerOptions.paths
+//   paths: {
+//     '@win-mngr/core': [
+//       './dist/core'
+//     ],
+//     '@win-mngr/core/*': [
+//       './dist/core/*'
+//     ],
+
+//     '@win-mngr/ui': [
+//       './dist/ui'
+//     ],
+//     '@win-mngr/ui/*': [
+//       './dist/ui/*'
+//     ],
+
+//     '@win-mngr/ui-libs': [
+//       './dist/ui-libs'
+//     ],
+//     '@win-mngr/ui-libs/*': [
+//       './dist/ui-libs/*'
+//     ],
+
+//     '@win-mngr/extensions': [
+//       './dist/extensions'
+//     ],
+//     '@win-mngr/extensions/*': [
+//       './dist/extensions/*'
+//     ]
+//   }
+// })
+
+// When path registration is no longer needed
+// cleanup()
+
+
 export const EXTENSIONS_DIR = 'E:/Git/mb-win-mngr/src/extensions'
 
 export class ExtensionManager {
@@ -21,7 +66,18 @@ export class ExtensionManager {
     const extDirs = await this.getExtensionDirectories(EXTENSIONS_DIR)
     console.log(extDirs)
 
-    console.log('ExtensionManager: Start loading extensions')
+    const cleanup = this.patchPaths()
+    const _tmpPath = `${EXTENSIONS_DIR}/processes-list/dist/out-tsc/extensions/processes-list/src/main/processes-list.extension.js`
+    console.log('_tmpPath', _tmpPath)
+    const _tmpExt = require(_tmpPath)
+    console.log(_tmpExt)
+    console.log(_tmpExt.extension)
+    // const _ext = new _tmpExt.extension()
+    // _ext.initialize()
+    this.extensions.push(_tmpExt.extension)
+    cleanup()
+
+    console.log('ExtensionManager1: Start loading extensions')
     for (const extEntry of this.extensions) {
       const ext: IExtension = new (<any>extEntry)()
       // const ext: IExtension = Injector.get(extEntry)
@@ -33,11 +89,13 @@ export class ExtensionManager {
       ext.initialize()
       this._loadedExtensions.push(ext)
     }
-    console.log('ExtensionManager: Done loading extensions')
+    console.log('ExtensionManager1: Done loading extensions')
   }
 
   public async ready(): Promise<any> {
+    console.log('Ready!!', this._loadedExtensions.length)
     for (const ext of this._loadedExtensions) {
+      console.log('Start Extension: ', ext.extensionName)
       ext.ready()
     }
   }
@@ -61,6 +119,42 @@ export class ExtensionManager {
     }
 
     return dirs
+  }
+
+  private patchPaths() {
+    return tsConfigPaths.register({
+      baseUrl,
+      // paths: tsConfig.compilerOptions.paths
+      paths: {
+        '@win-mngr/core': [
+          './dist/core'
+        ],
+        '@win-mngr/core/*': [
+          './dist/core/*'
+        ],
+
+        '@win-mngr/ui': [
+          './dist/ui'
+        ],
+        '@win-mngr/ui/*': [
+          './dist/ui/*'
+        ],
+
+        '@win-mngr/ui-libs': [
+          './dist/ui-libs'
+        ],
+        '@win-mngr/ui-libs/*': [
+          './dist/ui-libs/*'
+        ],
+
+        '@win-mngr/extensions': [
+          './dist/extensions'
+        ],
+        '@win-mngr/extensions/*': [
+          './dist/extensions/*'
+        ]
+      }
+    })
   }
 
 }

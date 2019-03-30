@@ -54,6 +54,13 @@ export class Core {
     //
     // this._registerActions()
 
+    const win = this.windowsManager.openWindow('file:///E:/Git/mb-win-mngr/dist/ui/index.html', {
+      width: 600,
+      height: 800,
+      frame: false
+    } as Electron.BrowserWindowConstructorOptions)
+    win.webContents.openDevTools()
+
     // TODO: Move to an extension
     // const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
     //   width: 600,
@@ -140,7 +147,9 @@ export class Core {
       }))
 
     this._subscriptions.push(this.actionsManager
-      .registerAction('test:action2').subscribe(data => console.log(data)))
+      .registerAction('test:action2').subscribe(data => {
+
+      }))
 
     this._subscriptions.push(this.actionsManager
       .registerAction('test:action3').subscribe(data => console.log(data)))

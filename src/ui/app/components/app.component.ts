@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Process } from 'models/process'
+import { Process } from '@win-mngr/core/models/process'
 
 @Component({
   selector: 'app-root',

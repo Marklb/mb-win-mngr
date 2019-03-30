@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ElectronService } from '../../../app/providers/electron.service'
+// import { ElectronService } from '../../../app/providers/electron.service'
 import { BehaviorSubject, Observable, empty } from 'rxjs'
 import { VirtualDesktopGroup } from '../main/virtual-desktop-group'
 import { flatMap, find, take, switchMap, findIndex, map } from 'rxjs/operators'
-import { IpcEvent } from '../../../shared/ipc'
+// import { IpcEvent } from '../../../shared/ipc'
+
+import { IpcEvent } from 'src/core/ipc'
+import { ElectronService } from 'src/ui/app/providers/electron.service'
+// import { ElectronService } from '@win-mngr/ui/providers/electron.service'
 
 @Injectable()
 export class VirtualDesktopService {

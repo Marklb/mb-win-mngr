@@ -1,4 +1,4 @@
-import { IpcServer } from './../../../shared/ipc/ipc-server'
+import { IpcServer } from './../../../core/ipc/ipc-server'
 import { TodosQuery } from './../state/todos.query'
 import { TodosStore } from './../state/todos.store'
 import { IExtension, Extension } from '../../../core/extension-manager/extension'
@@ -9,7 +9,7 @@ import { ActionsManager } from '../../../core/actions-manager'
 import { WindowsManager } from '../../../core/windows-manager/windows-manager'
 import { toRouteUrl, extensionsPath } from '../../../core/utilities'
 
-import { IpcEvent } from '@win-mngr/shared'
+import { IpcEvent } from './../../../core/ipc/index'
 
 const extensionRootPath: string = `${extensionsPath()}/ext-test-akita`
 

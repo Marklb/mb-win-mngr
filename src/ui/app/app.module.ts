@@ -19,7 +19,9 @@ import { HotkeysManagerComponent, HotkeysListComponent, HotkeyPanelComponent } f
 import { WindowUiTitleBarComponent } from './components/window-ui/window-ui-title-bar/window-ui-title-bar.component'
 import { WindowBaseHotkeysManagerComponent } from './components/window-base'
 import { ExtensionBaseComponent } from './components/extension-base/extension-base.component'
-import { extensionRoutes } from 'extensions'
+
+// import { extensionRoutes } from '@win-mngr/extensions/index'
+import { extensionRoutes } from '../../extensions'
 
 
 const appRoutes: Routes = [

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { ElectronService } from 'app/providers/electron.service'
-import { IpcData, IpcDataType, IpcAction, IpcEvent } from 'shared/ipc'
-import { HotkeyInfo } from 'core/hotkeys/hotkey-info'
+import { ElectronService } from '@win-mngr/ui/app/providers/electron.service'
+import { IpcData, IpcDataType, IpcAction, IpcEvent } from '@win-mngr/core/ipc'
+import { HotkeyInfo } from '@win-mngr/core/hotkeys/hotkey-info'
 
 @Component({
   selector: 'app-hotkeys-manager',
