@@ -8,7 +8,7 @@
     "start-old": "ng serve",
     "build": "ng build",
     "ng:build": "ng build",
-    "ng:build:watch": "ng build --watch",
+    "ng:build:watch": "ng build --watch --tsConfig=src/ui/tsconfig.app.json",
     "core:build": "npm run core:clean && tsc -p src/core/tsconfig.core.json",
     "core:clean": "rimraf dist/core",
     "core:build:watch": "npm run core:build -- --watch",
