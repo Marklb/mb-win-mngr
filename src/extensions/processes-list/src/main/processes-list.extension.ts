@@ -11,6 +11,8 @@ import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
 import { Subscription } from 'rxjs'
 // const robotjs = require ('robot-js')
 
+// import { ACCENT_STATE, SetWindowCompositionAttribute } from 'windows-swca'
+
 const extensionRootPath = `${extensionsPath()}/processes-list`
 
 @Extension({})
@@ -79,8 +81,22 @@ export class ProcessesListExtension implements IExtension {
       const win = this.windowsManager.openWindow(this.winUrl, {
         width: 600,
         height: 800,
-        frame: false
+        frame: false,
+        backgroundColor: '#00000000',
+        show: true
       })
+
+      // win.once('ready-to-show', () => {
+      //   console.log('~~~~~~~~~SET VIBRANCY')
+      //   const attribValue = ACCENT_STATE.ACCENT_ENABLE_ACRYLICBLURBEHIND
+      //   const color = 0x01000000
+      //   SetWindowCompositionAttribute(win.getNativeWindowHandle(), attribValue, color)
+      // })
+
+      // setTimeout(() => {
+      //   win.show()
+      // }, 5000)
+
       win.webContents.openDevTools()
       this._windowRef = win
       this._windowOpen = true

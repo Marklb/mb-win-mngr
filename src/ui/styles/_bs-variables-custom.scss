@@ -109,7 +109,9 @@ $enable-rounded: false;
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $black-100;
+// $body-bg:                   $black-100;
+// $body-bg:                   rgba(60,80,180,0.8);
+$body-bg:                   transparent;
 $body-color:                $gray-300;
 
 // Components
