@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/renderer",
+    "outDir": "../../dist/out-tsc",
     "baseUrl": "./",
+    "module": "commonjs",
     "paths": {
       "@win-mngr/core": [
         "../../../../../src/core"
@@ -34,7 +35,6 @@
     }
   },
   "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+    "../renderer/*"
   ]
 }

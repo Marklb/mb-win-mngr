@@ -17,9 +17,16 @@
             "tsConfig": "src/renderer/tsconfig.renderer.json",
             "polyfills": "src/renderer/polyfills.ts",
             "assets": [
-              "src/renderer/favicon.ico"
+              "src/renderer/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "../../ui/assets",
+                "output": "assets/"
+              }
             ],
-            "styles": [],
+            "styles": [
+              "src/renderer/styles/styles.scss"
+            ],
             "scripts": [
               {
                 "input": "../../../node_modules/document-register-element/build/document-register-element.js"

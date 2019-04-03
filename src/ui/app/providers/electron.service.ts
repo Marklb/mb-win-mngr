@@ -3,6 +3,7 @@ import { Injectable, NgZone } from '@angular/core'
 // If you import a module but never use any of the imported values other than as TypeScript types,
 // the resulting javascript file will look as if you never imported the module at all.
 import { ipcRenderer } from 'electron'
+
 import * as childProcess from 'child_process'
 
 import { Observable, Subject } from 'rxjs'
@@ -10,7 +11,7 @@ import { Observable, Subject } from 'rxjs'
 import { Process } from '@win-mngr/core/models/process'
 import { WindowData } from '@win-mngr/core/models/window-data'
 
-import { IpcData, IpcConstants, IpcAction, IpcEvent } from '@win-mngr/core/ipc/index'
+import { IpcAction, IpcConstants, IpcData, IpcEvent } from '@win-mngr/core/ipc/index'
 import { IpcClient } from '@win-mngr/core/ipc/ipc-client'
 import { WinApiTypes } from '@win-mngr/core/utilities/win-api-utils'
 

@@ -1,0 +1,10 @@
+<div class="window-title-bar-title-wrapper">
+  <span class="title-text text-truncate">{{ title$ | async }}</span>
+</div>
+<div>
+  <button type="button"
+    class="btn btn-danger window-title-bar-btn"
+    (click)="onCloseIconClick($event)">
+    <mbwm-icon icon="close-icon"></mbwm-icon>
+  </button>
+</div>

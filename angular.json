@@ -21,7 +21,7 @@
               "src/ui/favicon.ico"
             ],
             "styles": [
-              "src/ui/styles.scss"
+              "src/ui/styles/styles.scss"
             ],
             "scripts": [
               "src/ui/native.js",
@@ -78,7 +78,7 @@
               "src/ui/native.js"
             ],
             "styles": [
-              "src/ui/styles.scss"
+              "src/ui/styles/styles.scss"
             ],
             "assets": [
               "src/ui/assets",
@@ -129,11 +129,11 @@
   "defaultProject": "mb-win-mngr",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "mbwm",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "mbwm"
     }
   }
 }

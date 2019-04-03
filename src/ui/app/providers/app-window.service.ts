@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
-import { Subject, Observable } from 'rxjs'
+import { Observable, ReplaySubject, Subject } from 'rxjs'
 
-import { ipcRenderer } from 'electron'
 import * as childProcess from 'child_process'
+import { ipcRenderer } from 'electron'
 
 @Injectable({ providedIn: 'root' })
 export class AppWindowService {
@@ -11,7 +11,7 @@ export class AppWindowService {
   public ipcRenderer: typeof Electron.ipcRenderer
   public electronRemote: Electron.Remote
 
-  private windowTitleSubscription = new Subject<string>()
+  private windowTitleSubscription = new ReplaySubject<string>(1)
 
   constructor() {
     if (this.isElectron()) {

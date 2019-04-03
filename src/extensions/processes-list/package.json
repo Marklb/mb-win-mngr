@@ -3,5 +3,11 @@
   "displayName": "Processes List",
   "description": "Lists processes.",
   "version": "0.0.0",
-  "main": "./out/extension"
+  "main": "./out/extension",
+  "scripts": {
+    "build:main": "tsc -p src/main/tsconfig.core.json",
+    "build:main:watch": "tsc -p src/main/tsconfig.core.json --watch",
+    "build:renderer": "ng build",
+    "build:renderer:watch": "ng build --watch"
+  }
 }

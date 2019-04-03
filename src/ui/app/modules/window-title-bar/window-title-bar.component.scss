@@ -1,0 +1,40 @@
+@import '../../../styles/utilities';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  background-color: $black-100;
+  height: 30px;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.window-title-bar-title-wrapper {
+  flex-grow: 1;
+  display: table;
+  height: 100%;
+  padding-left: 4px;
+
+  span {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.window-title-bar-btn {
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  box-shadow: none !important;
+  -webkit-app-region: no-drag;
+  border: 0;
+
+  &:not(:hover) {
+    background-color: $black-100;
+  }
+
+  mbwm-icon {
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -12,13 +12,6 @@
         "../../src/core/*"
       ],
 
-      "@win-mngr/ui": [
-        "../../src/ui"
-      ],
-      "@win-mngr/ui/*": [
-        "../../src/ui/*"
-      ],
-
       "@win-mngr/ui-libs": [
         "../../src/ui-libs"
       ],

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { HotkeyInfo } from '@win-mngr/core/hotkeys/hotkey-info'
-import { ElectronService } from '@win-mngr/ui/app/providers/electron.service'
-import { IpcData, IpcDataType, IpcAction, IpcEvent } from '@win-mngr/core/ipc/index'
+import { IpcAction, IpcData, IpcDataType, IpcEvent } from '@win-mngr/core/ipc/index'
+import { ElectronService } from '../../../providers/electron.service'
 
 @Component({
   selector: 'app-hotkey-panel',

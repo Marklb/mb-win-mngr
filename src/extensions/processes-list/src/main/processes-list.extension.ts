@@ -1,34 +1,34 @@
 // require('tsconfig-paths/register')
 
-import { IExtension, Extension } from '@win-mngr/core/extension-manager/extension'
+import * as winApi from '@marklb/mb-winapi-node'
+import { ActionsManager } from '@win-mngr/core/actions-manager'
 // import { IExtension, Extension } from '../../../../core/extension-manager/extension'
 import { Core } from '@win-mngr/core/core'
-import { Subscription } from 'rxjs'
+import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
 import { Hotkey, HotkeyManager } from '@win-mngr/core/hotkeys'
-import { ActionsManager } from '@win-mngr/core/actions-manager'
+import { extensionsPath, toRouteUrl, WinApiTypes } from '@win-mngr/core/utilities'
 import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
-import * as winApi from '@marklb/mb-winapi-node'
-import { WinApiTypes, toRouteUrl, extensionsPath } from '@win-mngr/core/utilities'
+import { Subscription } from 'rxjs'
 // const robotjs = require ('robot-js')
 
-const extensionRootPath: string = `${extensionsPath()}/processes-list`
+const extensionRootPath = `${extensionsPath()}/processes-list`
 
 @Extension({})
 export class ProcessesListExtension implements IExtension {
 
-  extensionId: string = 'processes-list'
-  extensionName: string = 'Processes List'
+  extensionId = 'processes-list'
+  extensionName = 'Processes List'
   extensionConfig: any = {}
-  extensionConfigPath: string = `${extensionRootPath}/config/processes-list.config.json`
+  extensionConfigPath = `${extensionRootPath}/config/processes-list.config.json`
 
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
 
   private _windowRef: Electron.BrowserWindow
-  private _windowOpen: boolean = false
+  private _windowOpen = false
 
   // public winUrl: string = toRouteUrl('extension/processes-list')
-  public winUrl: string = 'E:/Git/mb-win-mngr/src/extensions/processes-list/dist/renderer/processes-list/index.html'
+  public winUrl = 'E:/Git/mb-win-mngr/src/extensions/processes-list/dist/renderer/processes-list/index.html'
 
   constructor(
     public actionsManager: ActionsManager,

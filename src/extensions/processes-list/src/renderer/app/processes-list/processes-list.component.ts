@@ -1,6 +1,9 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef,
-  Output, EventEmitter } from '@angular/core'
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy,
+  OnInit, Output } from '@angular/core'
 import { Subscription } from 'rxjs'
+
+import { AppWindowService } from '@win-mngr/ui'
+
 // import { ElectronService } from 'app/providers/electron.service'
 // import { IpcData, IpcDataType, IpcAction, IpcEvent } from 'shared/ipc'
 // import { WinApiTypes } from 'core/utilities/win-api-utils'
@@ -22,9 +25,12 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     // private route: ActivatedRoute,
     // private electronService: ElectronService
+    private appWindowService: AppWindowService
   ) { }
 
   ngOnInit() {
+    this.appWindowService.setWindowTitle('Processes List')
+
     this._registerIpcEvents()
     // this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
   }

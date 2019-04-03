@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, ViewContainerRef, ContentChild } from '@angular/core'
+import { AfterViewInit, Component, ContentChild, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
 import { HotkeyInfo } from '@win-mngr/core/hotkeys/hotkey-info'
-import { HotkeyPanelComponent } from '@win-mngr/ui/app/components/hotkeys/hotkey-panel/hotkey-panel.component'
+
+import { HotkeyPanelComponent } from '../hotkey-panel/hotkey-panel.component'
 
 @Component({
   selector: 'app-hotkeys-list',
@@ -17,7 +18,7 @@ export class HotkeysListComponent implements OnInit, AfterViewInit {
 
   @ContentChild(HotkeyPanelComponent) private hotkeyPanelChild: HotkeyPanelComponent
   // @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
-  @ContentChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
+  @ContentChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef
 
   constructor() { }
 

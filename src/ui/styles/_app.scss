@@ -1,0 +1,22 @@
+//
+// This file should contain any global app specific styles
+//
+
+// :root {
+//   --input-border-color: #{$input-border-color};
+// }
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+// Disable Edge password eye icon
+input[type=password].no-native-eye::-ms-reveal,
+input[type=password].no-native-eye::-ms-clear
+{
+    display: none;
+}
