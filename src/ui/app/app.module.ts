@@ -5,7 +5,6 @@ import { CommonModule, APP_BASE_HREF } from '@angular/common'
 import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout'
-import { AngularDraggableModule } from 'angular2-draggable'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxDatatableModule } from '@swimlane/ngx-datatable'
 
@@ -59,7 +58,6 @@ const appRoutes: Routes = [
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    AngularDraggableModule,
     NgbModule.forRoot(),
     NgxDatatableModule
   ],
