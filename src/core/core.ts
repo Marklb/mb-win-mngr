@@ -1,15 +1,16 @@
 import { Subscription } from 'rxjs'
+import { ConfigManager } from './config-manager/config-manager'
 
 import * as winApi from '@marklb/mb-winapi-node'
 
-import { WindowsManager, WindowUrls } from './windows-manager'
+import { ActionsManager } from './actions-manager'
+import { Injector } from './common/injector'
+import { ExtensionManager } from './extension-manager/extension-manager'
+import { HotkeyManager } from './hotkeys'
+import { IpcAction, IpcData, IpcDataType, IpcEvent, IpcServer } from './ipc'
 import * as winApiUtils from './utilities/win-api-utils'
 import { WinApiTypes } from './utilities/win-api-utils'
-import { IpcServer, IpcAction, IpcEvent, IpcData, IpcDataType } from './ipc'
-import { HotkeyManager } from './hotkeys'
-import { ActionsManager } from './actions-manager'
-import { ExtensionManager } from './extension-manager/extension-manager'
-import { Injector } from './common/injector'
+import { WindowsManager, WindowUrls } from './windows-manager'
 
 // @Inject
 export class Core {
@@ -19,6 +20,7 @@ export class Core {
   public hotkeyManager: HotkeyManager
   public actionsManager: ActionsManager
   public extensionManager: ExtensionManager
+  public configManager: ConfigManager
 
   private _subscriptions: Subscription[] = []
 
@@ -30,6 +32,9 @@ export class Core {
     this.windowsManager = Injector.get(WindowsManager)
     this.actionsManager = Injector.get(ActionsManager)
     this.hotkeyManager = Injector.get(HotkeyManager)
+    this.configManager = Injector.get(ConfigManager)
+
+    await this.configManager.init()
 
     this._registerActions()
 
@@ -54,12 +59,12 @@ export class Core {
     //
     // this._registerActions()
 
-    const win = this.windowsManager.openWindow('file:///E:/Git/mb-win-mngr/dist/ui/index.html', {
-      width: 600,
-      height: 800,
-      frame: false
-    } as Electron.BrowserWindowConstructorOptions)
-    win.webContents.openDevTools()
+    // const win = this.windowsManager.openWindow('file:///E:/Git/mb-win-mngr/dist/ui/index.html', {
+    //   width: 600,
+    //   height: 800,
+    //   frame: false
+    // } as Electron.BrowserWindowConstructorOptions)
+    // win.webContents.openDevTools()
 
     // TODO: Move to an extension
     // const win2 = this.windowsManager.openWindow(WindowUrls.HotketsManager, {
@@ -86,7 +91,7 @@ export class Core {
     //
     this.ipcServer.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
       // console.log('IpcAction.GetOpenWindows', ipcEvent)
-      const data = new IpcData
+      const data = new IpcData()
       data.actionName = IpcAction.GetOpenWindows
       data.data = { windows: await winApiUtils.getWindows() }
       this.ipcServer.send(data, ipcEvent.event.sender)
@@ -119,7 +124,7 @@ export class Core {
       const hWnd: number = parseInt(ipcEvent.data.data.hWnd, 10)
       try {
         const w: WinApiTypes.Window = await winApiUtils.getWindow(hWnd)
-        const data = new IpcData
+        const data = new IpcData()
         data.actionName = IpcAction.GetWindowData
         data.data = { windowData: w }
         this.ipcServer.send(data, ipcEvent.event.sender)

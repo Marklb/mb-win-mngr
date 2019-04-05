@@ -1,18 +1,18 @@
 import * as fs from 'fs-extra'
 import * as path from 'path'
 
-import { Core } from '../core'
-import * as stripJsonComments from 'strip-json-comments'
-import { IExtension } from './extension'
 import 'reflect-metadata'
+import * as stripJsonComments from 'strip-json-comments'
 import { Injector } from '../common/injector'
+import { Core } from '../core'
+import { IExtension } from './extension'
 
 
 
 // const tsConfig = require('../../../tsconfig.json')
 const tsConfigPaths = require('tsconfig-paths')
 
-const baseUrl = './'; // Either absolute or relative path. If relative it's resolved to current working directory.
+const baseUrl = './' // Either absolute or relative path. If relative it's resolved to current working directory.
 
 // const cleanup = tsConfigPaths.register({
 //   baseUrl,
@@ -110,8 +110,8 @@ export class ExtensionManager {
 
     const files = await fs.readdir(dir)
     for (const file of files) {
-      const filepath = path.join(dir, file);
-      const stat = await fs.stat(filepath);
+      const filepath = path.join(dir, file)
+      const stat = await fs.stat(filepath)
 
       if (stat.isDirectory()) {
         dirs.push(file)

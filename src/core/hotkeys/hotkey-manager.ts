@@ -1,11 +1,11 @@
+import { MBHotkeyEvent, MBHotkeys, MBHotkeysConstants } from '@marklb/mb-hotkeys'
+import { fork } from 'child_process'
+import { ActionsManager } from '../actions-manager'
+import { Inject } from '../common/injector'
+import { IpcAction, IpcData, IpcEvent, IpcSerializationObj } from '../ipc'
+import { IpcServer } from '../ipc/ipc-server'
 import { Hotkey } from './hotkey'
 import { HotkeyConfigItem } from './hotkey-config-item'
-import { IpcServer } from '../ipc/ipc-server'
-import { IpcEvent, IpcData, IpcAction, IpcSerializationObj } from '../ipc'
-import { ActionsManager } from '../actions-manager'
-import { MBHotkeys, MBHotkeyEvent, MBHotkeysConstants } from '@marklb/mb-hotkeys'
-import { fork } from 'child_process'
-import { Inject } from '../common/injector'
 const fs = require('fs')
 
 @Inject
@@ -50,7 +50,7 @@ export class HotkeyManager {
     //
     this.ipcServer.listen(IpcAction.HotkeyManagerGetHotkeys, async (ipcEvent: IpcEvent) => {
       // console.log('IpcAction.HotkeyManagerGetHotkeys', ipcEvent)
-      const data = new IpcData
+      const data = new IpcData()
       data.actionName = IpcAction.HotkeyManagerGetHotkeys
       data.data = { hotkeys: await this.getIpcSerializedHotkeys() }
       this.ipcServer.send(data, ipcEvent.event.sender)
@@ -69,7 +69,6 @@ export class HotkeyManager {
 
   /**
    *
-   * @param configFileUrl
    */
   public loadConfig(configFileUrl: string): Promise<any> {
     return new Promise((resolve, reject) => {

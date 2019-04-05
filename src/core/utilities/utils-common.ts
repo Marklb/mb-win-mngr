@@ -9,3 +9,8 @@ export const toRouteUrl = (url: string) => {
 export const extensionsPath = () => {
   return 'E:/Git/mb-win-mngr/src/extensions'
 }
+
+export function dataDir(): string {
+  // TODO: Allow command line and environment variable to override dataDir
+  return app.getPath('userData')
+}

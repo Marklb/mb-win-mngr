@@ -16,7 +16,7 @@ export interface IExtension {
 }
 
 export function Extension(extensionOptions: IExtensionOptions): any {
-  return function (target: Function): any {
+  return (target: () => void): any => {
     return Injector.inject((<any>target))
     // Injector.inject((<any>target))
 
