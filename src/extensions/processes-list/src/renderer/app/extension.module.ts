@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
-// import { FlexLayoutModule } from '@angular/flex-layout'
+import { FlexLayoutModule } from '@angular/flex-layout'
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-// import { NgxDatatableModule } from '@swimlane/ngx-datatable'
+import { NgxDatatableModule } from '@swimlane/ngx-datatable'
 
 // import { SharedModule } from 'app/shared/shared.module'
 
@@ -20,9 +20,9 @@ import { ProcessesListComponent } from './processes-list/processes-list.componen
   imports: [
     CommonModule,
     BrowserModule,
-    // FlexLayoutModule,
+    FlexLayoutModule,
     // NgbModule,
-    // NgxDatatableModule,
+    NgxDatatableModule,
     // SharedModule,
     WindowTitleBarModule
   ],

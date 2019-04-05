@@ -81,6 +81,8 @@ $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-800;
 
+$lightgray:     $gray-300;
+
 $theme-colors: ();
 // stylelint-disable-next-line scss/dollar-variable-default
 $theme-colors: map-merge(
@@ -94,7 +96,7 @@ $theme-colors: map-merge(
     "light":      $light,
     "dark":       $dark,
     // Custom
-    "lightgray":  $gray-300
+    "lightgray":  $lightgray
   ),
   $theme-colors
 );
@@ -122,20 +124,21 @@ $component-active-color:      $gray-300;
 
 // Forms
 
-$input-bg:                              $black-100;
-$input-disabled-bg:                     $black;
+$input-bg:                              transparent;
+$input-focus-bg:                        rgba($primary, 0.1);
+$input-disabled-bg:                     rgba($lightgray, 0.3);
 
 $input-color:                           $gray-300;
-$input-border-color:                    $gray-900;
+$input-border-color:                    rgba($gray-900, 0.1);
 
-$input-focus-border-color:              $gray-800;
+$input-focus-border-color:              rgba($primary, 0.1);
+$input-focus-box-shadow:                none;
 
 $input-group-addon-bg:                  $gray-900;
 
 // Cards
 
-// $card-bg:                           $gray-900;
-$card-bg:                           $black-100;
+$card-bg:                           transparent;
 
 // List group
 

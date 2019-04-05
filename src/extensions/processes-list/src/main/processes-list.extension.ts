@@ -1,5 +1,3 @@
-// require('tsconfig-paths/register')
-
 import * as winApi from '@marklb/mb-winapi-node'
 import { ActionsManager } from '@win-mngr/core/actions-manager'
 // import { IExtension, Extension } from '../../../../core/extension-manager/extension'
@@ -11,7 +9,7 @@ import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
 import { Subscription } from 'rxjs'
 // const robotjs = require ('robot-js')
 
-// import { ACCENT_STATE, SetWindowCompositionAttribute } from 'windows-swca'
+// import { getProcessTree } from 'windows-process-tree'
 
 const extensionRootPath = `${extensionsPath()}/processes-list`
 
@@ -49,6 +47,10 @@ export class ProcessesListExtension implements IExtension {
     // })
 
     // console.log('this.extensionConfig: ', this.extensionConfig)
+
+    // getProcessTree(-1, (tree) => {
+    //   console.log(tree)
+    // })
   }
 
   ready(): void {
@@ -83,19 +85,9 @@ export class ProcessesListExtension implements IExtension {
         height: 800,
         frame: false,
         backgroundColor: '#00000000',
-        show: true
+        show: true,
+        // webPreferences: { enableBlinkFeatures: 'OverlayScrollbars' }
       })
-
-      // win.once('ready-to-show', () => {
-      //   console.log('~~~~~~~~~SET VIBRANCY')
-      //   const attribValue = ACCENT_STATE.ACCENT_ENABLE_ACRYLICBLURBEHIND
-      //   const color = 0x01000000
-      //   SetWindowCompositionAttribute(win.getNativeWindowHandle(), attribValue, color)
-      // })
-
-      // setTimeout(() => {
-      //   win.show()
-      // }, 5000)
 
       win.webContents.openDevTools()
       this._windowRef = win

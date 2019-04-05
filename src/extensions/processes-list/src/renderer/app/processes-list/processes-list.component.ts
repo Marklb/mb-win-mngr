@@ -3,9 +3,10 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy,
 import { Subscription } from 'rxjs'
 
 import { AppWindowService } from '@win-mngr/ui'
+import { ElectronService } from '@win-mngr/ui/app/providers/electron.service'
 
-// import { ElectronService } from 'app/providers/electron.service'
-// import { IpcData, IpcDataType, IpcAction, IpcEvent } from 'shared/ipc'
+import { IpcAction, IpcData, IpcDataType, IpcEvent } from '@win-mngr/core/ipc'
+
 // import { WinApiTypes } from 'core/utilities/win-api-utils'
 // import { Process } from 'models/process'
 // import { ActivatedRoute } from '@angular/router'
@@ -24,7 +25,7 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
   constructor(
     private ref: ChangeDetectorRef,
     // private route: ActivatedRoute,
-    // private electronService: ElectronService
+    private electronService: ElectronService,
     private appWindowService: AppWindowService
   ) { }
 
@@ -32,19 +33,19 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
     this.appWindowService.setWindowTitle('Processes List')
 
     this._registerIpcEvents()
-    // this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
+    this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
   }
 
   ngOnDestroy() { }
 
   private _registerIpcEvents(): void {
-    // this.electronService.ipcClient.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
-    //   // console.log('IpcAction.GetOpenWindows', ipcEvent)
-    //   const windows = ipcEvent.data.data.windows
-    //   this.nodes = windows
-    //   this.nodesOriginal = windows
-    //   this.ref.detectChanges()
-    // })
+    this.electronService.ipcClient.listen(IpcAction.GetOpenWindows, async (ipcEvent: IpcEvent) => {
+      console.log('IpcAction.GetOpenWindows', ipcEvent)
+      const windows = ipcEvent.data.data.windows
+      this.nodes = windows
+      this.nodesOriginal = windows
+      this.ref.detectChanges()
+    })
   }
 
   onSearchKeypress(event: any) {
@@ -61,7 +62,7 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
     // console.log('onSearchKeydown', this.searchInputValue)
     // console.log(event)
 
-    // this.nodes = this.nodesOriginal.filter(node => node.title.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1)
+    this.nodes = this.nodesOriginal.filter(node => node.title.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1)
   }
 
   onTableRowActivate(event: any) {

@@ -3,7 +3,7 @@
 :host {
   display: flex;
   flex-direction: row;
-  background-color: $black-100;
+  background-color: transparent;
   height: 30px;
   user-select: none;
   -webkit-app-region: drag;
@@ -30,7 +30,7 @@
   border: 0;
 
   &:not(:hover) {
-    background-color: $black-100;
+    background-color: transparent;
   }
 
   mbwm-icon {

@@ -20,3 +20,26 @@ input[type=password].no-native-eye::-ms-clear
 {
     display: none;
 }
+
+
+ngx-datatable {
+  .datatable-row-group {
+    &:hover {
+      background-color: rgba(50, 50, 50, 0.3);
+    }
+  }
+
+  .datatable-header-cell-label {
+    padding: 0 8px;
+    font-weight: bold;
+  }
+
+  .datatable-body-cell {
+    padding: 0 !important;
+
+    .datatable-body-cell-label {
+      // padding-top: 8px !important;
+      padding: 0 8px;
+    }
+  }
+}

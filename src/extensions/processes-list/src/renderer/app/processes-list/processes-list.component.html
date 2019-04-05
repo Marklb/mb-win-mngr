@@ -1,6 +1,6 @@
 <mbwm-window-title-bar></mbwm-window-title-bar>
 
-<div class="card" fxLayout="column" fxFlexFill>
+<div class="card" fxLayout="column" fxFlex="1 1 auto">
   <!-- <div class="card-header" style="padding: 0.35rem 0.60rem; -webkit-app-region: drag;">
     Processes
     <div class="float-right" style="-webkit-app-region: no-drag; -webkit-user-select: none; user-select: none;">
@@ -22,7 +22,7 @@
     </span>
   </div>
 
-  <!-- <ngx-datatable
+  <ngx-datatable
     fxFlex fxFlexFill
     class="bootstrap"
     [rows]="nodes"
@@ -34,10 +34,11 @@
     [scrollbarH]="true"
     (activate)="onTableRowActivate($event)">
     <ngx-datatable-column name="hWnd" [flexGrow]="1"></ngx-datatable-column>
-    <ngx-datatable-column name="title" [flexGrow]="3"></ngx-datatable-column>
-  </ngx-datatable> -->
+    <ngx-datatable-column prop="title" name="Title" [flexGrow]="3"></ngx-datatable-column>
+    <ngx-datatable-column prop="name" name="Name" [flexGrow]="3"></ngx-datatable-column>
+  </ngx-datatable>
 
-  <div class="card-footer text-muted" style="padding: 0.35rem 0.60rem" fxFlex="0 1 auto">
-    <!-- Count: {{nodes.length}} -->
+  <div class="card-footer" style="padding: 0.35rem 0.60rem" fxFlex="0 1 auto">
+    Count: {{nodes.length}}
   </div>
 </div>
