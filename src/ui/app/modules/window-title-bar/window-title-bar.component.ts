@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 
 import { AppWindowService } from '../../providers/app-window.service'
@@ -11,6 +11,7 @@ import { AppWindowService } from '../../providers/app-window.service'
 export class WindowTitleBarComponent implements OnInit {
 
   public title$: Observable<string>
+  public isMaximized$: Observable<boolean>
 
   constructor(
     private appWindowService: AppWindowService
@@ -18,10 +19,24 @@ export class WindowTitleBarComponent implements OnInit {
 
   ngOnInit() {
     this.title$ = this.appWindowService.windowTitle()
+
+    this.isMaximized$ = this.appWindowService.isMaximized$
   }
 
-  onCloseIconClick(event: any) {
-    this.appWindowService.closeWindow()
+  public onMinimizeIconClick(event: any) {
+    this.appWindowService.currentWindow().minimize()
+  }
+
+  public onMaximizeIconClick(event: any) {
+    this.appWindowService.currentWindow().maximize()
+  }
+
+  public onUnmaximizeIconClick(event: any) {
+    this.appWindowService.currentWindow().unmaximize()
+  }
+
+  public onCloseIconClick(event: any) {
+    this.appWindowService.currentWindow().close()
   }
 
 }

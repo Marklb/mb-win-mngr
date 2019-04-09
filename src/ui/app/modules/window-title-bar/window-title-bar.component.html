@@ -1,10 +1,21 @@
 <div class="window-title-bar-title-wrapper">
   <span class="title-text text-truncate">{{ title$ | async }}</span>
 </div>
-<div>
-  <button type="button"
-    class="btn btn-danger window-title-bar-btn"
+<div class="window-title-bar-btns">
+  <div class="window-title-bar-btn"
+    (click)="onMinimizeIconClick($event)">
+    <div class="window-icon window-minimize"></div>
+  </div>
+  <div class="window-title-bar-btn" *ngIf="!(isMaximized$ | async)"
+    (click)="onMaximizeIconClick($event)">
+    <div class="window-icon window-maximize"></div>
+  </div>
+  <div class="window-title-bar-btn" *ngIf="isMaximized$ | async"
+    (click)="onUnmaximizeIconClick($event)">
+    <div class="window-icon window-unmaximize"></div>
+  </div>
+  <div class="window-title-bar-btn window-close-bg"
     (click)="onCloseIconClick($event)">
-    <mbwm-icon icon="close-icon"></mbwm-icon>
-  </button>
+    <div class="window-icon window-close"></div>
+  </div>
 </div>

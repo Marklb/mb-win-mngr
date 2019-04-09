@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
-import { Observable, ReplaySubject, Subject } from 'rxjs'
+import { merge, Observable, of, ReplaySubject, Subject } from 'rxjs'
 
 import * as childProcess from 'child_process'
 import { ipcRenderer } from 'electron'
+import { map, mapTo, startWith } from 'rxjs/operators'
 
 @Injectable({ providedIn: 'root' })
 export class AppWindowService {
@@ -13,11 +14,19 @@ export class AppWindowService {
 
   private windowTitleSubscription = new ReplaySubject<string>(1)
 
+  public isMaximized$: Observable<boolean>
+
   constructor() {
     if (this.isElectron()) {
       this.ipcRenderer = window.require('electron').ipcRenderer
       this.childProcess = window.require('child_process')
       this.electronRemote = window.require('electron').remote
+
+      this.isMaximized$ = merge(
+          this.observeWindowEvent('unmaximize').pipe(mapTo(false)),
+          this.observeWindowEvent('maximize').pipe(mapTo(true)),
+          of(this.currentWindow()).pipe(map(win => win.isMaximized()))
+        )
     }
   }
 
@@ -26,24 +35,38 @@ export class AppWindowService {
   }
 
   /**
-   * Window title
+   * Window title.
    */
   public windowTitle(): Observable<string> {
     return this.windowTitleSubscription.asObservable()
   }
 
   /**
-   * Set window title
+   * Set window title.
    */
   public setWindowTitle(title: string): void {
     return this.windowTitleSubscription.next(title)
   }
 
   /**
-   * Close the current electron window
+   * Get the current electron window.
    */
-  public closeWindow(): void {
-    this.electronRemote.getCurrentWindow().close()
+  public currentWindow(): Electron.BrowserWindow {
+    return this.electronRemote.getCurrentWindow()
+  }
+
+  /**
+   * Observe a BrowserWindow event
+   */
+  public observeWindowEvent(
+    eventName: string,
+    window: Electron.BrowserWindow = this.currentWindow()
+  ): Observable<Electron.Event> {
+    return new Observable(subscriber => {
+      window.on(<any>eventName, (event: Electron.Event) => {
+        subscriber.next(event)
+      })
+    })
   }
 
 }

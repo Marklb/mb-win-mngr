@@ -8,7 +8,7 @@ import { AppWindowService } from 'app/providers/app-window.service'
 })
 export class WindowUiTitleBarComponent implements OnInit {
 
-  public title: string = '<No Title'
+  public title = '<No Title'
 
   constructor(private appWindowService: AppWindowService) { }
 
@@ -25,7 +25,7 @@ export class WindowUiTitleBarComponent implements OnInit {
   }
 
   onCloseIconClick(event: any) {
-    this.appWindowService.closeWindow()
+    this.appWindowService.currentWindow().close()
   }
 
 }
