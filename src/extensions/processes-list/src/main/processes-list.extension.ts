@@ -13,7 +13,9 @@ import { Subscription } from 'rxjs'
 
 const extensionRootPath = `${extensionsPath()}/processes-list`
 
-@Extension({})
+@Extension({
+  name: 'processes-list'
+})
 export class ProcessesListExtension implements IExtension {
 
   extensionId = 'processes-list'

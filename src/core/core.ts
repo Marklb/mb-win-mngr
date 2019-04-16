@@ -1,5 +1,6 @@
 import { Subscription } from 'rxjs'
 import { ConfigManager } from './config-manager/config-manager'
+import { Logger } from './logger/logger'
 
 import * as winApi from '@marklb/mb-winapi-node'
 
@@ -48,7 +49,7 @@ export class Core {
       // ProcessesListExtension,
       // ExtTestAkitaExtension,
       // WindowPresetsExtension
-    ])
+    ], Injector.get(Logger))
     await this.extensionManager.loadExtensions()
 
     //

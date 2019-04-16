@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
+import { shareReplay } from 'rxjs/operators'
 
 import { AppWindowService } from '../../providers/app-window.service'
 
@@ -21,6 +22,7 @@ export class WindowTitleBarComponent implements OnInit {
     this.title$ = this.appWindowService.windowTitle()
 
     this.isMaximized$ = this.appWindowService.isMaximized$
+      .pipe(shareReplay(1))
   }
 
   public onMinimizeIconClick(event: any) {

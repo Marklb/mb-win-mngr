@@ -1,24 +1,24 @@
-import { IExtension, Extension } from '../../../core/extension-manager/extension'
-import { Core } from '../../../core/core'
-import { Subscription } from 'rxjs'
-import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
-import { ActionsManager } from '../../../core/actions-manager'
-import { WindowsManager } from '../../../core/windows-manager/windows-manager'
 import * as winApi from '@marklb/mb-winapi-node'
-import { WinApiTypes, toRouteUrl, extensionsPath } from '../../../core/utilities'
-import { IpcData, IpcEvent, IpcAction } from '../../../shared/ipc'
+import { Subscription } from 'rxjs'
+import { ActionsManager } from '../../../core/actions-manager'
+import { Core } from '../../../core/core'
+import { Extension, IExtension } from '../../../core/extension-manager/extension'
+import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
+import { extensionsPath, toRouteUrl, WinApiTypes } from '../../../core/utilities'
+import { WindowsManager } from '../../../core/windows-manager/windows-manager'
+import { IpcAction, IpcData, IpcEvent } from '../../../shared/ipc'
 import { IpcServer } from '../../../shared/ipc/ipc-server'
 const robotjs = require ('robot-js')
 
-const extensionRootPath: string = `${extensionsPath()}/window-settings`
+const extensionRootPath = `${extensionsPath()}/window-settings`
 
 @Extension({})
 export class WindowSettingsExtension implements IExtension {
 
-  extensionId: string = 'window-settings'
-  extensionName: string = 'Window Settings'
+  extensionId = 'window-settings'
+  extensionName = 'Window Settings'
   extensionConfig: any = {}
-  extensionConfigPath: string = `${extensionRootPath}/config/window-settings.config.json`
+  extensionConfigPath = `${extensionRootPath}/config/window-settings.config.json`
 
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
@@ -64,7 +64,7 @@ export class WindowSettingsExtension implements IExtension {
 
   private _initIpcEvents(): void {
     this.ipcServer.listen('ext:setAppUserModelId', async (ipcEvent: IpcEvent) => {
-      const data = new IpcData
+      const data = new IpcData()
       data.actionName = 'ext:setAppUserModelId'
       // data.data = { windows: await winApiUtils.getWindows() }
       data.data = {}

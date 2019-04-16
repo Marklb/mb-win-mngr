@@ -17,14 +17,17 @@ export interface IExtension {
 
 export function Extension(extensionOptions: IExtensionOptions): any {
   return (target: () => void): any => {
+    // console.log('extensionOptions', extensionOptions, target)
     return Injector.inject((<any>target))
+
+
     // Injector.inject((<any>target))
 
     // const original = target
-    // const original = Injector.inject((<any>target))
+    // // const original = Injector.inject((<any>target))
 
     // function construct(constructor, args): any {
-    //   const c: any = function (): any {
+    //   const c: any = function(): any {
 
     //     return constructor.apply(this, args)
     //   }
@@ -42,7 +45,7 @@ export function Extension(extensionOptions: IExtensionOptions): any {
 
     // f.prototype = original.prototype
 
-    // // Injector.inject((<any>f))
+    // // // Injector.inject((<any>f))
     // return f
     // // return Injector.inject(f)
   }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
-import { merge, Observable, of, ReplaySubject, Subject } from 'rxjs'
+import { merge, Observable, of, ReplaySubject } from 'rxjs'
 
 import * as childProcess from 'child_process'
 import { ipcRenderer } from 'electron'
-import { map, mapTo, startWith } from 'rxjs/operators'
+import { map, mapTo } from 'rxjs/operators'
 
 @Injectable({ providedIn: 'root' })
 export class AppWindowService {

@@ -2,6 +2,7 @@ import * as winApi from '@marklb/mb-winapi-node'
 const robotjs = require ('robot-js')
 // import { getProcessTree } from 'windows-process-tree'
 
+// tslint:disable-next-line
 export namespace WinApiTypes {
   export class Window {
     hWnd: number

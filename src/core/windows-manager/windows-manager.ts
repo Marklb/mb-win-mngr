@@ -1,6 +1,6 @@
-import { WindowUrls } from './windows-manager-utils'
-import { Inject } from '../common/injector'
 import { app, BrowserWindow } from 'electron'
+import { Inject } from '../common/injector'
+import { WindowUrls } from './windows-manager-utils'
 
 export class RegisteredWindowRef {
   public winId: number
