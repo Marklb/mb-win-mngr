@@ -1,14 +1,17 @@
 import * as winApi from '@marklb/mb-winapi-node'
+import { ActionsManager } from '@win-mngr/core/actions-manager'
+import { Core } from '@win-mngr/core/core'
+import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
+import { Hotkey, HotkeyManager } from '@win-mngr/core/hotkeys'
+import { extensionsPath, toRouteUrl, WinApiTypes } from '@win-mngr/core/utilities'
+import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
 import { Subscription } from 'rxjs'
-import { ActionsManager } from '../../../core/actions-manager'
-import { Core } from '../../../core/core'
-import { Extension, IExtension } from '../../../core/extension-manager/extension'
-import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
-import { extensionsPath, toRouteUrl, WinApiTypes } from '../../../core/utilities'
-import { WindowsManager } from '../../../core/windows-manager/windows-manager'
-import { IpcAction, IpcData, IpcEvent } from '../../../shared/ipc'
-import { IpcServer } from '../../../shared/ipc/ipc-server'
-const robotjs = require ('robot-js')
+// import { IpcAction, IpcData, IpcEvent } from '../../../shared/ipc'
+// import { IpcServer } from '../../../shared/ipc/ipc-server'
+
+import { IpcData, IpcEvent, IpcServer } from '@win-mngr/core/ipc'
+
+// const robotjs = require ('robot-js')
 
 const extensionRootPath = `${extensionsPath()}/window-settings`
 
