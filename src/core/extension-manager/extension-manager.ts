@@ -6,7 +6,6 @@ import * as readJson from 'read-package-json'
 import 'reflect-metadata'
 import * as stripJsonComments from 'strip-json-comments'
 
-import { Injector } from '../common/injector'
 import { Core } from '../core'
 import { Logger } from './../logger'
 import { extensionsPath } from './../utilities/utils-common'

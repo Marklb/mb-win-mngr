@@ -1,17 +1,16 @@
 import * as winApi from '@marklb/mb-winapi-node'
 import { ActionsManager } from '@win-mngr/core/actions-manager'
-// import { IExtension, Extension } from '../../../../core/extension-manager/extension'
 import { Core } from '@win-mngr/core/core'
 import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
 import { Hotkey, HotkeyManager } from '@win-mngr/core/hotkeys'
 import { extensionsPath, toRouteUrl, WinApiTypes } from '@win-mngr/core/utilities'
 import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
+import * as pkgDir from 'pkg-dir'
 import { Subscription } from 'rxjs'
-// const robotjs = require ('robot-js')
 
 // import { getProcessTree } from 'windows-process-tree'
 
-const extensionRootPath = `${extensionsPath()}/processes-list`
+const extensionRootPath = pkgDir.sync(__dirname)
 
 @Extension({
   name: 'processes-list'
@@ -29,8 +28,7 @@ export class ProcessesListExtension implements IExtension {
   private _windowRef: Electron.BrowserWindow
   private _windowOpen = false
 
-  // public winUrl: string = toRouteUrl('extension/processes-list')
-  public winUrl = 'E:/Git/mb-win-mngr/src/extensions/processes-list/dist/renderer/processes-list/index.html'
+  public winUrl = `${extensionRootPath}/dist/renderer/processes-list/index.html`
 
   constructor(
     public actionsManager: ActionsManager,
@@ -57,6 +55,7 @@ export class ProcessesListExtension implements IExtension {
 
   ready(): void {
     console.log('ProcessesListExtension ready')
+
     this.openWindow()
   }
 
@@ -87,8 +86,7 @@ export class ProcessesListExtension implements IExtension {
         height: 800,
         frame: false,
         backgroundColor: '#00000000',
-        show: true,
-        // webPreferences: { enableBlinkFeatures: 'OverlayScrollbars' }
+        show: true
       })
 
       win.webContents.openDevTools()
