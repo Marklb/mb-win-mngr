@@ -1,35 +1,36 @@
+<mbwm-window-title-bar></mbwm-window-title-bar>
+
 <ng-container *ngIf="(windowSettingsUi.hWnd$ | async) as hWnd; else noHwndTpl">
   <ng-container *ngIf="(windowSettingsUi.loading$ | async) as loading; else loadedTpl">
     Loading {{ hWnd }} {{ loading }}
   </ng-container>
   <ng-template #loadedTpl>
-    <app-card-widget [title]="'General'">
+    <mbwm-card-widget [title]="'General'">
       <ng-container *ngIf="(windowSettingsUi.windowData$ | async) as windowData">
         <div *ngIf="windowData" style="padding: 5px;">
-          <!-- <pre>{{ windowData | json }}</pre> -->
           <span style="display: block;">Pid: {{ windowData.pid }}</span>
           <span style="display: block;">hWnd: {{ windowData.hWnd }}</span>
           <span  style="display: block;">Title: {{ windowData.title }}</span>
         </div>
       </ng-container>
-    </app-card-widget>
+    </mbwm-card-widget>
 
-    <app-card-widget [title]="'Other'">
+    <mbwm-card-widget [title]="'Other'">
       <ng-container *ngIf="(windowSettingsUi.windowData$ | async) as windowData">
         <app-app-user-model-id-input
           [appUserModelIdInput]="windowData.appUserModelId"
           [hWnd]="windowData.hWnd">
         </app-app-user-model-id-input>
       </ng-container>
-    </app-card-widget>
+    </mbwm-card-widget>
 
-    <app-card-widget [title]="'Other2'">
+    <mbwm-card-widget [title]="'Other2'">
       test
-    </app-card-widget>
+    </mbwm-card-widget>
 
-    <app-card-widget [title]="'Other3'">
+    <mbwm-card-widget [title]="'Other3'">
       test
-    </app-card-widget>
+    </mbwm-card-widget>
   </ng-template>
 </ng-container>
 <ng-template #noHwndTpl>

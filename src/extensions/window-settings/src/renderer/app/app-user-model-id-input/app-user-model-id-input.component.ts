@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
-import { ElectronService } from 'app/providers/electron.service'
-import { IpcEvent, IpcAction } from 'shared/ipc'
+import { Component, Input, OnInit } from '@angular/core'
+import { IpcAction, IpcEvent } from '@win-mngr/core/ipc'
+import { ElectronService } from '@win-mngr/ui'
 import { WindowSettingsUiService } from '../window-settings-ui.service'
 
 @Component({
@@ -10,7 +10,7 @@ import { WindowSettingsUiService } from '../window-settings-ui.service'
 })
 export class AppUserModelIdInputComponent implements OnInit {
 
-  _appUserModelIdInput: string = ''
+  _appUserModelIdInput = ''
 
   @Input()
   set appUserModelIdInput(val: string) {

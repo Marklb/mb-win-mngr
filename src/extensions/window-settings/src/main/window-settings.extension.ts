@@ -5,17 +5,18 @@ import { Extension, IExtension } from '@win-mngr/core/extension-manager/extensio
 import { Hotkey, HotkeyManager } from '@win-mngr/core/hotkeys'
 import { extensionsPath, toRouteUrl, WinApiTypes } from '@win-mngr/core/utilities'
 import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
+import * as pkgDir from 'pkg-dir'
 import { Subscription } from 'rxjs'
-// import { IpcAction, IpcData, IpcEvent } from '../../../shared/ipc'
-// import { IpcServer } from '../../../shared/ipc/ipc-server'
 
 import { IpcData, IpcEvent, IpcServer } from '@win-mngr/core/ipc'
 
 // const robotjs = require ('robot-js')
 
-const extensionRootPath = `${extensionsPath()}/window-settings`
+const extensionRootPath = pkgDir.sync(__dirname)
 
-@Extension({})
+@Extension({
+  name: 'window-settings'
+})
 export class WindowSettingsExtension implements IExtension {
 
   extensionId = 'window-settings'
@@ -28,7 +29,7 @@ export class WindowSettingsExtension implements IExtension {
 
   private _windowRefs: any[] = []
 
-  public winUrl: string = toRouteUrl('extension/window-settings-ui')
+  public winUrl = `${extensionRootPath}/dist/renderer/window-settings/index.html`
 
   constructor(
     public actionsManager: ActionsManager,
@@ -84,10 +85,12 @@ export class WindowSettingsExtension implements IExtension {
   public openWindow(name: string): void {
     const wRefItem = this._windowRefs.find(x => x.name === name)
     if (wRefItem === undefined) {
-      let win = this.windowsManager.openWindow(`${this.winUrl}/${name}`, {
+      let win = this.windowsManager.openWindow(`${this.winUrl}#/${name}`, {
         width: 600,
         height: 800,
-        frame: false
+        frame: false,
+        backgroundColor: '#00000000',
+        show: true
       })
       win.webContents.openDevTools()
 
@@ -104,3 +107,7 @@ export class WindowSettingsExtension implements IExtension {
   }
 
 }
+
+export default WindowSettingsExtension
+
+export const extension = WindowSettingsExtension

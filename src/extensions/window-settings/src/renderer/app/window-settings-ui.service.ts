@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
-import { ElectronService } from 'app/providers/electron.service'
-import { WindowSettingsUiComponent } from './window-settings-ui/window-settings-ui.component'
-import { Subject, BehaviorSubject, from, of, Observable } from 'rxjs'
-import { take, switchMap, tap, switchMapTo } from 'rxjs/operators'
-import { IpcAction, IpcEvent } from 'shared/ipc'
-import { Process } from 'models/process'
-import { WindowData } from 'models/window-data'
+import { Process, WindowData } from '@win-mngr/core'
+import { IpcAction, IpcEvent } from '@win-mngr/core/ipc'
+import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs'
+import { switchMap, switchMapTo, take, tap } from 'rxjs/operators'
+// import { WindowSettingsUiComponent } from './window-settings-ui/window-settings-ui.component'
+
+import { AppWindowService } from '@win-mngr/ui'
+import { ElectronService } from '@win-mngr/ui/app/providers/electron.service'
 
 @Injectable()
 export class WindowSettingsUiService {
@@ -19,13 +20,12 @@ export class WindowSettingsUiService {
   public windowData$ = this.windowDataSubject.asObservable()
 
   constructor(
-    public electronService: ElectronService
-  ) { }
+    public electronService: ElectronService,
+    private appWindowService: AppWindowService
+  ) {
+    this.appWindowService.setWindowTitle('Window Settings')
+  }
 
-  /**
-   *
-   * @param hWnd
-   */
   public async setHwnd(hWnd: number): Promise<void> {
     console.log('setHwnd START')
     this.loadingSubject.next(true)

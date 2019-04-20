@@ -1,0 +1,16 @@
+{
+  "name": "window-settings",
+  "displayName": "Window Settings",
+  "description": "Manage window settings.",
+  "version": "0.0.0",
+  "main": "./dist/out-tsc/extensions/window-settings/src/main/window-settings.extension.js",
+  "scripts": {
+    "build:main": "tsc -p src/main/tsconfig.core.json",
+    "build:main:watch": "tsc -p src/main/tsconfig.core.json --watch",
+    "build:renderer": "ng build",
+    "build:renderer:watch": "ng build --watch"
+  },
+  "mbWinMngr": {
+    "config": "./config/window-settings.config.json"
+  }
+}
