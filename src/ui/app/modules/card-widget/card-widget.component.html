@@ -1,10 +1,14 @@
 <div class="card">
   <div class="card-header p-1 title-bar noselect" (click)="expanded=!expanded">
-    <i class="fa fa-fw"
+    <!-- <i class="fa fa-fw"
       [class.fa-chevron-down]="!expanded"
       [class.fa-chevron-right]="expanded">
-    </i>
-    {{ title }}
+    </i> -->
+    <mbwm-icon icon="carrot"></mbwm-icon>
+    <!-- <svg width="250" height="400" viewBox="0 0 250 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M200 0L0 200L200 400L250 350L100 200L250 50L200 0Z" fill="#C4C4C4"/>
+    </svg> -->
+    <span>{{ title }}</span>
   </div>
   <ng-container *ngIf="!expanded">
     <ng-content></ng-content>

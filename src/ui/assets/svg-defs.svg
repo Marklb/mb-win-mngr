@@ -1,3 +1,5 @@
-<svg><defs/><symbol id="mbwm-close-icon" viewBox="0 0 512 512" width="512px" height="512px">
+<svg><defs/><symbol id="mbwm-carrot" viewBox="0 0 250 400">
+<path d="M200 0L0 200L200 400L250 350L100 200L250 50L200 0Z" fill="#C4C4C4"/>
+</symbol><symbol id="mbwm-close-icon" viewBox="0 0 512 512">
 <path d="M50 100L100 50L250 200L400 50L450 100L300 250L450 400L400 450L250 300L100 450L50 400L200 250L50 100Z" fill="#C4C4C4"/>
 </symbol></svg>

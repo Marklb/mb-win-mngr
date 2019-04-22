@@ -2,6 +2,12 @@
   <use attr.xlink:href="assets/svg-defs.svg#mbwm-{{icon}}"></use>
 </svg> -->
 
-<svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M50 100L100 50L250 200L400 50L450 100L300 250L450 400L400 450L250 300L100 450L50 400L200 250L50 100Z" fill="#C4C4C4"/>
-</svg>
+</svg> -->
+
+<ng-container *ngIf="icon === 'carrot'">
+  <svg viewBox="0 0 250 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M200 0L0 200L200 400L250 350L100 200L250 50L200 0Z" fill="#C4C4C4"/>
+  </svg>
+</ng-container>

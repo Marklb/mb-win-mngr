@@ -1,4 +1,9 @@
 :host {
-  display: block;
+  display: inline-block;
   line-height: 1;
+  height: 100%;
+
+  & > svg {
+    height: 100%;
+  }
 }

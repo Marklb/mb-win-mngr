@@ -1,0 +1,98 @@
+{
+  "$schema": "../../../node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "src/renderer/projects",
+  "projects": {
+    "virtual-desktop": {
+      "root": "",
+      "sourceRoot": "src/renderer",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/renderer/virtual-desktop",
+            "index": "src/renderer/index.html",
+            "main": "src/renderer/main.ts",
+            "tsConfig": "src/renderer/tsconfig.renderer.json",
+            "polyfills": "src/renderer/polyfills.ts",
+            "assets": [
+              "src/renderer/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "../../ui/assets",
+                "output": "assets/"
+              }
+            ],
+            "styles": [
+              "src/renderer/styles/styles.scss"
+            ],
+            "scripts": [
+              {
+                "input": "../../../node_modules/document-register-element/build/document-register-element.js"
+              },
+              "../../ui/assets/vibrancy.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/renderer/environments/environment.ts",
+                  "with": "src/renderer/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "virtual-desktop:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "virtual-desktop:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "virtual-desktop:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/renderer/tsconfig.renderer.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "virtual-desktop",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "styleext": "scss"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  }
+}
