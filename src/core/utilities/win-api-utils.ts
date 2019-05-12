@@ -20,15 +20,26 @@ export namespace WinApiTypes {
  * @param hWnd Native window handle
  */
 export const getWindow = async (hWnd: number): Promise<WinApiTypes.Window> => {
-  const win = robotjs.Window(hWnd)
+  // const win = robotjs.Window(hWnd)
+
+  // const w = new WinApiTypes.Window()
+  // w.hWnd = win.getHandle()
+  // w.pid = win.getPID()
+  // w.title = win.getTitle()
+  // w.appUserModelId = await winApi.getAppUserModelIID(hWnd)
+  // w.path = win.getPath ? win.getPath() : '-?-'
+  // w.name = win.getProcess().getName()
+
+  const wins = winApi.getProcesses()
+  const win = wins.find(_w => _w.hWnd === hWnd)
 
   const w = new WinApiTypes.Window()
-  w.hWnd = win.getHandle()
-  w.pid = win.getPID()
-  w.title = win.getTitle()
+  w.hWnd = win.hWnd
+  w.pid = win.pid
+  w.title = win.title
   w.appUserModelId = await winApi.getAppUserModelIID(hWnd)
-  w.path = win.getPath ? win.getPath() : '-?-'
-  w.name = win.getProcess().getName()
+  w.path = win.path
+  w.name = ''
 
   return w
 }
@@ -41,7 +52,9 @@ let i = 0
 export const getWindows = async (): Promise<WinApiTypes.Window[]> => {
   const wList: WinApiTypes.Window[] = []
 
-  const wins = robotjs.Window.getList()
+  // const wins = robotjs.Window.getList()
+  // const wins = winApi.getProcesses()
+  const wins = winApi.getWindows()
   for (const w of wins) {
     if (i === 0) {
       // getProcessTree(w.getPID(), (tree) => {
@@ -49,12 +62,19 @@ export const getWindows = async (): Promise<WinApiTypes.Window[]> => {
       // })
       i++
     }
+    // const win = {
+    //   hWnd: w.getHandle(),
+    //   pid: w.getPID(),
+    //   title: w.getTitle(),
+    //   path: w.getPath ? w.getPath() : '-?-',
+    //   name: w.getProcess().getName()
+    // } as WinApiTypes.Window
     const win = {
-      hWnd: w.getHandle(),
-      pid: w.getPID(),
-      title: w.getTitle(),
-      path: w.getPath ? w.getPath() : '-?-',
-      name: w.getProcess().getName()
+      hWnd: w.hWnd,
+      pid: w.pid,
+      title: w.title,
+      path: w.path,
+      name: ''
     } as WinApiTypes.Window
     wList.push(win)
   }
