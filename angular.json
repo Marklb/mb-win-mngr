@@ -18,7 +18,12 @@
             "polyfills": "src/ui/polyfills.ts",
             "assets": [
               "src/ui/assets",
-              "src/ui/favicon.ico"
+              "src/ui/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@mbui/ui/assets",
+                "output": "assets/mbui/"
+              }
             ],
             "styles": [
               "src/ui/styles/styles.scss"
@@ -28,7 +33,8 @@
               {
                 "input": "node_modules/document-register-element/build/document-register-element.js"
               }
-            ]
+            ],
+            "preserveSymlinks": true
           },
           "configurations": {
             "production": {

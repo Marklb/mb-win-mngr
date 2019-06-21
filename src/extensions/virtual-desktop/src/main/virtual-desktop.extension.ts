@@ -1,3 +1,5 @@
+import * as winApi from '@marklb/mb-winapi-node'
+import { IpcData, IpcEvent, IpcServer } from '@win-mngr/core'
 import { ActionsManager } from '@win-mngr/core/actions-manager'
 import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
 import { Hotkey, HotkeyManager } from '@win-mngr/core/hotkeys'
@@ -29,6 +31,7 @@ export class VirtualDesktopExtension implements IExtension {
     public actionsManager: ActionsManager,
     public windowsManager: WindowsManager,
     public hotkeyManager: HotkeyManager,
+    public ipcServer: IpcServer
   ) { }
 
   initialize(): void {
@@ -63,7 +66,16 @@ export class VirtualDesktopExtension implements IExtension {
   }
 
   private _initIpcEvents(): void {
-
+    //
+    // GetForegroundWindow
+    //
+    this.ipcServer.listen('IPC::VIRTUAL_DESKTOP:ACTIVE_HWND', async (ipcEvent: IpcEvent) => {
+      console.log('IPC::VIRTUAL_DESKTOP:ACTIVE_HWND', ipcEvent)
+      const data = new IpcData()
+      data.actionName = 'IPC::VIRTUAL_DESKTOP:ACTIVE_HWND'
+      data.data = { active_hwnd: winApi.user32.GetForegroundWindow() }
+      this.ipcServer.send(data, ipcEvent.event.sender)
+    })
   }
 
   public openWindow(): void {

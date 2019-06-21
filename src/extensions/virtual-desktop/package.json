@@ -1,7 +1,7 @@
 {
   "name": "virtual-desktop",
-  "displayName": "Processes List",
-  "description": "Lists processes.",
+  "displayName": "Virtual Desktop",
+  "description": "Virtual Desktop.",
   "version": "0.0.0",
   "main": "./dist/out-tsc/extensions/virtual-desktop/src/main/virtual-desktop.extension.js",
   "scripts": {

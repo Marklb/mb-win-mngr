@@ -49,6 +49,7 @@
     "fs-extra": "^7.0.1",
     "is-electron": "^2.2.0",
     "node-pty": "^0.8.1",
+    "overlayscrollbars": "^1.7.1",
     "pkg-dir": "^4.1.0",
     "read-package-json": "^2.0.13",
     "reflect-metadata": "^0.1.13",
