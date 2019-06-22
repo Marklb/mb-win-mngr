@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { FlexLayoutModule } from '@angular/flex-layout'
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { NgxDatatableModule } from '@swimlane/ngx-datatable'
+import { NgxDatatableModule } from '@marklb/ngx-datatable'
 
 // import { SharedModule } from 'app/shared/shared.module'
 

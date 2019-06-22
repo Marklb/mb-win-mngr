@@ -1,7 +1,9 @@
+// tslint:disable:no-namespace
 export namespace IpcConstants {
-  export const MsgFromServer: string = 'MSG_FROM_SERVER'
-  export const MsgFromClient: string = 'MSG_FROM_CLIENT'
+  export const MsgFromServer = 'MSG_FROM_SERVER'
+  export const MsgFromClient = 'MSG_FROM_CLIENT'
 }
+// tslint:enable:no-namespace
 
 export enum IpcDataType {
   ElectronMain,
@@ -25,7 +27,7 @@ export class IpcData {
   public actionName: IpcAction | string
   public type: IpcDataType
   public data: any
-  public subscribe: boolean = false
+  public subscribe = false
 }
 
 export interface IpcEvent {
