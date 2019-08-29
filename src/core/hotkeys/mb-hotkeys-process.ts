@@ -1,4 +1,4 @@
-import { MBHotkeys, MBHotkeyEvent, MBHotkeysConstants } from '@marklb/mb-hotkeys'
+import { MBHotkeyEvent, MBHotkeys, MBHotkeysConstants } from '@marklb/mb-hotkeys'
 
 const mbHotkeys = new MBHotkeys()
 

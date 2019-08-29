@@ -16,9 +16,9 @@ export class HotkeysListComponent implements OnInit, AfterViewInit {
   // // @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
   // @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
 
-  @ContentChild(HotkeyPanelComponent) private hotkeyPanelChild: HotkeyPanelComponent
+  @ContentChild(HotkeyPanelComponent, { static: true }) private hotkeyPanelChild: HotkeyPanelComponent
   // @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
-  @ContentChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef
+  @ContentChild('cellTemplate', { static: true, read: ViewContainerRef }) cellTemplate: ViewContainerRef
 
   constructor() { }
 

@@ -2,11 +2,13 @@ import * as fs from 'fs-extra'
 import * as path from 'path'
 
 import * as c from 'ansi-colors'
+import * as merge from 'deepmerge'
 import * as readJson from 'read-package-json'
 import 'reflect-metadata'
 import * as stripJsonComments from 'strip-json-comments'
 
 import { Core } from '../core'
+import { ConfigManager } from './../config-manager/config-manager'
 import { Logger } from './../logger'
 import { extensionsPath } from './../utilities/utils-common'
 import { IExtension } from './extension'
@@ -46,6 +48,13 @@ export class ExtensionManager {
     }
   }
 
+  private async getDefaultExtensionConfig(): Promise<any> {
+    // TODO: Move to file
+    return {
+      // vibrancyEnabled: false
+    }
+  }
+
   private async getConfig(ext: IExtension): Promise<any> {
     const res = await fs.readFile(ext.extensionConfigPath, 'utf8')
     return JSON.parse(stripJsonComments(res))
@@ -63,7 +72,9 @@ export class ExtensionManager {
     const extMain = require(mainPath)
     const ext: IExtension = new (<any>extMain.extension)()
     try {
-      ext.extensionConfig = await this.getConfig(ext)
+      const defaultExtConfig = await this.getDefaultExtensionConfig()
+      const extConfig = await this.getConfig(ext)
+      ext.extensionConfig =  merge(defaultExtConfig, extConfig)
     } catch (e) {
       this.logger.error(e)
     }

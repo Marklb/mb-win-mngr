@@ -1,22 +1,15 @@
 
-// ./main.js
-import { app, BrowserWindow } from 'electron'
-// import path from 'path'
-// import fs from 'fs'
+import { app } from 'electron'
 
-import { WindowUrls } from './windows-manager'
 import { Core } from './core'
-// const { Injector } = require('./dist/core/shared/common/injector')
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
-let core
+let core: Core
 
 export const launch = () => {
   app.on('ready', () => {
-    core = new Core
-    // console.log(Core)
-    // core = Injector.get(Core)
+    core = new Core()
     core.init()
   })
 

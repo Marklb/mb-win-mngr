@@ -27,8 +27,8 @@ export class Hotkey implements IpcSerializable {
    *
    */
   public ipcSerialize(): IpcSerializationObj {
-    const s = new IpcSerializationObj
-    const hkInfo = new HotkeyInfo
+    const s = new IpcSerializationObj()
+    const hkInfo = new HotkeyInfo()
     hkInfo.accelerator = this.accelerator
     hkInfo.action = this.action
     hkInfo.scope = this.scope

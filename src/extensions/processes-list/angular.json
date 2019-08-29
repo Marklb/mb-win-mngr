@@ -22,6 +22,11 @@
                 "glob": "**/*",
                 "input": "../../ui/assets",
                 "output": "assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "../../../node_modules/@mbui/ui/assets",
+                "output": "assets/"
               }
             ],
             "styles": [
@@ -30,8 +35,7 @@
             "scripts": [
               {
                 "input": "../../../node_modules/document-register-element/build/document-register-element.js"
-              },
-              "../../../node_modules/@mbui/ui/assets/vibrancy.js"
+              }
             ]
           },
           "configurations": {

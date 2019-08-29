@@ -1,8 +1,8 @@
 import { Injectable, NgZone } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
 // import { ipcRenderer } from 'electron'
 import { ipcRenderer } from 'electron'
-import { IpcConstants, IpcData, IpcDataType, IpcAction, IpcEvent, IpcFunc,
+import { Observable, Subject } from 'rxjs'
+import { IpcAction, IpcConstants, IpcData, IpcDataType, IpcEvent, IpcFunc,
   RegisteredIpcAction } from './ipc-common'
 
 export class IpcClient {
@@ -52,7 +52,7 @@ export class IpcClient {
   }
 
   public send(action: IpcAction | string, data: any = {}) {
-    const ipcData = new IpcData
+    const ipcData = new IpcData()
     ipcData.actionName = action
     ipcData.type = IpcDataType.ElectronRenderer
     ipcData.data = data

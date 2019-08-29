@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    NgbModule.forRoot(),
+    NgbModule,
     NgxDatatableModule
   ],
   bootstrap: [AppComponent]

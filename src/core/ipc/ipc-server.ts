@@ -1,8 +1,8 @@
-import { IpcConstants, IpcData, IpcFunc, IpcAction, IpcEvent, IpcDataType,
-  RegisteredIpcAction } from './ipc-common'
+import { BrowserWindow, ipcMain } from 'electron'
 import { Observable, Subject } from 'rxjs'
-import { ipcMain, BrowserWindow } from 'electron'
 import { Inject } from '../common/injector'
+import { IpcAction, IpcConstants, IpcData, IpcDataType, IpcEvent, IpcFunc,
+  RegisteredIpcAction } from './ipc-common'
 
 @Inject
 export class IpcServer {
@@ -44,7 +44,7 @@ export class IpcServer {
       this.registeredIpcActions[actionName].filter(f => f !== func)
   }
 
-  public send(data: IpcData, win: BrowserWindow = undefined) {
+  public send(data: IpcData, win?: BrowserWindow) {
     if (data.type === undefined) {
       data.type = IpcDataType.ElectronMain
     }

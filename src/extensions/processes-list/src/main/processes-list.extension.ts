@@ -56,6 +56,8 @@ export class ProcessesListExtension implements IExtension {
   ready(): void {
     console.log('ProcessesListExtension ready')
 
+    console.log('[ProcessesListExtension]', this.extensionConfig)
+
     this.openWindow()
   }
 
