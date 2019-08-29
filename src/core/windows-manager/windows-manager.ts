@@ -33,14 +33,14 @@ export class WindowsManager {
 
     win.loadURL(windowUrl)
 
-    // win.webContents.executeJavaScript(`
-    //   (function(){
-    //     const script = document.createElement('script')
-    //     script.src = './assets/vibrancy.js'
-    //     document.body.appendChild(script)
-    //     console.log('Vibrancy script injected.')
-    //   })()
-    // `)
+    win.webContents.executeJavaScript(`
+      (function(){
+        const script = document.createElement('script')
+        script.src = './assets/vibrancy.js'
+        document.body.appendChild(script)
+        console.log('Vibrancy script injected.')
+      })()
+    `)
 
     // win.webContents.openDevTools()
 

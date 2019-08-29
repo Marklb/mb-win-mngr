@@ -30,7 +30,7 @@ export class IpcData {
   public subscribe = false
 }
 
-export interface IpcEvent {
+export interface IpcEvent<E = any, D = any> {
   event: any
   data: any
 }

@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core'
 // import { ipcRenderer } from 'electron'
 import { ipcRenderer } from 'electron'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, Subscriber } from 'rxjs'
 import { IpcAction, IpcConstants, IpcData, IpcDataType, IpcEvent, IpcFunc,
   RegisteredIpcAction } from './ipc-common'
 
@@ -10,6 +10,8 @@ export class IpcClient {
   private ipcRenderer: Electron.IpcRenderer = ipcRenderer
 
   private registeredIpcActions: RegisteredIpcAction = {}
+
+  private _actionSubjects
 
   constructor(private zone: NgZone) {
     this.ipcRenderer.on(IpcConstants.MsgFromServer, this.onIpcEvent.bind(this))
@@ -70,6 +72,20 @@ export class IpcClient {
       this.listen(action, listenFunc)
 
       this.send(action, data)
+    })
+  }
+
+  public select<E = any, D = any>(actionName: string): Observable<IpcEvent<E, D>> {
+    return new Observable((subscriber: Subscriber<IpcEvent<E, D>>) => {
+      const func = async (ipcEvent: IpcEvent<E, D>) => {
+        subscriber.next(ipcEvent)
+      }
+
+      this.listen(actionName, func)
+
+      return () => {
+        this.unlisten(actionName, func)
+      }
     })
   }
 
