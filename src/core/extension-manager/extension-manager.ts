@@ -133,7 +133,7 @@ export class ExtensionManager {
 
   private async getExtensionPackageJson(ref: IExtensionLocationRef) {
     return new Promise((resolve, reject) => {
-      readJson(path.join(ref.path, 'package.json'), console.error, false, (err, data) => {
+      readJson(path.join(ref.path, 'package.json'), err => { }, false, (err, data) => {
         if (err) {
           this.logger.error('There was an error reading the file')
           reject(err)

@@ -19,6 +19,7 @@ export class ConfigManager {
     this.configDirs = [
       dataDir()
     ]
+    console.log('configDirs', this.configDirs)
 
     const paths = await this.getConfigFilePaths()
     // console.log('paths', paths)

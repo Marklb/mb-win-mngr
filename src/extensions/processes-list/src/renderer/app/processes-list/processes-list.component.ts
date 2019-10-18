@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy,
   OnInit, Output } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 
-import { AppWindowService } from '@win-mngr/ui'
+import { AppWindowService, IpcProxyService } from '@win-mngr/ui'
 import { ElectronService } from '@win-mngr/ui/app/providers/electron.service'
 
 import { IpcAction, IpcData, IpcDataType, IpcEvent } from '@win-mngr/core/ipc'
@@ -11,6 +11,12 @@ import { IpcAction, IpcData, IpcDataType, IpcEvent } from '@win-mngr/core/ipc'
 // import { Process } from 'models/process'
 // import { ActivatedRoute } from '@angular/router'
 // import { WindowUrls } from 'core/windows-manager-utils'
+
+import { createProxy, ProxyDescriptor } from '@marklb/electron-ipc-proxy/dist/client'
+import { IProcessesListService, processListServiceDescriptor } from '../../../shared/descriptors'
+
+const processesList: any = createProxy(processListServiceDescriptor, Observable)
+console.log('processesList', processesList)
 
 @Component({
   selector: 'app-processes-list',
@@ -22,11 +28,14 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
   private nodesOriginal = []
   private nodes = []
 
+  private _processesListService = processesList
+
   constructor(
     private ref: ChangeDetectorRef,
     // private route: ActivatedRoute,
     private electronService: ElectronService,
-    private appWindowService: AppWindowService
+    private appWindowService: AppWindowService,
+    private _ipcProxy: IpcProxyService
   ) { }
 
   ngOnInit() {
@@ -34,6 +43,10 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
 
     this._registerIpcEvents()
     this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
+
+    this._processesListService.processes().subscribe(v => console.log('this._processesListService', v))
+
+    this._ipcProxy.logDescriptors()
   }
 
   ngOnDestroy() { }
@@ -81,6 +94,10 @@ export class ProcessesListComponent implements OnInit, OnDestroy {
   onRefreshIconClick(event: any) {
     // this.electronService.refreshProcesses()
     // this.electronService.ipcClient.send(IpcAction.GetOpenWindows)
+  }
+
+  refresh() {
+
   }
 
 }

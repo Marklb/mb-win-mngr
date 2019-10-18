@@ -1,4 +1,5 @@
-import * as winApi from '@marklb/mb-winapi-node'
+// import * as winApi from '@marklb/mb-winapi-node'
+import { registerProxy } from '@marklb/electron-ipc-proxy'
 import { ActionsManager } from '@win-mngr/core/actions-manager'
 import { Core } from '@win-mngr/core/core'
 import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
@@ -7,6 +8,13 @@ import { extensionsPath, toRouteUrl, WinApiTypes } from '@win-mngr/core/utilitie
 import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
 import * as pkgDir from 'pkg-dir'
 import { Subscription } from 'rxjs'
+import { processListServiceDescriptor } from '../shared/descriptors'
+
+// const todoService = createTodoService(...)
+import { ProcessesListService } from './processes-list.service'
+
+const processesListService = new ProcessesListService()
+registerProxy(processesListService, processListServiceDescriptor)
 
 // import { getProcessTree } from 'windows-process-tree'
 

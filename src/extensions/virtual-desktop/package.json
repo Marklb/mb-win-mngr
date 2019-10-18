@@ -12,5 +12,8 @@
   },
   "mbWinMngr": {
     "config": "./config/virtual-desktop.config.json"
+  },
+  "akitaCli": {
+    "template": "angular"
   }
 }

@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "module": "commonjs",
     "types": [
       "node"
     ],
@@ -32,13 +33,6 @@
       ],
       "@win-mngr/ui/*": [
         "../../../src/ui/*"
-      ],
-
-      "@win-mngr/ui-libs": [
-        "../../../src/ui-libs"
-      ],
-      "@win-mngr/ui-libs/*": [
-        "../../../src/ui-libs/*"
       ],
 
       "@win-mngr/extensions": [

@@ -1,36 +1,36 @@
-import { IExtension, Extension } from '../../../core/extension-manager/extension'
-import { Core } from '../../../core/core'
-import { Subscription, BehaviorSubject, Observable, forkJoin } from 'rxjs'
-import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
-import { IpcAction, IpcEvent, IpcData } from '../../../shared/ipc'
-import { WinApiTypes } from '../../../core/utilities/win-api-utils'
-import { VirtualDesktopGroup } from './virtual-desktop-group'
-import { Injector, Inject } from '../../../shared/common/injector'
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs'
+import { find, findIndex, flatMap, map, switchMap, take, tap } from 'rxjs/operators'
 import { ActionsManager } from '../../../core/actions-manager'
+import { Core } from '../../../core/core'
+import { Extension, IExtension } from '../../../core/extension-manager/extension'
+import { Hotkey, HotkeyManager } from '../../../core/hotkeys'
+import { extensionsPath, toRouteUrl } from '../../../core/utilities'
+import { WinApiTypes } from '../../../core/utilities/win-api-utils'
+// import * as winApi from '@marklb/mb-winapi-node'
+import * as winApiUtils from '../../../core/utilities/win-api-utils'
 import { WindowsManager } from '../../../core/windows-manager/windows-manager'
+import { Inject, Injector } from '../../../shared/common/injector'
+import { IpcAction, IpcData, IpcEvent } from '../../../shared/ipc'
 import { IpcServer } from '../../../shared/ipc/ipc-server'
 import { VirtualDesktopActionState } from '../shared/models'
-import * as winApi from '@marklb/mb-winapi-node'
-import * as winApiUtils from '../../../core/utilities/win-api-utils'
-import { extensionsPath, toRouteUrl } from '../../../core/utilities'
-import { tap, take, flatMap, find, switchMap, map, findIndex } from 'rxjs/operators'
+import { VirtualDesktopGroup } from './virtual-desktop-group'
 const robotjs = require ('robot-js')
 
-const extensionRootPath: string = `${extensionsPath()}/virtual-desktop`
+const extensionRootPath = `${extensionsPath()}/virtual-desktop`
 
 // @Inject
 @Extension({})
 export class VirtualDesktopExtension implements IExtension {
 
-  extensionId: string = 'virtual-desktop'
-  extensionName: string = 'Virtual Desktop'
+  extensionId = 'virtual-desktop'
+  extensionName = 'Virtual Desktop'
   extensionConfig: any = {}
-  extensionConfigPath: string = `${extensionRootPath}/config/virtual-desktop.config.json`
+  extensionConfigPath = `${extensionRootPath}/config/virtual-desktop.config.json`
 
   private _subscriptions: Subscription[] = []
   private _registeredHotkeys: Hotkey[] = []
 
-  private _windowOpen: boolean = false
+  private _windowOpen = false
   private _windowRef: any
 
   // public groups: VirtualDesktopGroup[] = []

@@ -1,4 +1,4 @@
-import * as winApi from '@marklb/mb-winapi-node'
+// import * as winApi from '@marklb/mb-winapi-node'
 import { IpcData, IpcEvent, IpcServer } from '@win-mngr/core'
 import { ActionsManager } from '@win-mngr/core/actions-manager'
 import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
@@ -6,6 +6,7 @@ import { Hotkey, HotkeyManager } from '@win-mngr/core/hotkeys'
 import { WindowsManager } from '@win-mngr/core/windows-manager/windows-manager'
 import * as pkgDir from 'pkg-dir'
 import { Subscription } from 'rxjs'
+import { IVirtualDesktop } from 'shared/models'
 
 const extensionRootPath = pkgDir.sync(__dirname)
 
@@ -26,6 +27,8 @@ export class VirtualDesktopExtension implements IExtension {
   private _windowOpen = false
 
   public winUrl = `${extensionRootPath}/dist/renderer/virtual-desktop/index.html`
+
+  private _vDesktops: IVirtualDesktop[] = []
 
   constructor(
     public actionsManager: ActionsManager,
@@ -73,7 +76,7 @@ export class VirtualDesktopExtension implements IExtension {
       console.log('IPC::VIRTUAL_DESKTOP:ACTIVE_HWND', ipcEvent)
       const data = new IpcData()
       data.actionName = 'IPC::VIRTUAL_DESKTOP:ACTIVE_HWND'
-      data.data = { active_hwnd: winApi.user32.GetForegroundWindow() }
+      // data.data = { active_hwnd: winApi.user32.GetForegroundWindow() }
       this.ipcServer.send(data, ipcEvent.event.sender)
     })
   }

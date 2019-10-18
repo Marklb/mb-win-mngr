@@ -1,7 +1,7 @@
 <mbwm-window-title-bar></mbwm-window-title-bar>
 <div class="p-2">
   <div class="bg-dark p-2 border border-primary">
-    {{ currentProcess }}
+    {{ currentProcess$ | async }}
   </div>
 
 </div>

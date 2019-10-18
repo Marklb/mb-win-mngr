@@ -26,6 +26,9 @@ export class WindowsManager {
       height: Math.min(size.height, 1200),
       backgroundColor: '#1c1c1d',
       autoHideMenuBar: true,
+      webPreferences: {
+        experimentalFeatures: true
+      }
       // show: false
     }, options)
 
@@ -33,12 +36,30 @@ export class WindowsManager {
 
     win.loadURL(windowUrl)
 
+    // win.webContents.executeJavaScript(`
+    //   (function(){
+    //     const script = document.createElement('script')
+    //     script.src = './assets/vibrancy.js'
+    //     document.body.appendChild(script)
+    //     console.log('Vibrancy script injected.')
+    //   })()
+    // `)
+
+    //
+    // Alternative because of acrylic bug in non-uwp windows.
+    //
     win.webContents.executeJavaScript(`
       (function(){
-        const script = document.createElement('script')
-        script.src = './assets/vibrancy.js'
-        document.body.appendChild(script)
-        console.log('Vibrancy script injected.')
+        document.body.style.backgroundColor = 'rgba(30,30,30,0.9)'
+        console.log('Vibrancy[ALTERNATIVE] script injected.')
+      })()
+    `)
+
+    win.webContents.executeJavaScript(`
+      (function(){
+        window.__createProxy = require('electron-ipc-proxy/src/client')
+        console.log('ipc script injected.')
+        console.log(window.__createProxy)
       })()
     `)
 

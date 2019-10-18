@@ -1,4 +1,4 @@
-import * as winApi from '@marklb/mb-winapi-node'
+// import * as winApi from '@marklb/mb-winapi-node'
 import { ActionsManager } from '@win-mngr/core/actions-manager'
 import { Core } from '@win-mngr/core/core'
 import { Extension, IExtension } from '@win-mngr/core/extension-manager/extension'
@@ -73,10 +73,10 @@ export class WindowSettingsExtension implements IExtension {
       // data.data = { windows: await winApiUtils.getWindows() }
       data.data = {}
 
-      winApi.setAppUserModelIID(
-        ipcEvent.data.data.hWnd,
-        ipcEvent.data.data.appUserModelId
-      )
+      // winApi.setAppUserModelIID(
+      //   ipcEvent.data.data.hWnd,
+      //   ipcEvent.data.data.appUserModelId
+      // )
 
       this.ipcServer.send(data, ipcEvent.event.sender)
     })
